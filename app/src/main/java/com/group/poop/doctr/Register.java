@@ -113,18 +113,17 @@ public class Register extends AppCompatActivity {
 
     }
 
-    public void onClick_AddProfilePicture(View view)
-    {
-        // TODO - Implement selecting a local picture for prfile Picture.
-
+    public void onClick_AddProfilePicture(View view){
+        addProfilePicture(view);
     }
-
 
     public void onClick_ProfilePictureButton(View view){
-        // TODO - Add a method of changing the Profile Picture
+        addProfilePicture(view);
     }
 
-
+    public void addProfilePicture(View view){
+        // TODO - Implement selecting a local picture for prfile Picture.
+    }
 
 }
 
