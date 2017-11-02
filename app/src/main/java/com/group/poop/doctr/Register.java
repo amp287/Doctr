@@ -23,6 +23,7 @@ public class Register extends AppCompatActivity {
     private View mLoginFormView;
     private Spinner mMonthSpinner;
     private Spinner mDateSpinner;
+    private Spinner mYearSpinner;
 
     private DataBase dataBase;
 
@@ -38,9 +39,10 @@ public class Register extends AppCompatActivity {
         mPasswordView = (EditText) findViewById(R.id.password);
         mMonthSpinner = (Spinner) findViewById(R.id.month_spinner);
         mDateSpinner = (Spinner) findViewById(R.id.date_spinner);
-
+        mYearSpinner = (Spinner) findViewById(R.id.year_spinner);
         // Setup
         addItemsToDateSpinner(31);
+        addItemsToYearSpinner();
 
         // Get The email address from Login Form
         String passedEmail;
@@ -61,7 +63,6 @@ public class Register extends AppCompatActivity {
     }
 
     public void addItemsToDateSpinner(int days) {
-
         if( (days > 31) || (days <= 0) )
         {
             // TODO - Handle this with and Exception
@@ -80,6 +81,23 @@ public class Register extends AppCompatActivity {
                 android.R.layout.simple_spinner_item, daysInMonthList);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mDateSpinner.setAdapter(dataAdapter);
+    }
+
+    public void addItemsToYearSpinner() {
+        List<String> yearsList = new ArrayList<String>();
+
+        yearsList.add("Select Year");
+        int current_year = 2017;
+        int yearRange = current_year - 100;
+        for(int i = current_year; i > yearRange ; i--)
+        {
+            yearsList.add(Integer.toString(i));
+        }
+
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_item, yearsList);
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mYearSpinner.setAdapter(dataAdapter);
     }
 
     public void onGenderRadioButtonClicked(View view)
