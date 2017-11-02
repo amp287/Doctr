@@ -90,6 +90,10 @@ public class Register extends AppCompatActivity implements LoaderCallbacks<Curso
         //mProgressView = findViewById(R.id.login_progress);
     }
 
+    public void onGenderRadioButtonClicked(View view)
+    {
+
+    }
     @Override
     public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
         return new CursorLoader(this,
