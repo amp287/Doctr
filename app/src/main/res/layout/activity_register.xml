@@ -72,6 +72,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
+                <Space
+                    android:layout_width="1dp"
+                    android:layout_height="15dp"/>
+
                 <TextView
                     android:id="@+id/userTypeTextView"
                     android:layout_width="match_parent"
@@ -100,6 +104,10 @@
                         android:text="Doctor" />
 
                 </RadioGroup>
+
+                <Space
+                    android:layout_width="1dp"
+                    android:layout_height="15dp"/>
 
                 <TextView
                     android:id="@+id/genderTextView"
@@ -142,6 +150,10 @@
                     android:maxLines="1"
                     android:singleLine="true" />
 
+                <Space
+                    android:layout_width="1dp"
+                    android:layout_height="15dp"/>
+
                 <TextView
                     android:id="@+id/birthdayTextView"
                     android:layout_width="match_parent"
@@ -169,6 +181,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1" />
+
+                <Space
+                    android:layout_width="1dp"
+                    android:layout_height="15dp"/>
 
                 <Button
                     android:id="@+id/addProfilePictureButton"
