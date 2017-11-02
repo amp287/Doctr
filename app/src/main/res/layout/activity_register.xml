@@ -59,6 +59,35 @@
                 android:layout_height="wrap_content">
 
                 <TextView
+                    android:id="@+id/userTypeTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="User Type"
+                    android:textSize="18sp" />
+
+                <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <RadioButton
+                        android:id="@+id/patientRadioButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:onClick="onUserTypeRadioButtonClicked"
+                        android:text="Patient" />
+
+                    <RadioButton
+                        android:id="@+id/doctorRadioButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:onClick="onUserTypeRadioButtonClicked"
+                        android:text="Doctor" />
+
+                </RadioGroup>
+
+                <TextView
                     android:id="@+id/genderTextView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -84,6 +113,7 @@
                         android:layout_height="wrap_content"
                         android:onClick="onGenderRadioButtonClicked"
                         android:text="Female" />
+
                 </RadioGroup>
 
                 <EditText
@@ -125,6 +155,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1" />
+
+                <Button
+                    android:id="@+id/submitButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Submit"
+                    android:textStyle="bold"/>
 
             </android.support.design.widget.TextInputLayout>
 
