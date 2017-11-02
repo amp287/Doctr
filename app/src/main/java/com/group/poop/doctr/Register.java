@@ -110,7 +110,7 @@ public class Register extends AppCompatActivity {
     public void onUserTypeRadioButtonClicked(View view)
     {
         // TODO - If Doctor is selected, add speciality.
-        // TODO - If Patient is pressed, remove speciality. 
+        // TODO - If Patient is pressed, remove speciality.
 
     }
 

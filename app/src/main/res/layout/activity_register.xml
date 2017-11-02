@@ -29,6 +29,8 @@
         android:layout_marginBottom="8dp"
         android:visibility="gone" />
 
+
+
     <ScrollView
         android:id="@+id/register_form"
         android:layout_width="match_parent"
@@ -71,6 +73,21 @@
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+
+                <Space
+                    android:layout_width="1dp"
+                    android:layout_height="15dp"/>
+
+                <TextView
+                    android:id="@+id/fullNameTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Full Name"
+                    android:textSize="18sp" />
+
+                <!--TODO - Add First, middle and last name EditText Views -->
+
 
                 <Space
                     android:layout_width="1dp"
