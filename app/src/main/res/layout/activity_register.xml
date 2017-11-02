@@ -10,7 +10,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.group.poop.doctr.Register">
 
-    <!-- Login progress -->
+    <!-- TODO - Need to add space for formatting between each data entry -->
     <TextView
         android:id="@+id/textView"
         android:layout_width="match_parent"
