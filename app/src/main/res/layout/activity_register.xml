@@ -157,6 +157,15 @@
                     android:layout_weight="1" />
 
                 <Button
+                    android:id="@+id/addProfilePictureButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Add Profile Picture"
+                    android:onClick="onClick_AddProfilePicture"
+                    android:textStyle="bold"/>
+
+                <Button
                     android:id="@+id/submitButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
