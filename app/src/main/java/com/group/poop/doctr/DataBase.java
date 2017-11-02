@@ -20,7 +20,7 @@ public class DataBase {
 
     public boolean emailAndPasswordAreValid(String email, String password){
         String e = "mosborn1987@gmail.com";
-        String p = "Java123!";
+        String p = "Words123!";
 
         return e.equals(email) && p.equals(password);
     }
