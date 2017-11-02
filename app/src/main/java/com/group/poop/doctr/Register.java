@@ -94,11 +94,12 @@ public class Register extends AppCompatActivity {
             yearsList.add(Integer.toString(i));
         }
 
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_spinner_item, yearsList);
+    // TODO - Create a spinner Listener Function for the mon
+    ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
+            android.R.layout.simple_spinner_item, yearsList);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mYearSpinner.setAdapter(dataAdapter);
-    }
+}
 
     public void onGenderRadioButtonClicked(View view)
     {
@@ -106,7 +107,11 @@ public class Register extends AppCompatActivity {
 
     }
 
-    // TODO - Create a spinner Listener Function for the month and date spinner
+    public void onUserTypeRadioButtonClicked(View view)
+    {
+        // TODO - Not sure if anything needs to be done here.
+
+    }
 
 }
 
