@@ -36,9 +36,7 @@ import android.content.Intent;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
-/**
- * A login screen that offers login via email/password.
- */
+
 public class Register extends AppCompatActivity implements LoaderCallbacks<Cursor> {
 
     /**
@@ -60,38 +58,32 @@ public class Register extends AppCompatActivity implements LoaderCallbacks<Curso
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-        String email = "Mario Fix This!!";
 
         // Set up the login form.
-        //mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
-        //mEmailView.setText(email);
+        mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
+        mPasswordView = (EditText) findViewById(R.id.password);
 
-        //mPasswordView = (EditText) findViewById(R.id.password);
-//        mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-////            @Override
-////            public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
-////                if (id == R.id.login || id == EditorInfo.IME_NULL) {
-////                    attemptLogin();
-////                    return true;
-////                }
-////                return false;
-////            }
-//        });
+        // Get The email address from Login Form
+        String passedEmail;
+        if (savedInstanceState == null) {
+            Bundle extras = getIntent().getExtras();
+            if(extras == null) {
+                passedEmail= null;
+            } else {
+                passedEmail= extras.getString(EXTRA_MESSAGE);
+            }
+        } else {
+            passedEmail= (String) savedInstanceState.getSerializable(EXTRA_MESSAGE);
+        }
 
-        //Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
-//        mEmailSignInButton.setOnClickListener(new OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                attemptLogin();
-//            }
-//        });
+        // Set Email address
+        mEmailView.setText(passedEmail);
 
-        //mLoginFormView = findViewById(R.id.login_form);
-        //mProgressView = findViewById(R.id.login_progress);
     }
 
     public void onGenderRadioButtonClicked(View view)
     {
+        // TODO - Not sure if anything needs to be done here.
 
     }
     @Override

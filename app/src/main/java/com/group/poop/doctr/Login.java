@@ -202,8 +202,8 @@ public class Login extends AppCompatActivity implements LoaderCallbacks<Cursor> 
             {
                 // TODO - Registration Page - Email not in database
                 Intent intent = new Intent(this, Register.class);
-                //String message = email;
-                //intent.putExtra(EXTRA_MESSAGE, message);
+                String message = email;
+                intent.putExtra(EXTRA_MESSAGE, message);
                 startActivity(intent);
             }
 
