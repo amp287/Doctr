@@ -119,5 +119,12 @@ public class Register extends AppCompatActivity {
 
     }
 
+
+    public void onClick_ProfilePictureButton(View view){
+        // TODO - Add a method of changing the Profile Picture
+    }
+
+
+
 }
 
