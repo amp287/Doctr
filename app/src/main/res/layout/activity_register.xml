@@ -70,16 +70,20 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
-                    <RadioButton android:id="@+id/maleRadioButton"
+
+                    <RadioButton
+                        android:id="@+id/maleRadioButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Male"
-                        android:onClick="onGenderRadioButtonClicked"/>
-                    <RadioButton android:id="@+id/femaleRadioButton"
+                        android:onClick="onGenderRadioButtonClicked"
+                        android:text="Male" />
+
+                    <RadioButton
+                        android:id="@+id/femaleRadioButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Female"
-                        android:onClick="onGenderRadioButtonClicked"/>
+                        android:onClick="onGenderRadioButtonClicked"
+                        android:text="Female" />
                 </RadioGroup>
 
                 <EditText
@@ -103,13 +107,18 @@
                     android:textSize="18sp" />
 
                 <Spinner
-                    android:id="@+id/spinner"
+                    android:id="@+id/month_spinner"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:entries="@array/months_array"
-                    android:prompt="@string/monthPrompt"
-                    />
+                    android:prompt="@string/monthPrompt" />
+
+                <Spinner
+                    android:id="@+id/date_spinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
 
             </android.support.design.widget.TextInputLayout>
 
