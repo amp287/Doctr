@@ -55,7 +55,6 @@ public class DataBase {
         return credentialStatus.unKnownError;
     }
 
-
     public enum credentialStatus
     {
         emailDoesNotExistInDataBase,
