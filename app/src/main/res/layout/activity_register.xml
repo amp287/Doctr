@@ -220,8 +220,6 @@
                     android:text="Submit"
                     android:textStyle="bold"/>
 
-
-
             </android.support.design.widget.TextInputLayout>
 
         </LinearLayout>
