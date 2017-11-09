@@ -27,5 +27,9 @@ public class CalendarPage extends AppCompatActivity {
         setContentView(R.layout.activity_calendar);
 
     }
+
+    public void onClickBackButton(View view){
+        CalendarPage.this.finish();
+    }
 }
 

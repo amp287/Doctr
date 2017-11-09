@@ -24,8 +24,12 @@ public class AddServicesPage extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_messenger);
+        setContentView(R.layout.activity_services);
 
+    }
+
+    public void onClickBackButton(View view){
+        AddServicesPage.this.finish();
     }
 }
 

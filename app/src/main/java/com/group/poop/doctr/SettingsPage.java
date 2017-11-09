@@ -27,5 +27,9 @@ public class SettingsPage extends AppCompatActivity {
         setContentView(R.layout.activity_settings);
 
     }
+
+    public void onClickBackButton(View view){
+        SettingsPage.this.finish();
+    }
 }
 

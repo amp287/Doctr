@@ -27,5 +27,9 @@ public class MessengerPage extends AppCompatActivity {
         setContentView(R.layout.activity_messenger);
 
     }
+
+    public void onClickBackButton(View view){
+        MessengerPage.this.finish();
+    }
 }
 
