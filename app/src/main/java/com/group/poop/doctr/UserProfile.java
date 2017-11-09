@@ -30,7 +30,13 @@ public class UserProfile {
 
 
     // Constructor
-    public UserProfile( String email, String password, String fullName, USER_TYPE user_type, GENDER gender, Date birthday)
+    public UserProfile( String email,
+                        String password,
+                        String fullName,
+                        USER_TYPE user_type,
+                        GENDER gender,
+                        Date birthday
+    )
     {
         // TODO - Throw an exception if any of the strings are null or enums "UNKNOW"
         this.email = email;

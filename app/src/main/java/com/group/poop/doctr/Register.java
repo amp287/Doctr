@@ -1,4 +1,5 @@
 package com.group.poop.doctr;
+import android.app.Activity;
 import android.support.annotation.IdRes;
 import android.support.v7.app.AppCompatActivity;
 
@@ -22,6 +23,8 @@ public class Register extends AppCompatActivity {
     private static final int REQUEST_READ_CONTACTS = 0;
     public final static String EXTRA_MESSAGE = "EmailAddress";
 
+    // Register
+    private TextView mRegisterAccountTextView;
     // UI references.
     private View mProgressView;
     private View mLoginFormView;
@@ -49,6 +52,9 @@ public class Register extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+
+        // Register
+        mRegisterAccountTextView = (TextView) findViewById(R.id.registerAccountTextView);
 
         // Email / Password / UserName
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
@@ -155,10 +161,14 @@ public class Register extends AppCompatActivity {
         if(emailString == null || emailString.isEmpty())
         {
             mEmailView.setError("Enter Email!");
-        }else if( !UserProfile.validEmailAddress(emailString))
-        {
+            success = false;
+        }else if( !UserProfile.validEmailAddress(emailString))        {
             mEmailView.setError("Email Not Valid!");
-        }else{
+            success = false;
+        } else if (dataBase.emailExistInDatabase(emailString.trim())) {
+            mEmailView.setError("Email already registered!");
+            success = false;
+        } else {
             // No Issues
             mEmailView.setError(null);
         }
@@ -169,8 +179,10 @@ public class Register extends AppCompatActivity {
         if( passwordString == null || passwordString.trim().isEmpty())
         {
             mPasswordView.setError("Enter Password!");
+            success = false;
         }else if( !UserProfile.validPassword(passwordString)){
             mPasswordView.setError("Invalid Password!");
+            success = false;
         }else{
             // No Issues
             mPasswordView.setError(null);
@@ -181,8 +193,12 @@ public class Register extends AppCompatActivity {
 
         if(fullNameString == null || fullNameString.trim().isEmpty()){
             mFullName.setError("Enter Full Name!");
+            success = false;
         }else if(!UserProfile.validFullName(fullNameString)){
             mFullName.setError("Invalid Full Name!");
+            success = false;
+        }else{
+            mFullName.setError(null);
         }
 
         // User Type
@@ -215,14 +231,11 @@ public class Register extends AppCompatActivity {
         if( birthDay == null )
         {
             mBirthdayTextView.setError("Birthday must be set!");
-
             success = false;
         }else
         {
             mBirthdayTextView.setError(null);
         }
-
-
 
         if( success == false )
         {
@@ -230,7 +243,26 @@ public class Register extends AppCompatActivity {
         }else
         {
             // Attempt to create the entire Profile
-//            UserProfile up = new UserProfile()
+            UserProfile up;
+            up = new UserProfile(
+                    emailString,
+                    passwordString,
+                    fullNameString,
+                    user_type,
+                    gender,
+                    birthDay
+            );
+
+            boolean registerSuccess = dataBase.registerUserProfile(up);
+
+            if( registerSuccess ){
+                // TODO - Maybe set a "success" message.
+                Register.this.finish();
+            }else{
+                // TODO - Signal an Error
+                mRegisterAccountTextView.setError("dataBase.registerUserProfile: Error!");
+
+            }
         }
     }
 

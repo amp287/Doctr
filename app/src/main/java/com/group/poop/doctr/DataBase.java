@@ -12,6 +12,12 @@ public class DataBase {
 
     }
 
+    public boolean registerUserProfile(UserProfile up)
+    {
+        // TODO - Register User Profile Logic.
+        return true;
+    }
+
     public boolean emailExistInDatabase(String email )
     {
         String e = "mosborn1987@gmail.com";
@@ -55,7 +61,6 @@ public class DataBase {
         return credentialStatus.unKnownError;
     }
 
-
     public enum credentialStatus
     {
         emailDoesNotExistInDataBase,
@@ -64,4 +69,5 @@ public class DataBase {
         nullStringReference,
         unKnownError
     }
+
 }
