@@ -32,6 +32,6 @@
         <item>December</item>
     </string-array>
 
-    <string name="monthPrompt">Select Month</string>
+    <string name="monthPrompt">Select a month</string>
 
 </resources>

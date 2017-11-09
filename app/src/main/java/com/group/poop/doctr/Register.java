@@ -1,4 +1,5 @@
 package com.group.poop.doctr;
+import android.support.annotation.IdRes;
 import android.support.v7.app.AppCompatActivity;
 
 import android.os.Bundle;
@@ -9,7 +10,12 @@ import android.widget.Spinner;
 
 import java.util.ArrayList;
 import android.widget.ArrayAdapter;
+
+import java.util.Date;
 import java.util.List;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.TextView;
 
 public class Register extends AppCompatActivity {
 
@@ -17,13 +23,23 @@ public class Register extends AppCompatActivity {
     public final static String EXTRA_MESSAGE = "EmailAddress";
 
     // UI references.
-    private AutoCompleteTextView mEmailView;
-    private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
+
+    // Email / Password / UserName
+    private AutoCompleteTextView mEmailView;
+    private EditText mPasswordView;
+    private AutoCompleteTextView mFullName;
+
+    // Birthday
+    private TextView mBirthdayTextView;
     private Spinner mMonthSpinner;
     private Spinner mDateSpinner;
     private Spinner mYearSpinner;
+
+    // User Type/Gender
+    private TextView mUserTypeTextView;
+    private TextView mGenderTextView;
 
     private DataBase dataBase;
 
@@ -34,12 +50,20 @@ public class Register extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        // Set up the login form.
+        // Email / Password / UserName
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         mPasswordView = (EditText) findViewById(R.id.password);
+        mFullName = (AutoCompleteTextView) findViewById(R.id.fullName);
+
+        // Birthday
+        mBirthdayTextView = (TextView) findViewById(R.id.birthdayTextView);
         mMonthSpinner = (Spinner) findViewById(R.id.month_spinner);
         mDateSpinner = (Spinner) findViewById(R.id.date_spinner);
         mYearSpinner = (Spinner) findViewById(R.id.year_spinner);
+
+        // User Type/Gender
+        mUserTypeTextView = (TextView) findViewById(R.id.userTypeTextView);
+        mGenderTextView = (TextView) findViewById(R.id.genderTextView);
         // Setup
         addItemsToDateSpinner(31);
         addItemsToYearSpinner();
@@ -114,16 +138,180 @@ public class Register extends AppCompatActivity {
 
     }
 
-    public void onClick_AddProfilePicture(View view){
-        addProfilePicture(view);
+    public void onClickAddProfilePicture(View view){
+        // TODO - Implement selecting a local picture for profile Picture.
     }
 
-    public void onClick_ProfilePictureButton(View view){
-        addProfilePicture(view);
+    public void onClickSubmitButton(View view)
+    {
+        boolean success = true;
+
+        // TODO - Once the Submit Button is pressed, collect and validate all of the data
+        // TODO - Send errors to each of the data fields that need correction*.
+
+        // Email
+        String emailString = mEmailView.getText().toString();
+
+        if(emailString == null || emailString.isEmpty())
+        {
+            mEmailView.setError("Enter Email!");
+        }else if( !UserProfile.validEmailAddress(emailString))
+        {
+            mEmailView.setError("Email Not Valid!");
+        }else{
+            // No Issues
+            mEmailView.setError(null);
+        }
+
+        // Password
+        String passwordString = mPasswordView.getText().toString();
+
+        if( passwordString == null || passwordString.trim().isEmpty())
+        {
+            mPasswordView.setError("Enter Password!");
+        }else if( !UserProfile.validPassword(passwordString)){
+            mPasswordView.setError("Invalid Password!");
+        }else{
+            // No Issues
+            mPasswordView.setError(null);
+        }
+
+        // Full Name
+        String fullNameString = mFullName.getText().toString();
+
+        if(fullNameString == null || fullNameString.trim().isEmpty()){
+            mFullName.setError("Enter Full Name!");
+        }else if(!UserProfile.validFullName(fullNameString)){
+            mFullName.setError("Invalid Full Name!");
+        }
+
+        // User Type
+        UserProfile.USER_TYPE user_type = getUserType();
+
+        if(user_type == UserProfile.USER_TYPE.UNKNOWN)
+        {
+            // TODO - Set warning
+            mUserTypeTextView.setError("User Type must be set!");
+            success = false;
+        }else{
+            mUserTypeTextView.setError(null);
+        }
+
+
+        // Gender
+        UserProfile.GENDER gender = getGender();
+
+        if(gender == UserProfile.GENDER.UNKNOWN )
+        {
+            mGenderTextView.setError("Gender must be set!");
+            success = false;
+        }else{
+            mGenderTextView.setError(null);
+        }
+
+        // Birthday
+        Date birthDay = getBirthDate();
+
+        if( birthDay == null )
+        {
+            mBirthdayTextView.setError("Birthday must be set!");
+
+            success = false;
+        }else
+        {
+            mBirthdayTextView.setError(null);
+        }
+
+
+
+        if( success == false )
+        {
+            return;
+        }else
+        {
+            // Attempt to create the entire Profile
+//            UserProfile up = new UserProfile()
+        }
     }
 
-    public void addProfilePicture(View view){
-        // TODO - Implement selecting a local picture for prfile Picture.
+    private String getSelectedRadioButtonStringFromGroup(@IdRes int id)
+    {
+        RadioGroup radioGroup = (RadioGroup) findViewById(id);
+
+        int radioButtonID = radioGroup.getCheckedRadioButtonId();
+
+        RadioButton radioButton = (RadioButton)radioGroup.findViewById(radioButtonID);
+
+        // If no radioButton is selected
+        if( radioButton == null )
+        {
+            return null;
+        }
+
+        return (String) radioButton.getText();
+    }
+
+    private String getSelectedSpinnerStringFromGroup(@IdRes int id)
+    {
+        Spinner spinner = (Spinner) findViewById(id);
+
+        if( spinner == null)
+        {
+            return null;
+        }
+
+        return (String)spinner.getSelectedItem();
+    }
+
+    private UserProfile.USER_TYPE getUserType()
+    {
+        try {
+            String selectedtext = getSelectedRadioButtonStringFromGroup(R.id.userTypeRadioGroup);
+            return UserProfile.getUserType(selectedtext);
+        }catch(IllegalStateException ex)
+        {
+            return null;
+        }
+    }
+
+    private UserProfile.GENDER getGender()
+    {
+        String selectedtext = getSelectedRadioButtonStringFromGroup(R.id.genderRadioGroup);
+        return UserProfile.getGender(selectedtext);
+    }
+
+    private Date getBirthDate()
+    {
+        boolean success = true;
+
+        // Get Month
+        String month = getSelectedSpinnerStringFromGroup(R.id.month_spinner);
+        if( (month == null) || (month.contains("Select")))
+        {
+            success = false;
+        }
+
+        // Get Day
+        String day = getSelectedSpinnerStringFromGroup(R.id.date_spinner);
+
+        if( (day == null) || (day.contains("Select")) )
+        {
+            success = false;
+        }
+
+        // Get Year
+        String year = getSelectedSpinnerStringFromGroup(R.id.year_spinner);
+
+        if( (year == null) || (year.contains("Select")) ){
+            success = false;
+        }
+
+        if(success)
+        {
+            return UserProfile.getBirthdate(year, month, day);
+        }else {
+            return null;
+        }
     }
 
 }
