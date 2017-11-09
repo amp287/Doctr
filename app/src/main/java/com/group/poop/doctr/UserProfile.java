@@ -8,6 +8,9 @@ import java.util.Date;
  */
 
 public class UserProfile {
+
+    // TODO - Need to add a Profile Image.
+
     // Email
     String email;
 
