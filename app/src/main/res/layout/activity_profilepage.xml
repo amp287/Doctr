@@ -20,35 +20,6 @@
         android:textSize="20sp"
         android:textStyle="bold" />
 
-    <LinearLayout
-        android:id="@+id/navigationBar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:orientation="horizontal">
-
-    <ImageButton
-        android:id="@+id/imageButton"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:scaleType="fitXY"
-        app:srcCompat="@drawable/settingsImage" />
-
-    <ImageButton
-        android:id="@+id/imageButton2"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:scaleType="fitXY"
-        app:srcCompat="@drawable/emailButton" />
-
-    <ImageButton
-        android:id="@+id/imageButton3"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:scaleType="fitXY"
-        app:srcCompat="@drawable/CalendarImage" />
-    </LinearLayout>
-
     <ScrollView
         android:id="@+id/profileScrollView"
         android:layout_width="match_parent"
@@ -104,6 +75,35 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="3.61"
                 android:text="Address: " />
+
+            <LinearLayout
+                android:id="@+id/navigationBar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_horizontal"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:id="@+id/imageButton"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:scaleType="fitXY"
+                    app:srcCompat="@drawable/settingsImage" />
+
+                <ImageButton
+                    android:id="@+id/imageButton2"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:scaleType="fitXY"
+                    app:srcCompat="@drawable/emailButton" />
+
+                <ImageButton
+                    android:id="@+id/imageButton3"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:scaleType="fitXY"
+                    app:srcCompat="@drawable/CalendarImage" />
+            </LinearLayout>
 
         </LinearLayout>
 
