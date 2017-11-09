@@ -11,6 +11,8 @@ public class UserProfile {
 
     // TODO - Need to add a Profile Image.
 
+    // TODO - Create getters for each field.
+
     // Email
     String email;
 
