@@ -180,11 +180,14 @@ public class Login extends AppCompatActivity implements LoaderCallbacks<Cursor> 
                         // TODO - Launch Profile Page
                         // TODO - Direct to profile
 
+                        Intent intent = new Intent(this, ProfilePage.class);
+                        startActivity(intent);
+
                         // Show a progress spinner, and kick off a background task to
                         // perform the user login attempt.
-                        showProgress(true);
-                        mAuthTask = new UserLoginTask(email, password);
-                        mAuthTask.execute((Void) null);
+                        //showProgress(true);
+                        //mAuthTask = new UserLoginTask(email, password);
+                        //mAuthTask.execute((Void) null);
 
                     }else{
                         mPasswordView.setError(getString(R.string.error_incorrect_password));
