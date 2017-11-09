@@ -90,6 +90,7 @@
                     android:layout_width="80dp"
                     android:layout_height="80dp"
                     android:scaleType="fitXY"
+                    android:onClick="onClickSettingsButton"
                     app:srcCompat="@drawable/settingsimage" />
 
                 <ImageButton
@@ -97,6 +98,7 @@
                     android:layout_width="80dp"
                     android:layout_height="80dp"
                     android:scaleType="fitXY"
+                    android:onClick="onClickEmailButton"
                     app:srcCompat="@drawable/emailbutton" />
 
                 <ImageButton
@@ -104,6 +106,7 @@
                     android:layout_width="80dp"
                     android:layout_height="80dp"
                     android:scaleType="fitXY"
+                    android:onClick="onClickCalendarButton"
                     app:srcCompat="@drawable/calendarimage" />
 
                 <ImageButton
@@ -111,6 +114,7 @@
                     android:layout_width="80dp"
                     android:layout_height="80dp"
                     android:scaleType="fitXY"
+                    android:onClick="onClickSearchButton"
                     app:srcCompat="@drawable/search" />
             </LinearLayout>
             <!--Remove Comments for more rows-->
@@ -122,10 +126,11 @@
                 android:orientation="horizontal">
 
                 <ImageButton
-                    android:id="@+id/imageButton5"
+                    android:id="@+id/servicesImageButton"
                     android:layout_width="80dp"
                     android:layout_height="80dp"
                     android:scaleType="fitXY"
+                    android:onClick="onClickAddServicesButton"
                     app:srcCompat="@drawable/services" />
 
             </LinearLayout>
