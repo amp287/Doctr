@@ -1,5 +1,6 @@
 package com.group.poop.doctr;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -104,26 +105,33 @@ public class Register extends AppCompatActivity {
         // Set Email address
         mEmailView.setText(passedEmail);
 
+        // Firebase
         mAuth = FirebaseAuth.getInstance();
-
     }
 
+    // Passwords must be of at least length 6
     public void createAccount(String email, String password)
     {
+        Log.d(TAG, "createAccount:" + email);
+
+        // Create accounts in Firebase
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>()
                 {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task)
                     {
+                        System.out.println("Beginning to create");
                         if(task.isSuccessful())
                         {
+                            System.out.println("created User");
                             Log.d(TAG, "createUserWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
                         }
                         else
                         {
                             // Sign in failed
+                            System.out.println("cant create user");
                             Log.w(TAG, "createUserWithEmail:failure", task.getException());
                             Toast.makeText(Register.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
                         }
