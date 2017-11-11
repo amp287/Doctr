@@ -34,12 +34,17 @@ import java.util.List;
 
 import android.content.Intent;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 import static android.Manifest.permission.READ_CONTACTS;
 
 /**
  * A login screen that offers login via email/password.
  */
 public class Login extends AppCompatActivity implements LoaderCallbacks<Cursor> {
+
+    private static final String TAG = "EmailPassword";
 
     /**
      * Id to identity READ_CONTACTS permission request.
@@ -65,6 +70,9 @@ public class Login extends AppCompatActivity implements LoaderCallbacks<Cursor> 
     private View mProgressView;
     private View mLoginFormView;
     private DataBase dataBase;
+
+    // Firebase
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,6 +106,8 @@ public class Login extends AppCompatActivity implements LoaderCallbacks<Cursor> 
 
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
+
+        mAuth = FirebaseAuth.getInstance();
     }
 
     private void populateAutoComplete() {
@@ -106,6 +116,14 @@ public class Login extends AppCompatActivity implements LoaderCallbacks<Cursor> 
         }
 
         getLoaderManager().initLoader(0, null, this);
+    }
+
+    @Override
+    public void onStart()
+    {
+        super.onStart();
+        // Check if useer is signed in
+        FirebaseUser currentUser = mAuth.getCurrentUser();
     }
 
     private boolean mayRequestContacts() {
