@@ -133,6 +133,14 @@
                     android:onClick="onClickAddServicesButton"
                     app:srcCompat="@drawable/services" />
 
+                <ImageButton
+                    android:id="@+id/medicalHistoryImageButton"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:scaleType="fitXY"
+                    android:onClick="onClickMedicalHistoryButton"
+                    app:srcCompat="@drawable/medical_records" />
+
             </LinearLayout>
 
         </LinearLayout>

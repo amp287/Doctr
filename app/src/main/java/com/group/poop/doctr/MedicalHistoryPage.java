@@ -20,15 +20,15 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
-public class AddServicesPage extends AppCompatActivity {
+public class MedicalHistoryPage extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_services);
+        setContentView(R.layout.activity_medical_history);
     }
 
     public void onClickBackButton(View view){
-        AddServicesPage.this.finish();
+        MedicalHistoryPage.this.finish();
     }
 }
 
