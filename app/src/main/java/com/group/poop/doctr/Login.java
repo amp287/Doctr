@@ -118,11 +118,12 @@ public class Login extends AppCompatActivity implements LoaderCallbacks<Cursor> 
         getLoaderManager().initLoader(0, null, this);
     }
 
+    // Check if user is currently signed in
     @Override
     public void onStart()
     {
         super.onStart();
-        // Check if useer is signed in
+        // Check Firebase
         FirebaseUser currentUser = mAuth.getCurrentUser();
     }
 
