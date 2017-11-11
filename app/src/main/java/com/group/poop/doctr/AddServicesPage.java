@@ -38,20 +38,23 @@ public class AddServicesPage extends AppCompatActivity {
         generalPracticeSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-                // your code here
+                // Get the selected Item String
                 String selectedText = getSpinnerSelectedStringValue(generalPracticeSpinner);
-                success(selectedText);
+
+                // Retrieve the "speciality" or services list.
+                String specialityArrayListName = getServiceArrayName(selectedText);
+                String[] servicesList = getServicesList(specialityArrayListName);
+
+                // Populate the services avaliable spinner
+                pupulateServicesSpinner(servicesList);
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parentView) {
                 // your code here
-                String selectedText = getSpinnerSelectedStringValue(generalPracticeSpinner);
-                success(selectedText);
+
             }
-
         });
-
     }
 
     public void onClickBackButton(View view){
@@ -63,14 +66,42 @@ public class AddServicesPage extends AppCompatActivity {
         return spinner.getSelectedItem().toString();
     }
 
+    private String[] getServicesList(String generalPractice)
+    {
+        String[] menuArray;
+        menuArray = getResources().getStringArray(R);
+
+
+        return menuArray;
+    }
+
     public void setTheSpecialitySpinner(String generalPractice)
     {
 
     }
 
-    private void success(String str)
+    private String[] getServiceArrayName(String generalPractice )
     {
-        this.tempTextView.setText(str);
+        if( generalPractice.contains(( "Primary Health Care" )))
+        {
+           return getResources().getStringArray(R.array.primaryhealthcare_array);
+
+        }else if( generalPractice.contains(( "Dental Care" )))
+        {
+            return getResources().getStringArray(R.array.dentalcare_array);
+        }else if( generalPractice.contains(( "Specialty Care" )))
+        {
+            return getResources().getStringArray(R.array.specialtycare_array);
+        }
+
+        // Nothing Selected
+        return null;
+    }
+    private void pupulateServicesSpinner(String[] servicesList)
+    {
+        // Populate the services spinner here.
+
+
     }
 
 }
