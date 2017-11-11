@@ -19,4 +19,11 @@
         android:textSize="24sp"
         android:textStyle="bold" />
 
+    <Spinner
+        android:id="@+id/generalPracticeSpinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:entries="@array/general_practices_array"
+        />
+
 </LinearLayout>
