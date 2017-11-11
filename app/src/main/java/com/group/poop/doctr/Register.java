@@ -1,9 +1,11 @@
 package com.group.poop.doctr;
 import android.app.Activity;
 import android.support.annotation.IdRes;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
@@ -17,8 +19,17 @@ import java.util.List;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class Register extends AppCompatActivity {
+
+    private static final String TAG = "EmailPassword";
 
     private static final int REQUEST_READ_CONTACTS = 0;
     public final static String EXTRA_MESSAGE = "EmailAddress";
@@ -45,6 +56,9 @@ public class Register extends AppCompatActivity {
     private TextView mGenderTextView;
 
     private DataBase dataBase;
+
+    // Firebase
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,6 +104,31 @@ public class Register extends AppCompatActivity {
         // Set Email address
         mEmailView.setText(passedEmail);
 
+        mAuth = FirebaseAuth.getInstance();
+
+    }
+
+    public void createAccount(String email, String password)
+    {
+        mAuth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>()
+                {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task)
+                    {
+                        if(task.isSuccessful())
+                        {
+                            Log.d(TAG, "createUserWithEmail:success");
+                            FirebaseUser user = mAuth.getCurrentUser();
+                        }
+                        else
+                        {
+                            // Sign in failed
+                            Log.w(TAG, "createUserWithEmail:failure", task.getException());
+                            Toast.makeText(Register.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
     }
 
     public void addItemsToDateSpinner(int days) {
@@ -154,6 +193,8 @@ public class Register extends AppCompatActivity {
 
         // TODO - Once the Submit Button is pressed, collect and validate all of the data
         // TODO - Send errors to each of the data fields that need correction*.
+
+        createAccount(mEmailView.getText().toString(), mPasswordView.getText().toString());
 
         // Email
         String emailString = mEmailView.getText().toString();
@@ -345,6 +386,8 @@ public class Register extends AppCompatActivity {
             return null;
         }
     }
+
+
 
 }
 
