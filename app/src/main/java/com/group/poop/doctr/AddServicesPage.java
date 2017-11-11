@@ -39,13 +39,15 @@ public class AddServicesPage extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
                 // your code here
-                success();
+                String selectedText = getSpinnerSelectedStringValue(generalPracticeSpinner);
+                success(selectedText);
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parentView) {
                 // your code here
-                success();
+                String selectedText = getSpinnerSelectedStringValue(generalPracticeSpinner);
+                success(selectedText);
             }
 
         });
@@ -66,9 +68,9 @@ public class AddServicesPage extends AppCompatActivity {
 
     }
 
-    private void success()
+    private void success(String str)
     {
-        this.tempTextView.setText("Success!!!");
+        this.tempTextView.setText(str);
     }
 
 }
