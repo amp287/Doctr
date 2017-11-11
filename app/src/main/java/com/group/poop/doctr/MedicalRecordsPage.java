@@ -20,7 +20,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
-public class MedicalHistoryPage extends AppCompatActivity {
+public class MedicalRecordsPage extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,7 +28,7 @@ public class MedicalHistoryPage extends AppCompatActivity {
     }
 
     public void onClickBackButton(View view){
-        MedicalHistoryPage.this.finish();
+        MedicalRecordsPage.this.finish();
     }
 }
 

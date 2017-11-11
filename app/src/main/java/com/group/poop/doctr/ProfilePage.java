@@ -85,7 +85,7 @@ public class ProfilePage extends AppCompatActivity {
     }
 
     public void onClickMedicalHistoryButton(View view){
-        Intent intent = new Intent(this, MedicalHistoryPage.class);
+        Intent intent = new Intent(this, MedicalRecordsPage.class);
         startActivity(intent);
     }
 
