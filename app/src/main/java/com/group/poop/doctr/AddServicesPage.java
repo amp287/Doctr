@@ -42,8 +42,7 @@ public class AddServicesPage extends AppCompatActivity {
                 String selectedText = getSpinnerSelectedStringValue(generalPracticeSpinner);
 
                 // Retrieve the "speciality" or services list.
-                String specialityArrayListName = getServiceArrayName(selectedText);
-                String[] servicesList = getServicesList(specialityArrayListName);
+                String[] servicesList  = getServiceArrayName(selectedText);
 
                 // Populate the services avaliable spinner
                 pupulateServicesSpinner(servicesList);
@@ -64,20 +63,6 @@ public class AddServicesPage extends AppCompatActivity {
     public String getSpinnerSelectedStringValue(Spinner spinner)
     {
         return spinner.getSelectedItem().toString();
-    }
-
-    private String[] getServicesList(String generalPractice)
-    {
-        String[] menuArray;
-        menuArray = getResources().getStringArray(R);
-
-
-        return menuArray;
-    }
-
-    public void setTheSpecialitySpinner(String generalPractice)
-    {
-
     }
 
     private String[] getServiceArrayName(String generalPractice )
