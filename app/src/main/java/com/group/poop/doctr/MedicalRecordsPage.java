@@ -10,9 +10,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
-
 import java.util.ArrayList;
-import android.widget.ArrayAdapter;
 
 import java.util.Date;
 import java.util.List;
@@ -20,11 +18,32 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import android.os.Bundle;
+import android.app.Activity;
+import android.view.Menu;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+
 public class MedicalRecordsPage extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_medical_history);
+
+        String countryList[] = {"India", "China", "australia", "Portugle", "America", "NewZealand"};
+
+        ListView simpleList = (ListView)findViewById(R.id.simpleListView);
+
+        ArrayAdapter<String> arrayAdapter;
+        arrayAdapter = new ArrayAdapter<String>(
+                this,
+                R.layout.activity_medical_history,
+                R.id.textView,
+                countryList
+        );
+
+        simpleList.setAdapter(arrayAdapter);
+
     }
 
     public void onClickBackButton(View view){
