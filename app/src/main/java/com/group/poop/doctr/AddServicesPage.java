@@ -19,6 +19,8 @@ import java.util.List;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
 
 public class AddServicesPage extends AppCompatActivity {
 
@@ -33,6 +35,21 @@ public class AddServicesPage extends AppCompatActivity {
         generalPracticeSpinner = (Spinner) findViewById(R.id.generalPracticeSpinner);
         tempTextView = (TextView) findViewById(R.id.tempTextView);
 
+        generalPracticeSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                // your code here
+                success();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+                // your code here
+                success();
+            }
+
+        });
+
     }
 
     public void onClickBackButton(View view){
@@ -46,9 +63,13 @@ public class AddServicesPage extends AppCompatActivity {
 
     public void setTheSpecialitySpinner(String generalPractice)
     {
-        
+
     }
 
+    private void success()
+    {
+        this.tempTextView.setText("Success!!!");
+    }
 
 }
 
