@@ -26,6 +26,7 @@ public class AddServicesPage extends AppCompatActivity {
 
     private Spinner generalPracticeSpinner;
     private TextView tempTextView;
+    private Spinner servicesSpinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +34,7 @@ public class AddServicesPage extends AppCompatActivity {
         setContentView(R.layout.activity_services);
 
         generalPracticeSpinner = (Spinner) findViewById(R.id.generalPracticeSpinner);
+        servicesSpinner = (Spinner) findViewById(R.id.servicesSpinner);
         tempTextView = (TextView) findViewById(R.id.tempTextView);
 
         generalPracticeSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
@@ -82,10 +84,12 @@ public class AddServicesPage extends AppCompatActivity {
         // Nothing Selected
         return null;
     }
-    private void pupulateServicesSpinner(String[] servicesList)
+    private void populateServicesSpinner(String[] servicesList)
     {
-        // Populate the services spinner here.
 
+        ArrayAdapter<String> gameKindArray= new ArrayAdapter<String>(servicesSpinner, servicesList);
+        gameKindArray.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        gameKind.setAdapter(gameKindArray);
 
     }
 
