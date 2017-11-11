@@ -3,19 +3,26 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ImageButton
-        android:id="@+id/backImageButton"
-        android:layout_width="56dp"
-        android:layout_height="53dp"
-        android:layout_gravity="right"
-        android:onClick="onClickBackButton"
-        android:scaleType="fitXY"/>
-
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/pageTitleTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Medical Profile"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+    <TextView
+        android:id="@+id/allergiesTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Allergies"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/medicalHistoryTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Medical History"
         android:textSize="24sp"
         android:textStyle="bold" />
 
