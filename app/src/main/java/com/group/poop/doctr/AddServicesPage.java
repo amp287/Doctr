@@ -50,7 +50,6 @@ public class AddServicesPage extends AppCompatActivity {
         fromTimeSpinner = (Spinner) findViewById(R.id.fromTimeSpinner);
         toTimeSpinner = (Spinner) findViewById(R.id.toTimeSpinner);
 
-        //
         serviceTextView = (TextView) findViewById(R.id.serviceTextView);
         costAmountEditText = (EditText) findViewById(R.id.costAmountEditText);
 
@@ -136,10 +135,16 @@ public class AddServicesPage extends AppCompatActivity {
 
         // TODO - If One single item does not make sense, setError and don't "add service".
 
+        // Example of how to set an error
+        serviceTextView.setError("Yo! This is an error message!");
+
+        // Example of how to clear an error
+        //serviceTextView.setError(null);
+
         // TODO - If all pass, save service to dataBase. -> Create a class called "Service" or
         // TODO - something like that. So that it can be passed around.
 
-        // TODO - If saved to database is successful, close this window, else warn the user. 
+        // TODO - If saved to database is successful, close this window, else warn the user.
     }
 
 }
