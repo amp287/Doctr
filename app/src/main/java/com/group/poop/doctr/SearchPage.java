@@ -28,8 +28,5 @@ public class SearchPage extends AppCompatActivity {
 
     }
 
-    public void onClickBackButton(View view){
-        SearchPage.this.finish();
-    }
 }
 
