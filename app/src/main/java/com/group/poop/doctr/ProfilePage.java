@@ -89,5 +89,10 @@ public class ProfilePage extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void onClickAllergyButton(View view){
+        Intent intent = new Intent(this, AllergyPage.class);
+        startActivity(intent);
+    }
+
 }
 

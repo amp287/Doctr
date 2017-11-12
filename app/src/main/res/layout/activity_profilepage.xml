@@ -141,6 +141,15 @@
                     android:onClick="onClickMedicalHistoryButton"
                     app:srcCompat="@drawable/medical_records" />
 
+                <ImageButton
+                    android:id="@+id/allergyImageButton"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:scaleType="fitXY"
+                    android:onClick="onClickAllergyButton"
+                    app:srcCompat="@drawable/allergy_symbol" />
+
+
             </LinearLayout>
 
         </LinearLayout>
