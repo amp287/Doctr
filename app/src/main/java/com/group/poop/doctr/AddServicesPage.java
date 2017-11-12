@@ -47,7 +47,7 @@ public class AddServicesPage extends AppCompatActivity {
                 String[] servicesList  = getServiceArrayName(selectedText);
 
                 // Populate the services avaliable spinner
-                pupulateServicesSpinner(servicesList);
+                populateServicesSpinner(servicesList);
             }
 
             @Override
@@ -86,10 +86,20 @@ public class AddServicesPage extends AppCompatActivity {
     }
     private void populateServicesSpinner(String[] servicesList)
     {
+        // Array List
+        List<String> spinnerArray =  new ArrayList<String>();
+        spinnerArray.add("item1");
+        spinnerArray.add("item2");
 
-        ArrayAdapter<String> gameKindArray= new ArrayAdapter<String>(servicesSpinner, servicesList);
-        gameKindArray.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        gameKind.setAdapter(gameKindArray);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+                this, android.R.layout.simple_spinner_item, spinnerArray);
+
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        servicesSpinner.setAdapter(adapter);
+
+//        ArrayAdapter<String> gameKindArray= new ArrayAdapter<String>(servicesSpinner, servicesList);
+//        gameKindArray.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//        gameKind.setAdapter(gameKindArray);
 
     }
 
