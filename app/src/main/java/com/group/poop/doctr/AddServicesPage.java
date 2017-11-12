@@ -44,7 +44,7 @@ public class AddServicesPage extends AppCompatActivity {
                 String selectedText = getSpinnerSelectedStringValue(generalPracticeSpinner);
 
                 // Retrieve the "speciality" or services list.
-                String[] servicesList  = getServiceArrayName(selectedText);
+                ArrayList<String> servicesList  = getServiceArrayName(selectedText);
 
                 // Populate the services avaliable spinner
                 populateServicesSpinner(servicesList);
@@ -67,32 +67,43 @@ public class AddServicesPage extends AppCompatActivity {
         return spinner.getSelectedItem().toString();
     }
 
-    private String[] getServiceArrayName(String generalPractice )
+    private ArrayList<String> getServiceArrayName(String generalPractice )
     {
+        String[] stringArray = null;
+
         if( generalPractice.contains(( "Primary Health Care" )))
         {
-           return getResources().getStringArray(R.array.primaryhealthcare_array);
+            stringArray = getResources().getStringArray(R.array.primaryhealthcare_array);
 
         }else if( generalPractice.contains(( "Dental Care" )))
         {
-            return getResources().getStringArray(R.array.dentalcare_array);
+            stringArray = getResources().getStringArray(R.array.dentalcare_array);
         }else if( generalPractice.contains(( "Specialty Care" )))
         {
-            return getResources().getStringArray(R.array.specialtycare_array);
+            stringArray = getResources().getStringArray(R.array.specialtycare_array);
         }
 
         // Nothing Selected
-        return null;
-    }
-    private void populateServicesSpinner(String[] servicesList)
-    {
-        // Array List
-        List<String> spinnerArray =  new ArrayList<String>();
-        spinnerArray.add("item1");
-        spinnerArray.add("item2");
+        if(stringArray == null)
+        {
+            return null;
+        }
 
+        ArrayList<String> stringArrayList = new ArrayList<String>();
+
+        // Add each service to ArrayList
+        for(String str: stringArray)
+        {
+            stringArrayList.add(str);
+        }
+
+        return stringArrayList;
+
+    }
+    private void populateServicesSpinner(ArrayList<String> servicesList)
+    {
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(
-                this, android.R.layout.simple_spinner_item, spinnerArray);
+                this, android.R.layout.simple_spinner_item, servicesList);
 
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         servicesSpinner.setAdapter(adapter);
