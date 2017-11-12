@@ -28,5 +28,11 @@ public class SearchPage extends AppCompatActivity {
 
     }
 
+    public void onClickSearchForServiceButton(View view)
+    {
+        // TODO - Verify all inputs are set or are correct.
+        // TODO - Return the results of a view in a new "Page".
+    }
+
 }
 
