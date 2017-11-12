@@ -139,6 +139,7 @@ public class AddServicesPage extends AppCompatActivity {
         // TODO - If all pass, save service to dataBase. -> Create a class called "Service" or
         // TODO - something like that. So that it can be passed around.
 
+        // TODO - If saved to database is successful, close this window, else warn the user. 
     }
 
 }
