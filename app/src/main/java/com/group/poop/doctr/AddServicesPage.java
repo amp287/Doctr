@@ -130,7 +130,7 @@ public class AddServicesPage extends AppCompatActivity {
 
     }
 
-    private void onClickAddServiceButton(View view)
+    public void onClickAddServiceButton(View view)
     {
         // TODO - Verify that all of the inputs make sence.
 
@@ -138,7 +138,7 @@ public class AddServicesPage extends AppCompatActivity {
 
         // TODO - If all pass, save service to dataBase. -> Create a class called "Service" or
         // TODO - something like that. So that it can be passed around.
-        
+
     }
 
 }
