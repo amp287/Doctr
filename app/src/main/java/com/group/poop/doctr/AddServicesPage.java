@@ -68,6 +68,7 @@ public class AddServicesPage extends AppCompatActivity {
     private ArrayList<String> getServiceArrayName(String generalPractice )
     {
         String[] stringArray = null;
+        ArrayList<String> stringArrayList = new ArrayList<String>();
 
         if( generalPractice.contains(( "Primary Health Care" )))
         {
@@ -84,10 +85,9 @@ public class AddServicesPage extends AppCompatActivity {
         // Nothing Selected
         if(stringArray == null)
         {
-            return null;
+            return stringArrayList;
         }
 
-        ArrayList<String> stringArrayList = new ArrayList<String>();
 
         // Add each service to ArrayList
         for(String str: stringArray)

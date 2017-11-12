@@ -34,6 +34,7 @@
 
 
     <string-array name="general_practices_array">
+        <item>Select a General Practice</item>
         <item>Primary Health Care</item>
         <item>Dental Care </item>
         <item>Specialty Care</item>
