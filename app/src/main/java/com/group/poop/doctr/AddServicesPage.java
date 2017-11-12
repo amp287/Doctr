@@ -25,7 +25,6 @@ import android.widget.AdapterView.OnItemSelectedListener;
 public class AddServicesPage extends AppCompatActivity {
 
     private Spinner generalPracticeSpinner;
-    private TextView tempTextView;
     private Spinner servicesSpinner;
 
     @Override
@@ -35,7 +34,6 @@ public class AddServicesPage extends AppCompatActivity {
 
         generalPracticeSpinner = (Spinner) findViewById(R.id.generalPracticeSpinner);
         servicesSpinner = (Spinner) findViewById(R.id.servicesSpinner);
-        tempTextView = (TextView) findViewById(R.id.tempTextView);
 
         generalPracticeSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
             @Override
