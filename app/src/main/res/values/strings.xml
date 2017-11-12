@@ -36,14 +36,14 @@
     <string-array name="general_practices_array">
         <item>Select a General Practice</item>
         <item>Primary Health Care</item>
-        <item>Dental Care </item>
+        <item>Dental Care</item>
         <item>Specialty Care</item>
     </string-array>
 
     <string-array name="primaryhealthcare_array">
         <item>Select a service</item>
-        <item>General Physical </item>
-        <item>General Viral/Bacterial Infection </item>
+        <item>General Physical</item>
+        <item>General Viral/Bacterial Infection</item>
         <item>Immunization</item>
         <item>Sexual Health</item>
         <item>X-rays</item>
@@ -51,8 +51,8 @@
 
     <string-array name="dentalcare_array">
         <item>Select a service</item>
-        <item>General Cleaning </item>
-        <item>Dental Exam </item>
+        <item>General Cleaning</item>
+        <item>Dental Exam</item>
         <item>Fillings</item>
         <item>Bridges</item>
         <item>Crowns</item>
@@ -61,15 +61,13 @@
 
     <string-array name="specialtycare_array">
         <item>Select a service</item>
-        <item>General Orthopedic Consultation </item>
-        <item>Dietitian Consultation </item>
+        <item>General Orthopedic Consultation</item>
+        <item>Dietitian Consultation</item>
         <item>Pyschiatrist Consultation</item>
         <item>Allergy Injections</item>
         <item>Physical Therapy</item>
         <item>Massage Therapy</item>
     </string-array>
-
-
 
     <string name="monthPrompt">Select a month</string>
 

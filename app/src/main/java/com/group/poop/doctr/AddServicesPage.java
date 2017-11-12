@@ -88,7 +88,6 @@ public class AddServicesPage extends AppCompatActivity {
             return stringArrayList;
         }
 
-
         // Add each service to ArrayList
         for(String str: stringArray)
         {
