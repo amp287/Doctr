@@ -3,14 +3,6 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ImageButton
-        android:id="@+id/backImageButton"
-        android:layout_width="56dp"
-        android:layout_height="53dp"
-        android:layout_gravity="right"
-        android:onClick="onClickBackButton"
-        android:scaleType="fitXY"/>
-
     <TextView
         android:id="@+id/textView"
         android:layout_width="match_parent"
@@ -18,4 +10,13 @@
         android:text="Settings"
         android:textSize="24sp"
         android:textStyle="bold" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Delete My Profile"
+        android:onClick="onClickDeleteMyProfile"/>
+
+    <!--TODO - Still need to add a list of doctor's who have -->
+    <!--TODO - Visibility to the profile and a way to remove visibility -->
 </LinearLayout>

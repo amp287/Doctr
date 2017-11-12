@@ -21,15 +21,23 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 public class SettingsPage extends AppCompatActivity {
+    private DataBase dataBase;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
+        dataBase = new DataBase();
+
     }
 
-    public void onClickBackButton(View view){
-        SettingsPage.this.finish();
+    public void onClickDeleteMyProfile(View view)
+    {
+        // TODO - Actually Send a UserProfile Object.
+        dataBase.deleteUserProfile(null);
+
     }
+
 }
 

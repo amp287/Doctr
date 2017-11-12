@@ -18,6 +18,12 @@ public class DataBase {
         return true;
     }
 
+    public boolean deleteUserProfile(UserProfile up)
+    {
+        // TODO - Write the logic to delete and verify deletion.
+        return true;
+    }
+
     public boolean emailExistInDatabase(String email )
     {
         String e = "mosborn1987@gmail.com";
