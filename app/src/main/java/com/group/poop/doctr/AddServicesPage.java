@@ -74,10 +74,6 @@ public class AddServicesPage extends AppCompatActivity {
         });
     }
 
-    public void onClickBackButton(View view){
-        AddServicesPage.this.finish();
-    }
-
     public String getSpinnerSelectedStringValue(Spinner spinner)
     {
         return spinner.getSelectedItem().toString();
