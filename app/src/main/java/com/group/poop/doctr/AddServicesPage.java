@@ -24,16 +24,35 @@ import android.widget.AdapterView.OnItemSelectedListener;
 
 public class AddServicesPage extends AppCompatActivity {
 
+    // Select Service
     private Spinner generalPracticeSpinner;
     private Spinner servicesSpinner;
+    private TextView serviceTextView;
+
+    // Hours
+    private TextView hoursTextView;
+    private Spinner fromTimeSpinner;
+    private Spinner toTimeSpinner;
+
+    // Cost
+    private EditText costAmountEditText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_services);
 
+        // Select Service Spinners
         generalPracticeSpinner = (Spinner) findViewById(R.id.generalPracticeSpinner);
         servicesSpinner = (Spinner) findViewById(R.id.servicesSpinner);
+
+        // Select Hours Spinners
+        fromTimeSpinner = (Spinner) findViewById(R.id.fromTimeSpinner);
+        toTimeSpinner = (Spinner) findViewById(R.id.toTimeSpinner);
+
+        //
+        serviceTextView = (TextView) findViewById(R.id.serviceTextView);
+        costAmountEditText = (EditText) findViewById(R.id.costAmountEditText);
 
         generalPracticeSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
             @Override

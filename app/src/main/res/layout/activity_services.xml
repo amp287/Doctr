@@ -12,30 +12,66 @@
         android:scaleType="fitXY"/>
 
     <TextView
-        android:id="@+id/servicesTextView"
+        android:id="@+id/addServicesTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Services"
+        android:text="Add Service"
         android:textSize="24sp"
         android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/serviceTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Select Service"
+        android:textSize="24sp" />
 
     <Spinner
         android:id="@+id/generalPracticeSpinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:entries="@array/general_practices_array"
-        />
+        android:entries="@array/general_practices_array"/>
 
-    <TextView
-        android:id="@+id/tempTextView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Just a Text View" />
 
     <Spinner
         android:id="@+id/servicesSpinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/hoursTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Select Hours"
+        android:textSize="24sp" />
+
+    <Spinner
+        android:id="@+id/fromTimeSpinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:entries="@array/buisnessHours_array"/>
+
+    <Spinner
+        android:id="@+id/toTimeSpinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:entries="@array/buisnessHours_array"/>
+
+    <TextView
+        android:id="@+id/costTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Set Cost"
+        android:textSize="24sp" />
+
+    <!--TODO - This needs to be cleaned up!-->
+    <!--TODO - So far it looks horrible!-->
+    <EditText
+        android:id="@+id/costAmountEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="numberSigned" />
 
 
 </LinearLayout>
