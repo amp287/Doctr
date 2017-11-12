@@ -130,5 +130,16 @@ public class AddServicesPage extends AppCompatActivity {
 
     }
 
+    private void onClickAddServiceButton(View view)
+    {
+        // TODO - Verify that all of the inputs make sence.
+
+        // TODO - If One single item does not make sense, setError and don't "add service".
+
+        // TODO - If all pass, save service to dataBase. -> Create a class called "Service" or
+        // TODO - something like that. So that it can be passed around.
+        
+    }
+
 }
 
