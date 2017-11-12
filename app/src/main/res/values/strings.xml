@@ -88,6 +88,19 @@
         <item>8PM</item>
         <item>9PM</item>
     </string-array>
+    
+    <string-array name="allergen_array">
+        <item>Antibiotics-- amoxicillin, ampicillin, penicillin, tetracycline, and others.   </item>
+        <item>Nonsteroidal anti-inflammatory drugs like ibuprofen and naproxen.              </item>
+        <item>Aspirin.                                                                       </item>
+        <item>Sulfa drugs.                                                                   </item>
+        <item>Chemotherapy drugs.                                                            </item>
+        <item>Monoclonal antibody therapy-- cetuximab, rituximab, and others.                </item>
+        <item>HIV drugs --abacavir, nevirapine, and others.                                  </item>
+        <item>Insulin.                                                                       </item>
+        <item>Antiseizure drugs-- carbamazepine, lamotrigine, phenytoin, and others.         </item>
+        <item>Muscle relaxers given by IV-- atracurium, succinylcholine, or vecuronium.      </item>
+    </string-array>
 
     <string name="monthPrompt">Select a month</string>
 
