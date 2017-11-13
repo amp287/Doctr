@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import android.widget.ArrayAdapter;
 
@@ -21,6 +22,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
+import java.text.NumberFormat;
 
 public class AddServicesPage extends AppCompatActivity {
 
@@ -141,6 +143,24 @@ public class AddServicesPage extends AppCompatActivity {
         String fromHour = getSelectedFromHour();
         String toHour = getSelectedToHour();
 
+        if( (fromHour != null) && (toHour != null)){
+            this.hoursTextView.setError(null);
+        }else{
+            success = false;
+            this.hoursTextView.setError("Hours Not Set!");
+        }
+
+        // Validate Hour correctness
+        int fromHourIndex = getHourArrayIndex(fromHour);
+        int toHourIndex = getHourArrayIndex(toHour);
+
+        if( fromHourIndex >= toHourIndex ){
+            this.hoursTextView.setError("Invalid Hours! Try again.");
+            success = false;
+        }
+
+
+
         // Get Cost
         int cost = getServiceCost();
 
@@ -201,8 +221,7 @@ public class AddServicesPage extends AppCompatActivity {
             this.hoursTextView.setError("Select From Hour!");
             return null;
         }
-        this.hoursTextView.setError(null);
-        return firstElementAndPromptBuessnessHours;
+        return selectedItem;
     }
 
     private String getSelectedToHour(){
@@ -215,8 +234,28 @@ public class AddServicesPage extends AppCompatActivity {
             this.hoursTextView.setError("Select To Hour!");
             return null;
         }
-        this.hoursTextView.setError(null);
-        return firstElementAndPromptBuessnessHours;
+        return selectedItem;
+    }
+
+    private int getHourArrayIndex( String hourString ){
+        // TODO - Use this to validate correctly entered from and to hours.
+        // TODO - Example from 3PM - 11AM is invalid.
+        int hour = 0;
+        try{
+            hour = ((Number)NumberFormat.getInstance().parse(hourString)).intValue();
+
+            // Increment PM by 12 Hours - Except for "12PM"
+            if( hourString.contains("PM") && (hour != 12))
+            {
+                hour += 12;
+            }
+
+        }catch (NumberFormatException ex)
+        {
+        } catch (ParseException e) {
+            this.hoursTextView.setError("Parsing Error");
+        }
+        return hour;
     }
 
     private int getServiceCost()
