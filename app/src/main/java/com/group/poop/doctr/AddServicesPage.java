@@ -241,6 +241,10 @@ public class AddServicesPage extends AppCompatActivity {
         // TODO - Use this to validate correctly entered from and to hours.
         // TODO - Example from 3PM - 11AM is invalid.
         int hour = 0;
+        if( hourString == null ){
+            return 0;
+        }
+
         try{
             hour = ((Number)NumberFormat.getInstance().parse(hourString)).intValue();
 
