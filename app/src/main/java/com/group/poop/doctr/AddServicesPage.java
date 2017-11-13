@@ -159,8 +159,6 @@ public class AddServicesPage extends AppCompatActivity {
             success = false;
         }
 
-
-
         // Get Cost
         int cost = getServiceCost();
 
@@ -170,13 +168,10 @@ public class AddServicesPage extends AppCompatActivity {
             success = false;
         }
 
-
-        // TODO - Verify that all of the inputs make sence.
-
-        // TODO - If One single item does not make sense, setError and don't "add service".
-
-        // TODO - If all pass, save service to dataBase. -> Create a class called "Service" or
-        // TODO - something like that. So that it can be passed around.
+        if( success )
+        {
+            // TODO - Store to dataBase. -> Create a data class to store services.
+        }
 
         // TODO - If saved to database is successful, close this window, else warn the user.
     }
