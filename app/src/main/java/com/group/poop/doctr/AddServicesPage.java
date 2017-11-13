@@ -25,9 +25,9 @@ import android.widget.AdapterView.OnItemSelectedListener;
 public class AddServicesPage extends AppCompatActivity {
 
     // Select Service
+    private TextView serviceTextView;
     private Spinner generalPracticeSpinner;
     private Spinner servicesSpinner;
-    private TextView serviceTextView;
 
     // Hours
     private TextView hoursTextView;
@@ -35,6 +35,7 @@ public class AddServicesPage extends AppCompatActivity {
     private Spinner toTimeSpinner;
 
     // Cost
+    private TextView costTextView;
     private EditText costAmountEditText;
 
     @Override
@@ -47,10 +48,14 @@ public class AddServicesPage extends AppCompatActivity {
         servicesSpinner = (Spinner) findViewById(R.id.servicesSpinner);
 
         // Select Hours Spinners
+        hoursTextView = (TextView) findViewById(R.id.hoursTextView);
         fromTimeSpinner = (Spinner) findViewById(R.id.fromTimeSpinner);
         toTimeSpinner = (Spinner) findViewById(R.id.toTimeSpinner);
 
         serviceTextView = (TextView) findViewById(R.id.serviceTextView);
+
+        // Cost
+        costTextView = (TextView) findViewById(R.id.costTextView);
         costAmountEditText = (EditText) findViewById(R.id.costAmountEditText);
 
         generalPracticeSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
@@ -127,15 +132,28 @@ public class AddServicesPage extends AppCompatActivity {
 
     public void onClickAddServiceButton(View view)
     {
+        boolean success = true;
+
+        // Get Service
+        String service = getSelectedService();
+
+        // Get Hour Range
+        String fromHour = getSelectedFromHour();
+        String toHour = getSelectedToHour();
+
+        // Get Cost
+        int cost = getServiceCost();
+
+        // Validate Inputs
+        if( (service == null) ||(fromHour == null) ||(toHour == null) )
+        {
+            success = false;
+        }
+
+
         // TODO - Verify that all of the inputs make sence.
 
         // TODO - If One single item does not make sense, setError and don't "add service".
-
-        // Example of how to set an error
-        serviceTextView.setError("Yo! This is an error message!");
-
-        // Example of how to clear an error
-        //serviceTextView.setError(null);
 
         // TODO - If all pass, save service to dataBase. -> Create a class called "Service" or
         // TODO - something like that. So that it can be passed around.
@@ -143,5 +161,98 @@ public class AddServicesPage extends AppCompatActivity {
         // TODO - If saved to database is successful, close this window, else warn the user.
     }
 
+    // Get Service
+    private String getSelectedService()
+    {
+        String generalPracticeString = this.generalPracticeSpinner.getSelectedItem().toString();
+
+        String firstElementAndPromptGeneralPractice =
+                (getResources().getStringArray(R.array.general_practices_array))[0];
+
+        if( generalPracticeString.contains(firstElementAndPromptGeneralPractice))
+        {
+            // General Practice not selected
+            serviceTextView.setError("Select a General Practice!");
+            return null;
+        }else{
+            serviceTextView.setError(null);
+        }
+
+        String selectedService = this.servicesSpinner.getSelectedItem().toString();
+
+        if(selectedService.contains("Select a service"))
+        {
+            // Service not Selected
+            serviceTextView.setError("Service not Selected!");
+            return null;
+        }
+
+        return selectedService;
+    }
+
+    // Get Hour Range
+    private String getSelectedFromHour(){
+        String selectedItem = this.fromTimeSpinner.getSelectedItem().toString();
+        String firstElementAndPromptBuessnessHours =
+                (getResources().getStringArray(R.array.buisnessHours_array))[0];
+
+        if(selectedItem.contains(firstElementAndPromptBuessnessHours))
+        {
+            this.hoursTextView.setError("Select From Hour!");
+            return null;
+        }
+        this.hoursTextView.setError(null);
+        return firstElementAndPromptBuessnessHours;
+    }
+
+    private String getSelectedToHour(){
+        String selectedItem = this.toTimeSpinner.getSelectedItem().toString();
+        String firstElementAndPromptBuessnessHours =
+                (getResources().getStringArray(R.array.buisnessHours_array))[0];
+
+        if(selectedItem.contains(firstElementAndPromptBuessnessHours))
+        {
+            this.hoursTextView.setError("Select To Hour!");
+            return null;
+        }
+        this.hoursTextView.setError(null);
+        return firstElementAndPromptBuessnessHours;
+    }
+
+    private int getServiceCost()
+    {
+        String costValue = this.costAmountEditText.getText().toString();
+        if( (costValue == null) || costValue.trim().isEmpty() )
+        {
+            // No Value Selected
+            costTextView.setError("Must set Price!");
+            return 0;
+        }
+        else{
+            costTextView.setError(null);
+        }
+
+        // TODO - Verify non negative value
+        boolean isNegative = ((costValue.indexOf('-')) >=0)? true:false;
+
+        if( isNegative )
+        {
+            costTextView.setError("Cost cannot be negative!");
+            return 0;
+        }else {
+            costTextView.setError(null);
+        }
+
+        // Parse Cost
+        int cost;
+        try {
+            cost = Integer.parseInt(costValue);
+            costTextView.setError(null);
+            return cost;
+        }catch (NumberFormatException ex){
+            costTextView.setError("Invalid and unknown error!");
+            return 0;
+        }
+    }
 }
 
