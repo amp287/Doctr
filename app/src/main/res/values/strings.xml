@@ -88,7 +88,7 @@
         <item>8PM</item>
         <item>9PM</item>
     </string-array>
-    
+
     <string-array name="allergen_array">
         <item>Antibiotics-- amoxicillin, ampicillin, penicillin, tetracycline, and others.   </item>
         <item>Nonsteroidal anti-inflammatory drugs like ibuprofen and naproxen.              </item>
@@ -103,5 +103,6 @@
     </string-array>
 
     <string name="monthPrompt">Select a month</string>
+    <string name="title_activity_user_home">UserHome</string>
 
 </resources>
