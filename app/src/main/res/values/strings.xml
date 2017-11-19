@@ -15,6 +15,10 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
+    <string name="login_button">login</string>
+    <string name="sign_up_button">sign up</string>
+    <string name="sign_out_button">sign out</string>
+
 
     <string-array name="months_array">
         <item>Select a month</item>
@@ -104,5 +108,7 @@
 
     <string name="monthPrompt">Select a month</string>
     <string name="title_activity_user_home">UserHome</string>
+    <string name="title_activity_login_page">LoginPage</string>
+    <string name="title_activity_doctor_home">DoctorHome</string>
 
 </resources>
