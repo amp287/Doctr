@@ -33,6 +33,6 @@
         app:elevation="8dp"
         app:layout_anchor="@+id/include"
         app:layout_anchorGravity="bottom|center"
-        app:menu="@menu/bottom_nav_items" />
+        app:menu="@menu/bottom_nav_items_user" />
 
 </android.support.design.widget.CoordinatorLayout>
