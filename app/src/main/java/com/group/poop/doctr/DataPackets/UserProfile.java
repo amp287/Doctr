@@ -49,7 +49,7 @@ public class UserProfile {
 
     public UserProfile(UserProfile up)
     {
-        this(up.get)
+        //this(up.get)
     }
 
     ///////////////////////////////////////////////////////////////////////////
