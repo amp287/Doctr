@@ -12,13 +12,21 @@
         android:textStyle="bold" />
 
     <Button
+        android:id="@+id/deleteProfileButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Delete My Profile"
         android:onClick="onClickDeleteMyProfile"/>
+        <!--TODO - Add Spacing-->
+    <Button
+        android:id="@+id/deletePrivilegeButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Remove selected Privilege"
+        android:onClick="onClickDeleteMyProfile"/>
 
     <ListView
-        android:id="@+id/viewingPriviladgeListView"
+        android:id="@+id/viewingPrivilegeListView"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

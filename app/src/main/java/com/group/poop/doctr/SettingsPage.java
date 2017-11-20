@@ -16,17 +16,21 @@ import android.widget.Spinner;
 import java.util.ArrayList;
 import java.util.Arrays;
 import android.widget.ArrayAdapter;
+import android.widget.AdapterView;
 
 import java.util.Date;
 import java.util.List;
-import android.widget.RadioButton;
+import android.widget.Button;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
 public class SettingsPage extends AppCompatActivity {
     private DataBase dataBase;
 
-    private ListView viewingPriviladgeListView;
+    private Button deleteProfileButton;
+    private Button deletePrivilegeButton;
+    private ListView viewingPrivilegeListView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,24 +40,43 @@ public class SettingsPage extends AppCompatActivity {
         dataBase = new DataBase();
 
         // Views
-        viewingPriviladgeListView = (ListView) findViewById(R.id.viewingPriviladgeListView);
+        deleteProfileButton = (Button) findViewById(R.id.deleteProfileButton);
+        deletePrivilegeButton = (Button) findViewById(R.id.deletePrivilegeButton);
+        viewingPrivilegeListView = (ListView) findViewById(R.id.viewingPrivilegeListView);
 
-        initialize_ViewingPriviladgeListView();
+        initialize_viewingPrivilegeListView();
+
+        viewingPrivilegeListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                int i = 0;
+                int y = i +0 + 2;
+
+                // Delete the "clicked" item.
+                //view.remove
+
+            }
+        });
+
     }
 
     String[] ListElements = new String[] {
             "Android",
-            "PHP"
+            "PHP",
+            "iPhone",
+            "c++",
+            "Java",
+            "C#"
     };
 
-    public void initialize_ViewingPriviladgeListView()
+    public void initialize_viewingPrivilegeListView()
     {
         final List<String> ListElementsArrayList = new ArrayList<String>(Arrays.asList(ListElements));
 
         final ArrayAdapter<String> adapter = new ArrayAdapter<String>
                 (SettingsPage.this, android.R.layout.simple_list_item_1, ListElementsArrayList);
 
-        viewingPriviladgeListView.setAdapter(adapter);
+        viewingPrivilegeListView.setAdapter(adapter);
     }
 
     public void onClickDeleteMyProfile(View view)
