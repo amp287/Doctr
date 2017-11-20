@@ -7,7 +7,6 @@ import java.util.Date;
  */
 
 public class UserProfile {
-
     ///////////////////////////////////////////////////////////////////////////
     // TODO - List
     // TODO - Need to add a Profile Image.
