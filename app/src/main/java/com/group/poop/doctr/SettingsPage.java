@@ -27,10 +27,13 @@ import android.widget.TextView;
 public class SettingsPage extends AppCompatActivity {
     private DataBase dataBase;
 
+    // Views
     private Button deleteProfileButton;
     private Button deletePrivilegeButton;
     private ListView viewingPrivilegeListView;
 
+    // Adapter List
+    ArrayAdapter<String> privilegeList_Adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +44,7 @@ public class SettingsPage extends AppCompatActivity {
 
         // Views
         deleteProfileButton = (Button) findViewById(R.id.deleteProfileButton);
-        deletePrivilegeButton = (Button) findViewById(R.id.deletePrivilegeButton);
+        //deletePrivilegeButton = (Button) findViewById(R.id.deletePrivilegeButton);
         viewingPrivilegeListView = (ListView) findViewById(R.id.viewingPrivilegeListView);
 
         initialize_viewingPrivilegeListView();
@@ -53,9 +56,8 @@ public class SettingsPage extends AppCompatActivity {
                 int y = i +0 + 2;
 
                 // Delete the "clicked" item.
-                //view.remove
-                viewingPrivilegeListView.removeViewAt(0);
-
+                String viewersName = privilegeList_Adapter.getItem(position);
+                privilegeList_Adapter.remove(viewersName);
             }
         });
 
@@ -74,13 +76,11 @@ public class SettingsPage extends AppCompatActivity {
     {
         final List<String> ListElementsArrayList = new ArrayList<String>(Arrays.asList(ListElements));
 
-        final ArrayAdapter<String> adapter = new ArrayAdapter<String>
+        privilegeList_Adapter = new ArrayAdapter<String>
                 (SettingsPage.this, android.R.layout.simple_list_item_1, ListElementsArrayList);
 
-        viewingPrivilegeListView.setAdapter(adapter);
+        viewingPrivilegeListView.setAdapter(privilegeList_Adapter);
 
-        final ArrayAdapter<String> adapterCopy = (ArrayAdapter<String>) viewingPrivilegeListView.getAdapter();
-        adapter.remove("C#");
     }
 
     public void onClickDeleteMyProfile(View view)

@@ -18,12 +18,13 @@
         android:text="Delete My Profile"
         android:onClick="onClickDeleteMyProfile"/>
         <!--TODO - Add Spacing-->
-    <Button
-        android:id="@+id/deletePrivilegeButton"
+
+    <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Remove selected Privilege"
-        android:onClick="onClickDeleteMyProfile"/>
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Select to remove privileges" />
 
     <ListView
         android:id="@+id/viewingPrivilegeListView"
