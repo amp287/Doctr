@@ -48,7 +48,7 @@ public class UserProfile {
     }
 
     // CopyCat Constructor
-    private UserProfile(UserProfile up)
+    public UserProfile(UserProfile up)
     {
         // Call the other Constructor
         this(
