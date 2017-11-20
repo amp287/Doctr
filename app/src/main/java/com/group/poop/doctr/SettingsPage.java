@@ -38,6 +38,7 @@ public class SettingsPage extends AppCompatActivity {
 
     // Adapter List
     ArrayAdapter<String> privilegeList_Adapter;
+    private int lastClickedPosition = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,12 +59,9 @@ public class SettingsPage extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 // Get Selected Item
-                String viewersName = privilegeList_Adapter.getItem(position);
+                lastClickedPosition = position;
 
-                // Removed Item
-                privilegeList_Adapter.remove(viewersName);
-
-                //
+                // Alert
                 AlertDialog.Builder builder = new AlertDialog.Builder(SettingsPage.this);
 
                 builder.setTitle("Confirm");
@@ -71,9 +69,13 @@ public class SettingsPage extends AppCompatActivity {
 
                 builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
 
+                    // YES - Remove Item
                     public void onClick(DialogInterface dialog, int which) {
-                        // Do nothing but close the dialog
 
+                        // Get Views Name
+                        String viewersName = privilegeList_Adapter.getItem(lastClickedPosition);
+
+                        removeView(viewersName);
                         dialog.dismiss();
                     }
                 });
@@ -82,6 +84,8 @@ public class SettingsPage extends AppCompatActivity {
 
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        // Reset
+                        lastClickedPosition = -1;
 
                         // Do nothing
                         dialog.dismiss();
@@ -96,15 +100,21 @@ public class SettingsPage extends AppCompatActivity {
 
     }
 
+    private void removeView(String viewText)
+    {
+        // Removed Item
+        privilegeList_Adapter.remove(viewText);
+
+        // TODO - Remove from dataBase
+    }
+
 
 
     String[] ListElements = new String[] {
-            "Android",
-            "PHP",
-            "iPhone",
-            "c++",
-            "Java",
-            "C#"
+            "Dr. Scott",
+            "Dr. Pepper",
+            "Dr. Osborn",
+            "Dr. Oz"
     };
 
     public void initialize_viewingPrivilegeListView()
