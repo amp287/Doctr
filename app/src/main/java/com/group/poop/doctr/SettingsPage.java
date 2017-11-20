@@ -24,6 +24,10 @@ import android.widget.Button;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import android.app.AlertDialog.Builder;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+
 public class SettingsPage extends AppCompatActivity {
     private DataBase dataBase;
 
@@ -52,16 +56,47 @@ public class SettingsPage extends AppCompatActivity {
         viewingPrivilegeListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                int i = 0;
-                int y = i +0 + 2;
 
-                // Delete the "clicked" item.
+                // Get Selected Item
                 String viewersName = privilegeList_Adapter.getItem(position);
+
+                // Removed Item
                 privilegeList_Adapter.remove(viewersName);
+
+                //
+                AlertDialog.Builder builder = new AlertDialog.Builder(SettingsPage.this);
+
+                builder.setTitle("Confirm");
+                builder.setMessage("Are you sure?");
+
+                builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+
+                    public void onClick(DialogInterface dialog, int which) {
+                        // Do nothing but close the dialog
+
+                        dialog.dismiss();
+                    }
+                });
+
+                builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        // Do nothing
+                        dialog.dismiss();
+                    }
+                });
+
+                AlertDialog alert = builder.create();
+                alert.show();
+
             }
         });
 
     }
+
+
 
     String[] ListElements = new String[] {
             "Android",
