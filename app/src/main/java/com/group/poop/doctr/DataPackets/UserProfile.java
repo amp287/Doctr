@@ -10,7 +10,6 @@ public class UserProfile {
     ///////////////////////////////////////////////////////////////////////////
     // TODO - List
     // TODO - Need to add a Profile Image.
-    // TODO - Create getters for each field.
 
     ///////////////////////////////////////////////////////////////////////////
     // Member Variables
@@ -46,6 +45,11 @@ public class UserProfile {
         this.gender = gender;
         this.birthday = validateBirthdate(birthday);
         parseFullName(fullName);
+    }
+
+    public UserProfile(UserProfile up)
+    {
+        this(up.get)
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -118,6 +122,40 @@ public class UserProfile {
     }
 
     ///////////////////////////////////////////////////////////////////////////
+    // Getters
+    public String getEmail() {
+        return email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getMiddleName() {
+        return middleName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public USER_TYPE getUser_type() {
+        return user_type;
+    }
+
+    public GENDER getGender() {
+        return gender;
+    }
+
+    public Date getBirthday() {
+        return birthday;
+    }
+
+    ///////////////////////////////////////////////////////////////////////////
     // Enums
     public enum USER_TYPE{
         PATIENT,
@@ -148,7 +186,7 @@ public class UserProfile {
     }
 
     ///////////////////////////////////////////////////////////////////////////
-    // Getters
+    // Static
     public static USER_TYPE getUserType(String userType)
     {
         if(userType == null)
