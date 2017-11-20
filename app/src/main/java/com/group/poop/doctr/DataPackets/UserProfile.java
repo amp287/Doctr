@@ -49,7 +49,10 @@ public class UserProfile {
 
     public UserProfile(UserProfile up)
     {
-        //this(up.get)
+        this(
+                up.getEmail(),
+                up.getPassword(),
+                up.getFirstName()
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -132,15 +135,31 @@ public class UserProfile {
     }
 
     public String getFirstName() {
+        if(firstName == null)
+        {
+            return "";
+        }
         return firstName;
     }
 
     public String getMiddleName() {
+        if(middleName == null)
+        {
+            return "";
+        }
         return middleName;
     }
 
     public String getLastName() {
+        if(lastName == null)
+        {
+            return "";
+        }
         return lastName;
+    }
+
+    public String getFullName(){
+        return this.getFirstName() + this.getMiddleName() + this.getLastName();
     }
 
     public USER_TYPE getUser_type() {
