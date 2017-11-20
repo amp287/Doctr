@@ -94,10 +94,8 @@ public class SettingsPage extends AppCompatActivity {
 
                 AlertDialog alert = builder.create();
                 alert.show();
-
             }
         });
-
     }
 
     private void removeView(String viewText)
@@ -107,8 +105,6 @@ public class SettingsPage extends AppCompatActivity {
 
         // TODO - Remove from dataBase
     }
-
-
 
     String[] ListElements = new String[] {
             "Dr. Scott",
