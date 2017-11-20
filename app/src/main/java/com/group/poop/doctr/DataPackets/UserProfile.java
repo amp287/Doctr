@@ -13,11 +13,12 @@ public class UserProfile {
 
     // TODO - Create getters for each field.
 
-    // Email
-    String email;
+    ///////////////////////////////////////////////////////////////////////////
+    // Member Variables
 
-    // Password
-    String password;
+    // Email/Password
+    private String email;
+    private String password;
 
     // User Name
     private String firstName;
@@ -29,8 +30,7 @@ public class UserProfile {
     private GENDER gender;
     private Date birthday;
 
-
-
+    ///////////////////////////////////////////////////////////////////////////
     // Constructor
     public UserProfile( String email,
                         String password,
@@ -49,143 +49,18 @@ public class UserProfile {
         parseFullName(fullName);
     }
 
-    private void parseFullName( String fullName )
-    {
-        // TODO - Parse Out First, Middle and Last Name.
-        fullName = fullName.trim();
-
-        String[] splited = fullName.split("\\s+");
-
-        // An Assumption is made that if there are two names,
-        // then the first is the first name and second is the Last name.
-        // Else if three names, first, middle and last.
-
-        if(splited.length == 2)
-        {
-            this.firstName = splited[0];
-            this.middleName = "";
-            this.lastName = splited[1];
-
-        }else if(splited.length == 3)
-        {
-            this.firstName = splited[0];
-            this.middleName = splited[1];
-            this.lastName = splited[2];
-        }else {
-            // TODO - Throw Exception!!
-        }
-
-    }
-
+    ///////////////////////////////////////////////////////////////////////////
+    // Interface
     public boolean isValid()
     {
         // TODO - Add Logic Here.
-        return true;
+        return false;
     }
 
-    // Enums
-    public enum USER_TYPE{
-        PATIENT,
-        DOCTOR,
-        UNKNOWN
-    }
-
-    public enum GENDER{
-        MALE,
-        FEMALE,
-        UNKNOWN
-    }
-
-    public enum MONTHS{
-        UNKNOWN,
-        January,
-        February,
-        March,
-        April,
-        May,
-        June,
-        July,
-        August,
-        September,
-        October,
-        November,
-        December
-    }
-
-    public static GENDER getGender(String gender)
+    ///////////////////////////////////////////////////////////////////////////
+    // Static Interface
+    public static Date getBirthdate(int year, int month, int day)
     {
-        if(gender == null)
-        {
-            return GENDER.UNKNOWN;
-        }else if(gender.equals("Male"))
-        {
-            return GENDER.MALE;
-        }else if( gender.equals("Female"))
-        {
-            return GENDER.FEMALE;
-        }
-        else {
-            // TODO - Throw an exception here!
-            return GENDER.UNKNOWN;
-        }
-    }
-
-    public static USER_TYPE getUserType(String userType)
-    {
-        if(userType == null)
-        {
-            return USER_TYPE.UNKNOWN;
-        }else if(userType.equals("Patient"))
-        {
-            return UserProfile.USER_TYPE.PATIENT;
-        }else if( userType.equals("Doctor"))
-        {
-            return UserProfile.USER_TYPE.DOCTOR;
-        }
-        else {
-            // TODO - Throw an exception here!
-            return USER_TYPE.UNKNOWN;
-        }
-    }
-
-    private Date validateBirthdate(Date birthdate)
-    {
-        // TODO - Validate or Throw Exception!
-        return birthdate;
-    }
-
-    public static Date getBirthdate(String year, String month, String day ) {
-        int intYear;
-        int intMonth;
-        int intDay;
-
-        try {
-            intYear = Integer.parseInt(year);
-            intMonth = getMonthNumber(month);
-            intDay = Integer.parseInt(day);
-
-            return getBirthdate(intYear, intMonth, intDay);
-        }catch (NumberFormatException ex)
-        {
-            return null;
-        }
-    }
-
-    private static int getMonthNumber(String monthName) {
-        int i = 0;
-
-        for (MONTHS month : MONTHS.values()) {
-            String monthString = month.name().toString();
-            if(monthName.contains(monthString) )
-            {
-                return month.ordinal();
-            }
-        }
-
-        return MONTHS.UNKNOWN.ordinal();
-    }
-
-    public static Date getBirthdate(int year, int month, int day) {
         // TODO - Validate the input parameters!!
 
         // all int should be greater than 0
@@ -242,5 +117,141 @@ public class UserProfile {
 
         return true;
     }
+
+    ///////////////////////////////////////////////////////////////////////////
+    // Enums
+    public enum USER_TYPE{
+        PATIENT,
+        DOCTOR,
+        UNKNOWN
+    }
+
+    public enum GENDER{
+        MALE,
+        FEMALE,
+        UNKNOWN
+    }
+
+    public enum MONTHS{
+        UNKNOWN,
+        January,
+        February,
+        March,
+        April,
+        May,
+        June,
+        July,
+        August,
+        September,
+        October,
+        November,
+        December
+    }
+
+    ///////////////////////////////////////////////////////////////////////////
+    // Getters
+    public static USER_TYPE getUserType(String userType)
+    {
+        if(userType == null)
+        {
+            return USER_TYPE.UNKNOWN;
+        }else if(userType.equals("Patient"))
+        {
+            return UserProfile.USER_TYPE.PATIENT;
+        }else if( userType.equals("Doctor"))
+        {
+            return UserProfile.USER_TYPE.DOCTOR;
+        }
+        else {
+            // TODO - Throw an exception here!
+            return USER_TYPE.UNKNOWN;
+        }
+    }
+
+    public static GENDER getGender(String gender)
+    {
+        if(gender == null)
+        {
+            return GENDER.UNKNOWN;
+        }else if(gender.equals("Male"))
+        {
+            return GENDER.MALE;
+        }else if( gender.equals("Female"))
+        {
+            return GENDER.FEMALE;
+        }
+        else {
+            // TODO - Throw an exception here!
+            return GENDER.UNKNOWN;
+        }
+    }
+
+    public static Date getBirthdate(String year, String month, String day ) {
+        int intYear;
+        int intMonth;
+        int intDay;
+
+        try {
+            intYear = Integer.parseInt(year);
+            intMonth = getMonthNumber(month);
+            intDay = Integer.parseInt(day);
+
+            return getBirthdate(intYear, intMonth, intDay);
+        }catch (NumberFormatException ex)
+        {
+            return null;
+        }
+    }
+
+    ///////////////////////////////////////////////////////////////////////////
+    // Implementation (Private - Under the hood - functions)
+    private void parseFullName( String fullName )
+    {
+        // TODO - Parse Out First, Middle and Last Name.
+        fullName = fullName.trim();
+
+        String[] splited = fullName.split("\\s+");
+
+        // An Assumption is made that if there are two names,
+        // then the first is the first name and second is the Last name.
+        // Else if three names, first, middle and last.
+
+        if(splited.length == 2)
+        {
+            this.firstName = splited[0];
+            this.middleName = "";
+            this.lastName = splited[1];
+
+        }else if(splited.length == 3)
+        {
+            this.firstName = splited[0];
+            this.middleName = splited[1];
+            this.lastName = splited[2];
+        }else {
+            // TODO - Throw Exception!!
+        }
+
+    }
+
+    private Date validateBirthdate(Date birthdate)
+    {
+        // TODO - Validate or Throw Exception!
+        return birthdate;
+    }
+
+    private static int getMonthNumber(String monthName) {
+        int i = 0;
+
+        for (MONTHS month : MONTHS.values()) {
+            String monthString = month.name().toString();
+            if(monthName.contains(monthString) )
+            {
+                return month.ordinal();
+            }
+        }
+
+        return MONTHS.UNKNOWN.ordinal();
+    }
+
 
 }
