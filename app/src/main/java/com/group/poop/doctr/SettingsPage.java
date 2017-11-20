@@ -54,6 +54,7 @@ public class SettingsPage extends AppCompatActivity {
 
                 // Delete the "clicked" item.
                 //view.remove
+                viewingPrivilegeListView.removeViewAt(0);
 
             }
         });
@@ -77,6 +78,9 @@ public class SettingsPage extends AppCompatActivity {
                 (SettingsPage.this, android.R.layout.simple_list_item_1, ListElementsArrayList);
 
         viewingPrivilegeListView.setAdapter(adapter);
+
+        final ArrayAdapter<String> adapterCopy = (ArrayAdapter<String>) viewingPrivilegeListView.getAdapter();
+        adapter.remove("C#");
     }
 
     public void onClickDeleteMyProfile(View view)
