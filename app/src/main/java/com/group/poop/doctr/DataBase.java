@@ -1,5 +1,7 @@
 package com.group.poop.doctr;
 
+import com.group.poop.doctr.DataPackets.UserProfile;
+
 /**
  * Created by mosborn1987 on 11/2/2017.
  */
@@ -21,7 +23,7 @@ public class DataBase {
     public boolean deleteUserProfile(UserProfile up)
     {
         // TODO - Write the logic to delete and verify deletion.
-        return true;
+        return false;
     }
 
     public boolean emailExistInDatabase(String email )

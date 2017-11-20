@@ -1,4 +1,4 @@
-package com.group.poop.doctr;
+package com.group.poop.doctr.DataPackets;
 import java.util.Calendar;
 import java.util.Date;
 
