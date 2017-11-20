@@ -16,5 +16,10 @@ public class SystemProfile{
 
     }
 
+    // TODO - Add things like,
+    // TODO - Settings(list of Dr who have visibility)
+    // TODO - Message?
     // TODO - 
+    // TODO -
+
 }
