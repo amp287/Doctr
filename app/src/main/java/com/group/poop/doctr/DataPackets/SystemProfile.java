@@ -16,10 +16,10 @@ public class SystemProfile{
 
     }
 
-    // TODO - Add things like,
+    // TODO - Add Data Packets to like,
     // TODO - Settings(list of Dr who have visibility)
-    // TODO - Message?
-    // TODO - 
+    // TODO - Message/Emails or appointments?
+    // TODO - Doctors offered services
     // TODO -
 
 }
