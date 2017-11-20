@@ -47,12 +47,18 @@ public class UserProfile {
         parseFullName(fullName);
     }
 
-    public UserProfile(UserProfile up)
+    // CopyCat Constructor
+    private UserProfile(UserProfile up)
     {
+        // Call the other Constructor
         this(
                 up.getEmail(),
                 up.getPassword(),
-                up.getFirstName()
+                up.getFullName(),
+                up.getUser_type(),
+                up.getGender(),
+                up.getBirthday()
+        );
     }
 
     ///////////////////////////////////////////////////////////////////////////
