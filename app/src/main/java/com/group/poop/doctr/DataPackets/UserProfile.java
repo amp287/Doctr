@@ -2,13 +2,14 @@ package com.group.poop.doctr.DataPackets;
 import java.util.Calendar;
 import java.util.Date;
 
-
 /**
  * Created by mosborn1987 on 11/2/2017.
  */
 
 public class UserProfile {
 
+    ///////////////////////////////////////////////////////////////////////////
+    // TODO List
     // TODO - Need to add a Profile Image.
 
     // TODO - Create getters for each field.
