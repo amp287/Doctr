@@ -17,6 +17,11 @@
         android:text="Delete My Profile"
         android:onClick="onClickDeleteMyProfile"/>
 
+    <ListView
+        android:id="@+id/viewingPriviladgeListView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
     <!--TODO - Still need to add a list of doctor's who have -->
     <!--TODO - Visibility to the profile and a way to remove visibility -->
 </LinearLayout>

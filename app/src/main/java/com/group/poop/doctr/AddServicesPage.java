@@ -1,24 +1,15 @@
 package com.group.poop.doctr;
-import android.app.Activity;
-import android.content.Intent;
-import android.support.annotation.IdRes;
 import android.support.v7.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.Spinner;
 
 import java.text.ParseException;
 import java.util.ArrayList;
 import android.widget.ArrayAdapter;
 
-import java.util.Date;
-import java.util.List;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
@@ -174,6 +165,7 @@ public class AddServicesPage extends AppCompatActivity {
         }
 
         // TODO - If saved to database is successful, close this window, else warn the user.
+
     }
 
     // Get Service
