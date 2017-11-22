@@ -24,7 +24,7 @@ public class SignUpChoicePage extends AppCompatActivity {
         mUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(SignUpChoicePage.this, UserHome.class);
+                Intent intent = new Intent(SignUpChoicePage.this, UserRegistration.class);
                 startActivity(intent);
             }
         });

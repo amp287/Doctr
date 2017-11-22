@@ -3,6 +3,7 @@ package com.group.poop.doctr;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -266,6 +267,9 @@ public class UserRegistration extends AppCompatActivity {
                             Long.parseLong(weight.getText().toString()));
 
                     database.child("UserProfiles").child(uid).setValue(user);
+
+                    Intent intent = new Intent(UserRegistration.this, UserHome.class);
+                    startActivity(intent);
                 }
             }
         });
