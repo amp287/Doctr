@@ -43,12 +43,11 @@ public class LoginPage extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
-
         mEmail = (EditText) findViewById(R.id.email);
         mPassword = (EditText) findViewById(R.id.password);
-
         mLogin = (Button) findViewById(R.id.login);
         mSignOut = findViewById(R.id.signOut);
+        mSignUp = findViewById(R.id.signUp);
 
         mLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,24 +56,13 @@ public class LoginPage extends AppCompatActivity {
             }
         });
 
-        // Sets a listener to logout the user when the sign out button is clicked
-        mSignOut.setOnClickListener(new View.OnClickListener() {
+        mSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                FirebaseAuth.getInstance().signOut();
+            public void onClick(View v) {
+                Intent intent = new Intent(LoginPage.this, SignUpPage.class);
+                startActivity(intent);
             }
         });
-
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        if (currentUser != null) {
-            Toast.makeText(LoginPage.this, "Already Logged in!", Toast.LENGTH_SHORT).show();
-            launchHomePage(currentUser);
-        }
 
     }
 
