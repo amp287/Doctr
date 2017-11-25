@@ -56,7 +56,7 @@ public class ChatMessage {
     }
 
     public void setMessageSender(String userId){
-        this.from = userid;
+        this.from = userId;
     }
 
     public void setMessageReciever(String userId){
