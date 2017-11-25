@@ -20,11 +20,26 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 public class MessengerPage extends AppCompatActivity {
+
+    private DataBase dataBase;
+
+    // Firebase
+    private FirebaseAuth mAuth;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_messenger);
+        mAuth = FirebaseAuth.getInstance();
+
+        if(mAuth.getCurrentUser() == null){
+            //TODO: go to login activity
+        }
+
+
 
     }
 
