@@ -18,6 +18,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class SignUpPage extends AppCompatActivity {
 
@@ -29,6 +31,7 @@ public class SignUpPage extends AppCompatActivity {
     private EditText confirmPassword;
     private Button mSignUp;
     private FirebaseAuth mAuth;
+    private FirebaseDatabase mDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +47,7 @@ public class SignUpPage extends AppCompatActivity {
         confirmPassword = confirmPasswordLayout.getEditText();
         mSignUp = findViewById(R.id.signUp);
         mAuth = FirebaseAuth.getInstance();
+        mDatabase = FirebaseDatabase.getInstance();
 
 
         email.addTextChangedListener(new TextWatcher() {
@@ -153,6 +157,7 @@ public class SignUpPage extends AppCompatActivity {
                             password.getText().toString()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
+                            mDatabase.getReference().child("ProfileNotComplete").child(mAuth.getCurrentUser().getUid()).setValue(true);
                             Intent intent = new Intent(SignUpPage.this, SignUpChoicePage.class);
                             startActivity(intent);
                         }

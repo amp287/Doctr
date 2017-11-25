@@ -267,6 +267,7 @@ public class UserRegistration extends AppCompatActivity {
                             Long.parseLong(weight.getText().toString()));
 
                     database.child("UserProfiles").child(uid).setValue(user);
+                    database.child("ProfileNotComplete").child(uid).removeValue();
 
                     Intent intent = new Intent(UserRegistration.this, UserHome.class);
                     startActivity(intent);
