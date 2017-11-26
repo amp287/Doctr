@@ -5,10 +5,12 @@ import android.support.annotation.IdRes;
 import android.support.v7.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.text.format.DateFormat;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ListView;
 import android.widget.Spinner;
 
 import java.util.ArrayList;
@@ -20,14 +22,20 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import com.firebase.ui.database.FirebaseListAdapter;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class MessengerPage extends AppCompatActivity {
 
     private DataBase dataBase;
 
-    // Firebase
     private FirebaseAuth mAuth;
+
+    private FirebaseListAdapter<ChatMessage> adapter;
+
+    private DatabaseReference ref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,12 +47,20 @@ public class MessengerPage extends AppCompatActivity {
             //TODO: go to login activity
         }
 
-
+        ref = FirebaseDatabase.getInstance().getReference().child("UserProfiles");
 
     }
 
-    public void onClickBackButton(View view){
-        MessengerPage.this.finish();
-    }
+    private void displayDoctors(){
+        ListView messages = (ListView)findViewById(R.id.messages_list);
+
+        adapter =  new FirebaseListAdapter<ChatMessage>(this, ChatMessage.class, R.layout.conversation, ref){
+            @Override
+            protected void populateView(View v, ChatMessage model, int position){
+
+            }
+        };
+        messages.setAdapter(adapter);
+    };
 }
 

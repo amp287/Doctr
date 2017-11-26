@@ -3,6 +3,7 @@ package com.group.poop.doctr;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Patterns;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -12,6 +13,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import static java.lang.Thread.sleep;
 
 public class Interstitial extends AppCompatActivity {
 
@@ -28,28 +31,21 @@ public class Interstitial extends AppCompatActivity {
 
     }
 
-    // TODO handle users that closed the app while signing up
-
     @Override
     public void onStart() {
         super.onStart();
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if (currentUser != null) {
-            Toast.makeText(Interstitial.this, "Already Logged in!", Toast.LENGTH_SHORT).show();
+            // Get a reference to the docotr list of the database
             DatabaseReference doctorRef = mDatabase.child("doctorsList").child(currentUser.getUid());
+
             // Read from the database
             doctorRef.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-                    // This method is called once with the initial value and again
-                    // whenever data at this location is updated.
-                    Boolean isDoctor = false;
-                    isDoctor = dataSnapshot.exists();
+                    boolean isDoctor = dataSnapshot.exists();
                     if (isDoctor) {
                         Intent intent = new Intent(Interstitial.this, DoctorHome.class);
-                        startActivity(intent);
-                    } else {
-                        Intent intent = new Intent(Interstitial.this, UserHome.class);
                         startActivity(intent);
                     }
                 }
@@ -58,6 +54,39 @@ public class Interstitial extends AppCompatActivity {
                 public void onCancelled(DatabaseError error) {
                 }
             });
+
+            DatabaseReference userProfilesRef = mDatabase.child("UserProfiles").child(currentUser.getUid());
+            userProfilesRef.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    boolean isUser = dataSnapshot.exists();
+                    if (isUser) {
+                        Intent intent = new Intent(Interstitial.this, UserHome.class);
+                        startActivity(intent);
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                }
+            });
+
+            DatabaseReference profileNotCompleteRef = mDatabase.child("ProfileNotComplete").child(currentUser.getUid());
+            profileNotCompleteRef.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    boolean isNotComplete = dataSnapshot.exists();
+                    if (isNotComplete) {
+                        Intent intent = new Intent(Interstitial.this, SignUpChoicePage.class);
+                        startActivity(intent);
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                }
+            });
+
         } else {
             Intent intent = new Intent(Interstitial.this, LoginPage.class);
             startActivity(intent);
