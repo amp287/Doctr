@@ -18,7 +18,9 @@ import android.view.MenuItem;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class NewDoctorHome extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, TestFragment.OnFragmentInteractionListener {
+        implements NavigationView.OnNavigationItemSelectedListener,
+        TestFragment.OnFragmentInteractionListener,
+        PatientFragment.OnFragmentInteractionListener {
 
     private BottomNavigationView mBNV;
 
@@ -43,10 +45,17 @@ public class NewDoctorHome extends AppCompatActivity
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 Fragment selected = null;
+                FragmentTransaction transaction;
                 switch (item.getItemId()) {
                     case R.id.doctor_offered_appointments:
                         selected = TestFragment.newInstance();
-                        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                        transaction = getSupportFragmentManager().beginTransaction();
+                        transaction.replace(R.id.frameLayout, selected);
+                        transaction.commit();
+                        break;
+                    case R.id.doctor_patients:
+                        selected = PatientFragment.newInstance();
+                        transaction = getSupportFragmentManager().beginTransaction();
                         transaction.replace(R.id.frameLayout, selected);
                         transaction.commit();
                         break;
