@@ -35,14 +35,15 @@ public class SignUpChoicePage extends AppCompatActivity {
                 AlertDialog.Builder builder = new AlertDialog.Builder(SignUpChoicePage.this);
                 builder.setTitle("Attention");
                 builder.setMessage("Are you sure you wish to sign up as a doctor?");
-                String okText = "cancel";
+                String okText = "yes";
                 builder.setPositiveButton(okText, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-
+                        Intent intent = new Intent(SignUpChoicePage.this, DoctorRegistration.class);
+                        startActivity(intent);
                     }
                 });
-                String cancelText = "yes";
+                String cancelText = "cancel";
                 builder.setNegativeButton(cancelText, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {

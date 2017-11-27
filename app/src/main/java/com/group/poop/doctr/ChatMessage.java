@@ -27,43 +27,23 @@ public class ChatMessage {
     }
 
     //getters and setters needed by Firebase
-    public String getChatId(){
-        return chatId;
-    }
+    public String getChatId(){return chatId;}
 
-    public String getMessageContent(){
-        return content;
-    }
+    public String getMessageContent(){return content;}
 
-    public String getMessageSender(){
-        return from;
-    }
+    public String getMessageSender(){return from;}
 
-    public String getMessageReciever(){
-        return to;
-    }
+    public String getMessageReciever(){return to;}
 
-    public long getMessageTime(){
-        return timeStamp;
-    }
+    public long getMessageTime(){return timeStamp;}
 
-    public void setChatId(String id){
-        chatId = id;
-    }
+    public void setChatId(String id){chatId = id;}
 
-    public void setMessageContent(String content){
-        this.content = content;
-    }
+    public void setMessageContent(String content){this.content = content;}
 
-    public void setMessageSender(String userId){
-        this.from = userId;
-    }
+    public void setMessageSender(String userId) {this.from = userId;}
 
-    public void setMessageReciever(String userId){
-        this.to = userId;
-    }
+    public void setMessageReciever(String userId){this.to = userId;}
 
-    public void setMessageTime(long time){
-        this.timeStamp = time;
-    }
+    public void setMessageTime(long time){this.timeStamp = time;}
 }
