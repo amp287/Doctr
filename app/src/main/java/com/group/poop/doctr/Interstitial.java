@@ -45,7 +45,7 @@ public class Interstitial extends AppCompatActivity {
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     boolean isDoctor = dataSnapshot.exists();
                     if (isDoctor) {
-                        Intent intent = new Intent(Interstitial.this, DoctorHome.class);
+                        Intent intent = new Intent(Interstitial.this, NewDoctorHome.class);
                         startActivity(intent);
                     }
                 }

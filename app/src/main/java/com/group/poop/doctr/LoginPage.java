@@ -43,9 +43,9 @@ public class LoginPage extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
-        mEmail = (EditText) findViewById(R.id.email);
-        mPassword = (EditText) findViewById(R.id.password);
-        mLogin = (Button) findViewById(R.id.login);
+        mEmail = findViewById(R.id.email);
+        mPassword = findViewById(R.id.password);
+        mLogin = findViewById(R.id.login);
         mSignOut = findViewById(R.id.signOut);
         mSignUp = findViewById(R.id.signUp);
 
@@ -101,10 +101,9 @@ public class LoginPage extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated.
-                Boolean isDoctor = false;
-                isDoctor = dataSnapshot.exists();
+                Boolean isDoctor = dataSnapshot.exists();
                 if (isDoctor) {
-                    Intent intent = new Intent(LoginPage.this, DoctorHome.class);
+                    Intent intent = new Intent(LoginPage.this, NewDoctorHome.class);
                     startActivity(intent);
                 } else {
                     Intent intent = new Intent(LoginPage.this, UserHome.class);

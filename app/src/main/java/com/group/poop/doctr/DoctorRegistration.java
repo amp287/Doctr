@@ -149,7 +149,7 @@ public class DoctorRegistration extends AppCompatActivity {
                     ref.child("ProfileNotComplete").child(uid).removeValue();
                     ref.child("doctorsList").child(uid).setValue(true);
 
-                    Intent intent = new Intent(DoctorRegistration.this, DoctorHome.class);
+                    Intent intent = new Intent(DoctorRegistration.this, NewDoctorHome.class);
                     startActivity(intent);
                 }
             }
