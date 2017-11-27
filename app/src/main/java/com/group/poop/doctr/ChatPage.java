@@ -1,3 +1,4 @@
+/*
 package com.group.poop.doctr;
 
 import android.content.Intent;
@@ -10,7 +11,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.firebase.ui.database.FirebaseListAdapter;
+//import com.firebase.ui.database.FirebaseListAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -23,7 +24,7 @@ import java.util.ArrayList;
 /**
  * Created by amp on 11/24/17.
  */
-
+/*
 public class ChatPage extends AppCompatActivity {
 
     private DataBase dataBase;
@@ -36,7 +37,7 @@ public class ChatPage extends AppCompatActivity {
 
     private FirebaseUser user;
 
-    private FirebaseListAdapter<ChatMessage> adapter;
+    //private FirebaseListAdapter<ChatMessage> adapter;
 
     private ArrayList<ChatMessage> messages;
 
@@ -97,4 +98,6 @@ public class ChatPage extends AppCompatActivity {
         };
         messages.setAdapter(adapter);
     }
+
 }
+*/
