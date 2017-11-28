@@ -29,6 +29,9 @@
         android:text="message"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:textSize="18sp"
+        android:lines="1"
+        android:scrollHorizontally="true"
+        android:ellipsize="end"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/conversation_user" />
 </android.support.constraint.ConstraintLayout>
