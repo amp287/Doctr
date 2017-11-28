@@ -51,7 +51,7 @@ public class NewDoctorHome extends AppCompatActivity
         userEmailTextView = navigationView.getHeaderView(0).findViewById(R.id.userEmailTextView);
 
         // TODO - The .getDisplayName isn't returning a string value.
-        String userName = FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
+        String userName = FirebaseAuth.getInstance().getCurrentUser().getUid();
         String userEmail = FirebaseAuth.getInstance().getCurrentUser().getEmail();
 
         userNameTextView.setText(userName);
