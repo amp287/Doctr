@@ -28,13 +28,8 @@ public class Doctor {
 
     public Doctor(String formattedString)
     {
-        if(formattedString == null )
-        {
-            return;
-        }
+        if(formattedString == null ){ return; }
 
-        //formattedString = formattedString.replaceAll("\\{", "");
-        //formattedString = formattedString.replaceAll("\\}", "");
         formattedString = formattedString.trim();
 
         // Parse All Values
