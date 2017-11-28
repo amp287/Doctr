@@ -70,6 +70,17 @@ public class OfferedAppointmentsFragment extends Fragment {
         cEnd.set(Calendar.HOUR_OF_DAY, 15);
         cEnd.set(Calendar.MINUTE, 45);
 
+        Calendar cDate2 = Calendar.getInstance();
+        cDate.set(2018, 1, 9);
+
+        Calendar cStart2 = Calendar.getInstance();
+        cStart.set(Calendar.HOUR_OF_DAY, 9);
+        cStart.set(Calendar.MINUTE, 45);
+
+        Calendar cEnd2 = Calendar.getInstance();
+        cEnd.set(Calendar.HOUR_OF_DAY, 13);
+        cEnd.set(Calendar.MINUTE, 0);
+
         appointments.add(new Appointment("Orlando",
                 cDate.getTime(),
                 cStart.getTime(),
@@ -79,6 +90,17 @@ public class OfferedAppointmentsFragment extends Fragment {
                 "64789231678234689", // this is junk becareful with this test case
                 "Dr. Tom Brady",
                 "Looking at eyes and stuff."
+        ));
+
+        appointments.add(new Appointment("Wall Street",
+                cDate2.getTime(),
+                cStart2.getTime(),
+                cEnd2.getTime(),
+                35000L,
+                "CBC Blood Test",
+                "647896788984689", // this is junk becareful with this test case
+                "Dr. Martin Shkreli",
+                "You Know"
         ));
 
         OfferedAppointmentAdapter oaa = new OfferedAppointmentAdapter(appointments);
