@@ -30,29 +30,36 @@ import java.util.Date;
 public class UserRegistration extends AppCompatActivity {
     private DatabaseReference database;
 
+    // Name
     private TextInputLayout firstNameLayout;
     private EditText firstName;
     private TextInputLayout lastNameLayout;
     private EditText lastName;
+
+    // Date Of Birth
     private TextInputLayout dobLayout;
     private EditText dob;
+    private Calendar birthday;
+
+    // Gender
     private RadioGroup gender;
     private RadioButton male;
     private RadioButton female;
+
+    // Body Statistics
     private TextInputLayout heightLayout;
     private EditText height;
     private TextInputLayout weightLayout;
     private EditText weight;
 
+    // Medical Info
     private TextInputLayout allergiesLayout;
     private EditText allergies;
     private TextInputLayout medicationsLayout;
     private EditText medications;
 
+    // Registration
     private Button mRegister;
-
-    private Calendar birthday;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,10 +103,7 @@ public class UserRegistration extends AppCompatActivity {
         medicationsLayout = findViewById(R.id.medicationsLayout);
         medications = medicationsLayout.getEditText();
 
-
-
         mRegister = findViewById(R.id.register);
-
 
         //Filters for input
         firstName.addTextChangedListener(new TextWatcher() {
