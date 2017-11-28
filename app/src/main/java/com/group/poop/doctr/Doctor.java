@@ -31,4 +31,24 @@ public class Doctor {
     public String getLastName() {return lastName;}
     public String getSpecialization() {return specialization;}
     public String getSubSpecialization() {return subSpecialization;}
+
+    public void setUid(String uid) {
+        this.uid = uid;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public void setSpecialization(String specialization) {
+        this.specialization = specialization;
+    }
+
+    public void setSubSpecialization(String subSpecialization) {
+        this.subSpecialization = subSpecialization;
+    }
 }
