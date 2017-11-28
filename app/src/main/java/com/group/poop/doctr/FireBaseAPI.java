@@ -19,6 +19,11 @@ public class FireBaseAPI {
     private static DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
     public static Doctor doctor;
 
+    // Static initialization
+    static{
+        requestCurrentDoctor();
+    }
+
     public static void writeCurrentUser(User user)
     {
         // TODO - This API still needs
@@ -33,13 +38,9 @@ public class FireBaseAPI {
 
     }
 
-    public static void requestCurrentDoctor()
+    private static void requestCurrentDoctor()
     {
         // TODO - An API needs to be created for interfacing with firebase.
-
-        // Reset Doctor static reference
-        doctor = null;
-
         String uid = FirebaseAuth.getInstance().getUid();
         mDatabase.child("DoctorProfiles").child(uid).addValueEventListener(new ValueEventListener() {
             @Override

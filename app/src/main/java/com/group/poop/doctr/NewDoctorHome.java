@@ -24,6 +24,11 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -46,6 +51,9 @@ public class NewDoctorHome extends AppCompatActivity
     private StorageReference mStorage;
     private ProgressDialog mProgress;
     private static final int GALLERY_INTENT = 2;
+
+    private Doctor doctor = null;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,13 +78,28 @@ public class NewDoctorHome extends AppCompatActivity
         userEmailTextView = navigationView.getHeaderView(0).findViewById(R.id.userEmailTextView);
 
         // TODO - The .getDisplayName isn't returning a string value.
-        FireBaseAPI.requestCurrentDoctor();
-        Doctor dr = FireBaseAPI.doctor;
 
-        if( dr != null ) {
-            String userName = dr.getFirstName() + " ";// + dr.getLastName();
-            userNameTextView.setText(userName);
-        }
+        // TODO - An API needs to be created for interfacing with firebase.
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+        String uid = FirebaseAuth.getInstance().getUid();
+        mDatabase.child("DoctorProfiles").child(uid).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                String tempString = (String) snapshot.getValue().toString();
+                doctor = new Doctor(tempString);
+
+                if( doctor != null ) {
+                    String userName = doctor.getFirstName() + " " + doctor.getLastName();
+                    userNameTextView.setText(userName);
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+        //FireBaseAPI.requestCurrentDoctor();
+
+
 
         String userEmail = FirebaseAuth.getInstance().getCurrentUser().getEmail();
 
