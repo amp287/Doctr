@@ -1,5 +1,7 @@
 package com.group.poop.doctr;
 
+import android.app.ProgressDialog;
+import android.media.Image;
 import android.net.Uri;
 import android.support.v4.app.Fragment;
 import android.content.Intent;
@@ -14,9 +16,18 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.MotionEvent;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
 
 public class NewDoctorHome extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
@@ -31,6 +42,11 @@ public class NewDoctorHome extends AppCompatActivity
     private TextView userNameTextView;
     private TextView userEmailTextView;
 
+    private ImageView mDocView;
+    private StorageReference mStorage;
+    private ProgressDialog mProgress;
+    private static final int GALLERY_INTENT = 2;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +59,8 @@ public class NewDoctorHome extends AppCompatActivity
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
+
+        mStorage = FirebaseStorage.getInstance().getReference();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
@@ -93,6 +111,19 @@ public class NewDoctorHome extends AppCompatActivity
             }
         });
         mBNV.setSelectedItemId(R.id.doctor_offered_appointments);
+
+        mProgress = new ProgressDialog(this);
+        mDocView = navigationView.getHeaderView(0).findViewById(R.id.docView);
+
+        mDocView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                Intent intent = new Intent(Intent.ACTION_PICK);
+                intent.setType("image/*");
+                startActivityForResult(intent, GALLERY_INTENT);
+                return false;
+            }
+        });
     }
 
     @Override
@@ -159,5 +190,34 @@ public class NewDoctorHome extends AppCompatActivity
     @Override
     public void onFragmentInteraction(Uri uri) {
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode == GALLERY_INTENT && resultCode == RESULT_OK) {
+
+            mProgress.setMessage("Uploading Image");
+            mProgress.show();
+
+            Uri uri = data.getData();
+
+            StorageReference filepath = mStorage.child("Photos").child(uri.getLastPathSegment());
+
+            filepath.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+
+                    mProgress.dismiss();
+
+                    Uri downloadUri = taskSnapshot.getDownloadUrl();
+
+                    Picasso.with(NewDoctorHome.this).load(downloadUri).fit().centerCrop().into(mDocView);
+
+                    Toast.makeText(NewDoctorHome.this, "Upload Done", Toast.LENGTH_LONG).show();
+                }
+            });
+        }
     }
 }
