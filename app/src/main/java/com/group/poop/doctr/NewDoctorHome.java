@@ -28,7 +28,7 @@ public class NewDoctorHome extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
         TestFragment.OnFragmentInteractionListener,
         PatientFragment.OnFragmentInteractionListener,
-        OfferedAppointmentsFragment.OnFragmentInteractionListener {
+        OfferedAppointmentsFragment.OnFragmentInteractionListener,
         ConversationFragment.OnFragmentInteractionListener{
 
     private BottomNavigationView mBNV;
