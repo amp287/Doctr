@@ -81,38 +81,38 @@ public class NewDoctorHome extends AppCompatActivity
         userNameTextView.setText(userName);
         userEmailTextView.setText(userEmail);
 
-//        mBNV = findViewById(R.id.doctor_bottom_navigation);
-//        mBNV.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-//            @Override
-//            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-//                Fragment selected = null;
-//                FragmentTransaction transaction;
-//                switch (item.getItemId()) {
-//                    case R.id.doctor_offered_appointments:
-//                        selected = OfferedAppointmentsFragment.newInstance();
-//                        transaction = getSupportFragmentManager().beginTransaction();
-//                        transaction.replace(R.id.frameLayout, selected);
-//                        transaction.commit();
-//                        break;
-//                    case R.id.doctor_patients:
-//                        selected = PatientFragment.newInstance();
-//                        transaction = getSupportFragmentManager().beginTransaction();
-//                        transaction.replace(R.id.frameLayout, selected);
-//                        transaction.commit();
-//                        break;
-//                    case R.id.doctor_messages:
-//                        selected = ConversationFragment.newInstance();
-//                        transaction = getSupportFragmentManager().beginTransaction();
-//                        transaction.replace(R.id.frameLayout, selected);
-//                        transaction.commit();
-//                }
-//                //FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-//                //transaction.replace(R.id.frameLayout, selected);
-//                //transaction.commit();
-//                return true;
-//            }
-//        });
-//        mBNV.setSelectedItemId(R.id.doctor_offered_appointments);
+        mBNV = findViewById(R.id.doctor_bottom_navigation);
+        mBNV.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                Fragment selected = null;
+                FragmentTransaction transaction;
+                switch (item.getItemId()) {
+                    case R.id.doctor_offered_appointments:
+                        selected = OfferedAppointmentsFragment.newInstance();
+                        transaction = getSupportFragmentManager().beginTransaction();
+                        transaction.replace(R.id.frameLayout, selected);
+                        transaction.commit();
+                        break;
+                    case R.id.doctor_patients:
+                        selected = PatientFragment.newInstance();
+                        transaction = getSupportFragmentManager().beginTransaction();
+                        transaction.replace(R.id.frameLayout, selected);
+                        transaction.commit();
+                        break;
+                    case R.id.doctor_messages:
+                        selected = ConversationFragment.newInstance();
+                        transaction = getSupportFragmentManager().beginTransaction();
+                        transaction.replace(R.id.frameLayout, selected);
+                        transaction.commit();
+                }
+                //FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                //transaction.replace(R.id.frameLayout, selected);
+                //transaction.commit();
+                return true;
+            }
+        });
+        mBNV.setSelectedItemId(R.id.doctor_offered_appointments);
     }
 
     @Override
