@@ -89,7 +89,7 @@ public class NewDoctorHome extends AppCompatActivity
                 FragmentTransaction transaction;
                 switch (item.getItemId()) {
                     case R.id.doctor_offered_appointments:
-                        selected = TestFragment.newInstance();
+                        selected = OfferedAppointmentsFragment.newInstance();
                         transaction = getSupportFragmentManager().beginTransaction();
                         transaction.replace(R.id.frameLayout, selected);
                         transaction.commit();
