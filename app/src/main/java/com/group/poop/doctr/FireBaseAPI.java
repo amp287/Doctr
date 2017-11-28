@@ -17,7 +17,7 @@ import com.google.firebase.database.ValueEventListener;
 public class FireBaseAPI {
 
     private static DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
-    private static Doctor doctor;
+    public static Doctor doctor;
 
     public static void writeCurrentUser(User user)
     {
@@ -33,7 +33,7 @@ public class FireBaseAPI {
 
     }
 
-    public static Doctor getCurrentDoctor()
+    public static void requestCurrentDoctor()
     {
         // TODO - An API needs to be created for interfacing with firebase.
 
@@ -52,8 +52,8 @@ public class FireBaseAPI {
             }
         });
 
-        // TODO - Maybe add a split-second delay if needed
-        return doctor;
+
+        //return doctor;
     }
 
 }
