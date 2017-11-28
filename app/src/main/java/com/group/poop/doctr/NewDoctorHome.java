@@ -18,13 +18,20 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class NewDoctorHome extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
         TestFragment.OnFragmentInteractionListener,
-        PatientFragment.OnFragmentInteractionListener {
+        PatientFragment.OnFragmentInteractionListener,
+        OfferedAppointmentsFragment.OnFragmentInteractionListener {
 
     private BottomNavigationView mBNV;
+    private DatabaseReference ref;
 
     // Text View
     private TextView userNameTextView;
@@ -45,6 +52,22 @@ public class NewDoctorHome extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        // Example of reading from the database
+        ref = FirebaseDatabase.getInstance().getReference();
+        String uid = FirebaseAuth.getInstance().getUid();
+        DatabaseReference drNameRef = ref.child("DoctorProfiles").child(uid);
+        drNameRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Doctor dr = dataSnapshot.getValue(Doctor.class);
+                userNameTextView.setText("Dr. " + dr.getFirstName() + " " + dr.getLastName());
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
 
         // Initialize Name and Email
         userNameTextView = navigationView.getHeaderView(0).findViewById(R.id.userNameTextView);
