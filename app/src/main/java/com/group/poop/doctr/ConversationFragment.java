@@ -28,13 +28,10 @@ import java.util.Date;
 public class ConversationFragment extends Fragment {
 
     private String uid;
-    private String isDoctor;
+    private int conversation_number;
     private DatabaseReference ref;
 
-    private String userName;
-    private String mParam2;
-
-    private ArrayList<Conversation> conversations;
+    private ArrayList<ConversationListFiller> conversations;
 
     private OnFragmentInteractionListener mListener;
 
@@ -50,7 +47,9 @@ public class ConversationFragment extends Fragment {
 
         uid = FirebaseAuth.getInstance().getUid();
 
-        conversations = new ArrayList<Conversation>();
+        conversation_number = 0;
+
+        conversations = new ArrayList<ConversationListFiller>();
 
         ref = FirebaseDatabase.getInstance().getReference().child("Conversations");
 
@@ -60,21 +59,32 @@ public class ConversationFragment extends Fragment {
                 Conversation conv = dataSnapshot.getValue(Conversation.class);
 
                 if(conv.getDoctorUID().equals(uid) || conv.getPatientUID().equals(uid)) {
-                    conversations.add(conv);
+                    conversations.add(new ConversationListFiller(conv.getDoctorName(),
+                            conv.getPatientName(), conv.getDoctorUID(), conv.getPatientUID(), null));
                     Query query = FirebaseDatabase.getInstance().getReference()
                             .child("Messages").child(dataSnapshot.getKey()).orderByKey().limitToLast(1);
                     query.addChildEventListener(new ChildEventListener() {
                         @Override
                         public void onChildAdded(DataSnapshot dataSnapshot, String prevChildKey) {
                             if (dataSnapshot.exists()) {
-                                //Fix so that we get the last messages data
+                                String from;
+
                                 ChatMessage message = dataSnapshot.getValue(ChatMessage.class);
 
                                 View view = getView();
 
-                                if (view != null) {
+                                if (view != null && message != null) {
+                                    ConversationListFiller conv = conversations.get(conversation_number);
+                                    conv.last = message;
+                                    conversation_number++;
+
+                                    if(uid.equals(conv.doctorUID))
+                                        conv.nameToShow = conv.patient;
+                                    else
+                                        conv.nameToShow = conv.doctor;
+
                                     ListView listView = (ListView) view.findViewById(R.id.conversation_list);
-                                    listView.setAdapter(new ConversationAdapter(getActivity(), conversations, message.getMessageAuthor(), message.getMessageContent(), message.getMessageTime()));
+                                    listView.setAdapter(new ConversationAdapter(getActivity(), conversations));
                                 }
 
                             }

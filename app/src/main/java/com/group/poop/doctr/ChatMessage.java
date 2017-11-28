@@ -11,24 +11,24 @@ public class ChatMessage {
     private String content;
     private String author;
     private String authorUID;
-    private long timeStamp;
+    private long time;
 
     public ChatMessage(String content, String author, String authorUID){
         this.content = content;
         this.author = author;
         this.authorUID = authorUID;
-        this.timeStamp = new Date().getTime();
+        this.time = new Date().getTime();
     }
 
     public ChatMessage(){
 
     }
 
-    public String getMessageContent(){return content;}
+    public String getContent(){return content;}
 
-    public String getMessageAuthor(){return author;}
+    public String getAuthor(){return author;}
 
-    public long getMessageTime(){return timeStamp;}
+    public long getTime(){return time;}
 
     public String getAuthorUID(){return authorUID;}
 

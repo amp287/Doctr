@@ -15,22 +15,16 @@ import java.util.Date;
  */
 
 //used to populate conversation_list
-public class ConversationAdapter extends ArrayAdapter<Conversation> {
-    private String userNameToShow;
-    private String lastMessage;
-    private Date time;
+public class ConversationAdapter extends ArrayAdapter<ConversationListFiller> {
 
-    public ConversationAdapter(Context context, ArrayList<Conversation> metaData, String userNameToShow, String lastMessage, long time) {
+    public ConversationAdapter(Context context, ArrayList<ConversationListFiller> metaData) {
         super(context, R.layout.conversation, metaData);
-        this.userNameToShow = userNameToShow;
-        this.lastMessage = lastMessage;
-        this.time = new Date(time);
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         // Get the data item for this position
-        Conversation metaData = getItem(position);
+        ConversationListFiller metaData = getItem(position);
         // Check if an existing view is being reused, otherwise inflate the view
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.conversation, parent, false);
@@ -40,9 +34,9 @@ public class ConversationAdapter extends ArrayAdapter<Conversation> {
         TextView time = (TextView) convertView.findViewById(R.id.conversation_time);
         TextView message = (TextView) convertView.findViewById(R.id.conversation_last_message);
 
-        user.setText(userNameToShow);
-        time.setText(time.toString());
-        message.setText(lastMessage);
+        user.setText(metaData.nameToShow);
+        time.setText(new Date(metaData.last.getTime()).toString());
+        message.setText(metaData.last.getContent());
 
         return convertView;
     }
