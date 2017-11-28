@@ -245,4 +245,11 @@ public class NewDoctorHome extends AppCompatActivity
             });
         }
     }
+
+    @Override
+    public void onFragmentInteraction(String chatId) {
+         Intent intent = new Intent(this, ChatPage.class);
+         intent.putExtra(ChatPage.CHAT_ID_PARAM, chatId);
+         startActivity(intent);
+    }
 }

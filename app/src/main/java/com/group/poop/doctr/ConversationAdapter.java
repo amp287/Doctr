@@ -33,10 +33,12 @@ public class ConversationAdapter extends ArrayAdapter<ConversationListFiller> {
         TextView user = (TextView) convertView.findViewById(R.id.conversation_user);
         TextView time = (TextView) convertView.findViewById(R.id.conversation_time);
         TextView message = (TextView) convertView.findViewById(R.id.conversation_last_message);
+        if(metaData.last != null){
+            user.setText(metaData.nameToShow);
+            time.setText(new Date(metaData.last.getTime()).toString());
+            message.setText(metaData.last.getContent());
 
-        user.setText(metaData.nameToShow);
-        time.setText(new Date(metaData.last.getTime()).toString());
-        message.setText(metaData.last.getContent());
+        }
 
         return convertView;
     }
