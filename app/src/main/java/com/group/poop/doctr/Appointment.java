@@ -14,6 +14,7 @@ public class Appointment {
     Long price;
     String speciality; // will probably correspond to sub-speciality; it is the type of appointment e.g. tooth filling or heart surgery
     String doctorUID; // do not include in ui
+    String doctorName;
     String description;
 
     // Zero parameter constructor for Firebase
@@ -21,7 +22,15 @@ public class Appointment {
 
     }
 
-    public Appointment(String location, Date date, Date startTime, Date endTime, Long price, String speciality, String doctorUID, String description) {
+    public Appointment(String location,
+                       Date date,
+                       Date startTime,
+                       Date endTime,
+                       Long price,
+                       String speciality,
+                       String doctorUID,
+                       String doctorName,
+                       String description) {
         this.location = location;
         this.date = date;
         this.startTime = startTime;
@@ -29,6 +38,7 @@ public class Appointment {
         this.price = price;
         this.speciality = speciality;
         this.doctorUID = doctorUID;
+        this.doctorName = doctorName;
         this.description = description;
     }
 
@@ -86,6 +96,14 @@ public class Appointment {
 
     public void setDoctorUID(String doctorUID) {
         this.doctorUID = doctorUID;
+    }
+
+    public String getDoctorName() {
+        return doctorName;
+    }
+
+    public void setDoctorName(String doctorName) {
+        this.doctorName = doctorName;
     }
 
     public String getDescription() {
