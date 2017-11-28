@@ -28,11 +28,8 @@ import java.util.Date;
 public class ConversationFragment extends Fragment {
 
     private String uid;
-    private int conversation_number;
     private DatabaseReference ref;
-
     private ArrayList<ConversationListFiller> conversations;
-
     private OnFragmentInteractionListener mListener;
 
     public ConversationFragment() {
@@ -47,8 +44,6 @@ public class ConversationFragment extends Fragment {
 
         uid = FirebaseAuth.getInstance().getUid();
 
-        conversation_number = 0;
-
         conversations = new ArrayList<ConversationListFiller>();
 
         ref = FirebaseDatabase.getInstance().getReference().child("Conversations");
@@ -59,7 +54,7 @@ public class ConversationFragment extends Fragment {
                 Conversation conv = dataSnapshot.getValue(Conversation.class);
 
                 if(conv.getDoctorUID().equals(uid) || conv.getPatientUID().equals(uid)) {
-                    conversations.add(new ConversationListFiller(conv.getDoctorName(),
+                    conversations.add(new ConversationListFiller(dataSnapshot.getKey(), conv.getDoctorName(),
                             conv.getPatientName(), conv.getDoctorUID(), conv.getPatientUID(), null));
                     Query query = FirebaseDatabase.getInstance().getReference()
                             .child("Messages").child(dataSnapshot.getKey()).orderByKey().limitToLast(1);
@@ -68,23 +63,35 @@ public class ConversationFragment extends Fragment {
                         public void onChildAdded(DataSnapshot dataSnapshot, String prevChildKey) {
                             if (dataSnapshot.exists()) {
                                 String from;
+                                int i;
+
+                                String chatId = dataSnapshot.getRef().getParent().getKey();
 
                                 ChatMessage message = dataSnapshot.getValue(ChatMessage.class);
 
                                 View view = getView();
 
                                 if (view != null && message != null) {
-                                    ConversationListFiller conv = conversations.get(conversation_number);
-                                    conv.last = message;
-                                    conversation_number++;
+                                    ConversationListFiller conv = null;
+                                   for(i = 0; i < conversations.size(); i++){
+                                       if(conversations.get(i).chatID.equals(chatId)){
+                                           conv = conversations.get(i);
+                                           conversations.remove(i);
+                                           conversations.add(0, conv);
+                                           conv.last = message;
+                                           break;
+                                       }
+                                   }
+                                    if(conv != null){
+                                        if(uid.equals(conv.doctorUID))
+                                            conv.nameToShow = conv.patient;
+                                        else
+                                            conv.nameToShow = conv.doctor;
 
-                                    if(uid.equals(conv.doctorUID))
-                                        conv.nameToShow = conv.patient;
-                                    else
-                                        conv.nameToShow = conv.doctor;
+                                        ListView listView = (ListView) view.findViewById(R.id.conversation_list);
+                                        listView.setAdapter(new ConversationAdapter(getActivity(), conversations));
+                                    }
 
-                                    ListView listView = (ListView) view.findViewById(R.id.conversation_list);
-                                    listView.setAdapter(new ConversationAdapter(getActivity(), conversations));
                                 }
 
                             }
@@ -141,6 +148,7 @@ public class ConversationFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
                 //i think position is the position in the list?
+
             }
         });
 
