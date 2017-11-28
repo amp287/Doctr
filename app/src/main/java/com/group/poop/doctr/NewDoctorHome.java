@@ -24,6 +24,11 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -47,6 +52,9 @@ public class NewDoctorHome extends AppCompatActivity
     private ProgressDialog mProgress;
     private static final int GALLERY_INTENT = 2;
 
+    private Doctor doctor = null;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,14 +77,27 @@ public class NewDoctorHome extends AppCompatActivity
         userNameTextView = navigationView.getHeaderView(0).findViewById(R.id.userNameTextView);
         userEmailTextView = navigationView.getHeaderView(0).findViewById(R.id.userEmailTextView);
 
-        // TODO - The .getDisplayName isn't returning a string value.
-        User user = FireBaseAPI.getCurrentUser();
-        if( user != null ) {
-            String userName = user.getFirstName() + " " + user.getLastName();
-            userNameTextView.setText(userName);
-        }
-        String userEmail = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+        // Display - Users Name
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+        String uid = FirebaseAuth.getInstance().getUid();
+        mDatabase.child("DoctorProfiles").child(uid).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                String tempString = (String) snapshot.getValue().toString();
+                doctor = new Doctor(tempString);
 
+                if( doctor != null ) {
+                    String userName = doctor.getFirstName() + " " + doctor.getLastName();
+                    userNameTextView.setText(userName);
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+
+        // Display - User Email
+        String userEmail = FirebaseAuth.getInstance().getCurrentUser().getEmail();
         userEmailTextView.setText(userEmail);
 
         mBNV = findViewById(R.id.doctor_bottom_navigation);
@@ -219,5 +240,12 @@ public class NewDoctorHome extends AppCompatActivity
                 }
             });
         }
+    }
+
+    @Override
+    public void onFragmentInteraction(String chatId) {
+         Intent intent = new Intent(this, ChatPage.class);
+         intent.putExtra(ChatPage.CHAT_ID_PARAM, chatId);
+         startActivity(intent);
     }
 }
