@@ -58,10 +58,15 @@ public class NewDoctorHome extends AppCompatActivity
         ref = FirebaseDatabase.getInstance().getReference();
         String uid = FirebaseAuth.getInstance().getUid();
         DatabaseReference drNameRef = ref.child("DoctorProfiles").child(uid);
+
+        // TODO - An API needs to be created for interfacing with firebase.
 //        drNameRef.addValueEventListener(new ValueEventListener() {
 //            @Override
 //            public void onDataChange(DataSnapshot dataSnapshot) {
 //                Doctor dr = dataSnapshot.getValue(Doctor.class);
+//                String firstName = dr.getFirstName();
+//                String lastName = dr.getLastName();
+//
 //                userNameTextView.setText("Dr. " + dr.getFirstName() + " " + dr.getLastName());
 //            }
 //
@@ -69,7 +74,7 @@ public class NewDoctorHome extends AppCompatActivity
 //            public void onCancelled(DatabaseError databaseError) {
 //            }
 //        });
-//
+
 //        // Initialize Name and Email
         userNameTextView = navigationView.getHeaderView(0).findViewById(R.id.userNameTextView);
         userEmailTextView = navigationView.getHeaderView(0).findViewById(R.id.userEmailTextView);
