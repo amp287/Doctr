@@ -15,7 +15,7 @@ public class User {
     private String allergies;
     private String medications;
 
-    //private Image profilePicture; figure this out later
+    // TODO - private Image profilePicture; figure this out later
 
     // Empty default constructor for Firebase to populate child nodes
     User(){
