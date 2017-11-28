@@ -202,7 +202,8 @@ public class NewDoctorHome extends AppCompatActivity
 
             Uri uri = data.getData();
 
-            StorageReference filepath = mStorage.child("Photos").child(uri.getLastPathSegment());
+            String uid = FirebaseAuth.getInstance().getUid();
+            StorageReference filepath = mStorage.child("Photos").child(uid);
 
             filepath.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
