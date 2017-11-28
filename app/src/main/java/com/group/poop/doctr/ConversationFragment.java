@@ -1,6 +1,7 @@
 package com.group.poop.doctr;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -82,7 +83,7 @@ public class ConversationFragment extends Fragment {
                                            break;
                                        }
                                    }
-                                    if(conv != null){
+                                    if(conv != null && conv.last != null){
                                         if(uid.equals(conv.doctorUID))
                                             conv.nameToShow = conv.patient;
                                         else
@@ -127,13 +128,6 @@ public class ConversationFragment extends Fragment {
         });
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -147,7 +141,10 @@ public class ConversationFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
-                //i think position is the position in the list?
+               ConversationListFiller conv = conversations.get(position);
+                if (mListener != null) {
+                    mListener.onFragmentInteraction(conv.chatID);
+                }
 
             }
         });
@@ -184,7 +181,7 @@ public class ConversationFragment extends Fragment {
      */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+        void onFragmentInteraction(String chatId);
     }
 }
 
