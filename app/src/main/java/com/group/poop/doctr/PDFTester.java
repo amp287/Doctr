@@ -96,11 +96,10 @@ public class PDFTester extends AppCompatActivity {
         // Construct user test data
         LocalDate dob = LocalDate.of(1977, 5, 25);
         Date birthday = Date.from(dob.atStartOfDay(ZoneId.systemDefault()).toInstant());
-        String all = "allg1, al2";
-        String med = "";
+
         final User currentUser = new User("1234567890", "Luke",
                                           "Skywalker", birthday, "male",
-                                          68L, 160L, all, med);
+                                          68L, 160L, "Porgs, Peanuts","Aspirin");
 
         // Construct medical record test data
         final ArrayList<MedicalRecord> record_list = new ArrayList<>();
@@ -158,7 +157,7 @@ public class PDFTester extends AppCompatActivity {
             Canvas canvas = page.getCanvas();
 
             TextPaint userTextPaint = new TextPaint();
-            userTextPaint.setTextSize(16);
+            userTextPaint.setTextSize(13);
 
             TextPaint medRecTextPaint = new TextPaint();
             medRecTextPaint.setTextSize(12);
@@ -174,12 +173,13 @@ public class PDFTester extends AppCompatActivity {
             String userProfileText = (user.getFirstName().toUpperCase() + "  " + user.getLastName().toUpperCase() + "\n"
                     + user.getGender().toUpperCase() + "\n"
                     + "DOB: " + birthday + "\n"
-                    + "AGE: " + age + "\n"
-                    + "HEIGHT: " + user.getHeight().toString() + " in" + "\n"
-                    + "WEIGHT: " + user.getWeight().toString() + " lb" + "\n"
+                    + "Age: " + age + "\n"
+                    + "Height: " + user.getHeight().toString() + " in" + "    "+ "Weight: " + user.getWeight().toString()+ " lb" + "\n"
+                    + "Allergies: " + user.getAllergies().toString() + "\n"
+                    + "Medications: " + user.getMedications().toString() + "\n"
             );
 
-            StaticLayout userProfileLayout = new StaticLayout(userProfileText, userTextPaint, canvas.getWidth() - PAD*2, Layout.Alignment.ALIGN_CENTER, 1.0f, 1.0f, true);
+            StaticLayout userProfileLayout = new StaticLayout(userProfileText, userTextPaint, canvas.getWidth() - PAD*2, Layout.Alignment.ALIGN_NORMAL, 1.0f, 1.0f, true);
 
             canvas.save();
             canvas.translate(PAD, PAD);
