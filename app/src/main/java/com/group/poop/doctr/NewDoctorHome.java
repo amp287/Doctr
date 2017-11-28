@@ -3,6 +3,7 @@ package com.group.poop.doctr;
 import android.app.ProgressDialog;
 import android.media.Image;
 import android.net.Uri;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
@@ -42,6 +43,7 @@ public class NewDoctorHome extends AppCompatActivity
         ConversationFragment.OnFragmentInteractionListener{
 
     private BottomNavigationView mBNV;
+    private FloatingActionButton mFAB;
 
     // Text View
     private TextView userNameTextView;
@@ -67,6 +69,8 @@ public class NewDoctorHome extends AppCompatActivity
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
+
+        mFAB = findViewById(R.id.doctor_fab);
 
         mStorage = FirebaseStorage.getInstance().getReference();
 
@@ -112,18 +116,32 @@ public class NewDoctorHome extends AppCompatActivity
                         transaction = getSupportFragmentManager().beginTransaction();
                         transaction.replace(R.id.frameLayout, selected);
                         transaction.commit();
+                        mFAB.show();
+                        mFAB.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Intent intent = new Intent(NewDoctorHome.this, CreateAppointment.class);
+                                startActivity(intent);
+                            }
+                        });
+                        break;
+                    case R.id.doctor_upcoming_appointments:
+                        mFAB.hide();
                         break;
                     case R.id.doctor_patients:
                         selected = PatientFragment.newInstance();
                         transaction = getSupportFragmentManager().beginTransaction();
                         transaction.replace(R.id.frameLayout, selected);
                         transaction.commit();
+                        mFAB.hide();
                         break;
                     case R.id.doctor_messages:
                         selected = ConversationFragment.newInstance();
                         transaction = getSupportFragmentManager().beginTransaction();
                         transaction.replace(R.id.frameLayout, selected);
                         transaction.commit();
+                        mFAB.hide();
+                        break;
                 }
                 //FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                 //transaction.replace(R.id.frameLayout, selected);
