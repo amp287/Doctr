@@ -40,6 +40,9 @@ public class SignUpChoicePage extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         Intent intent = new Intent(SignUpChoicePage.this, DoctorRegistration.class);
+                        final String EXTRA_MESSAGE = "finishButtonLable";
+                        String finishButtonLable = "Register";
+                        intent.putExtra(EXTRA_MESSAGE, finishButtonLable);
                         startActivity(intent);
                     }
                 });

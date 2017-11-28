@@ -55,6 +55,18 @@ public class DoctorRegistration extends AppCompatActivity {
         lastNameLayout = findViewById(R.id.lastNameLayout);
         lastName = lastNameLayout.getEditText();
 
+        ////////////////////////////////////////////////////////////////////////////////////////////
+        // Retrieve and Set Final Button Lable
+        final String EXTRA_MESSAGE = "finishButtonLable";
+        Bundle extras = getIntent().getExtras();
+        String newString;
+        if(extras == null) {
+            newString= null;
+        } else {
+            newString= extras.getString(EXTRA_MESSAGE);
+            finish.setText(newString);
+        }
+
         firstName.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
