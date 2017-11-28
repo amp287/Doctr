@@ -44,6 +44,7 @@ public class UserRegistration extends AppCompatActivity {
     private TextInputLayout weightLayout;
     private EditText weight;
     private Button mRegister;
+    private EditText mAllergieTextEdit;
 
     private Calendar birthday;
 
@@ -85,6 +86,7 @@ public class UserRegistration extends AppCompatActivity {
         weightLayout = findViewById(R.id.weightLayout);
         weight = weightLayout.getEditText();
         mRegister = findViewById(R.id.register);
+        mAllergieTextEdit = findViewById(R.id.allergieTextEdit);
 
         //Filters for input
         firstName.addTextChangedListener(new TextWatcher() {
