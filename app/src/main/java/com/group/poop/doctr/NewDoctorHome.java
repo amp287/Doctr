@@ -48,9 +48,10 @@ public class NewDoctorHome extends AppCompatActivity
 
         // Initialize Name and Email
         userNameTextView = navigationView.getHeaderView(0).findViewById(R.id.userNameTextView);
-        userNameTextView.setText("Mario (Doctors name goes here)");
-
         userEmailTextView = navigationView.getHeaderView(0).findViewById(R.id.userEmailTextView);
+
+        // TODO - Properly set the Dr's name and email. 
+        userNameTextView.setText("Mario (Doctors name goes here)");
         userEmailTextView.setText("mosborn1987@gmail.com (Doctors email should go here)");
 
         mBNV = findViewById(R.id.doctor_bottom_navigation);
