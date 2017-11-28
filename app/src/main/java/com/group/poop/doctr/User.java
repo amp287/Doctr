@@ -15,7 +15,7 @@ public class User {
     private String allergies;
     private String medications;
 
-    //private Image profilePicture; figure this out later
+    // TODO - private Image profilePicture; figure this out later
 
     // Empty default constructor for Firebase to populate child nodes
     User(){
@@ -31,6 +31,7 @@ public class User {
          Long height,
          Long weight,
          String allergies,
+
          String medications
     ) {
         this.uid = uid;
@@ -73,4 +74,40 @@ public class User {
     public String getAllergies() { return allergies; }
 
     public String getMedications() { return medications; }
+
+    public void setUid(String uid) {
+        this.uid = uid;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public void setBirthday(Date birthday) {
+        this.birthday = birthday;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public void setWeight(Long weight) {
+        this.weight = weight;
+    }
+
+    public void setHeight(Long height) {
+        this.height = height;
+    }
+
+    public void setAllergies(String allergies) {
+        this.allergies = allergies;
+    }
+
+    public void setMedications(String medications) {
+        this.medications = medications;
+    }
 }
