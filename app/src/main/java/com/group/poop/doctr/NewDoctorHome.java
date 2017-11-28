@@ -14,6 +14,8 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -23,6 +25,7 @@ public class NewDoctorHome extends AppCompatActivity
         PatientFragment.OnFragmentInteractionListener {
 
     private BottomNavigationView mBNV;
+    private Button Button_createAppt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +42,16 @@ public class NewDoctorHome extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        Button_createAppt = findViewById(R.id.Button_createAppt);
+        Button_createAppt.setOnClickListener(new View.OnClickListener() {
+            public void onClick (View v) {
+                Intent intent = new Intent(NewDoctorHome.this, CreateAppointment.class);
+                startActivity(intent);
+            }
+        });
+
+
 
         mBNV = findViewById(R.id.doctor_bottom_navigation);
         mBNV.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
