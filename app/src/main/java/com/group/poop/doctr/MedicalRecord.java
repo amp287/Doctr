@@ -28,4 +28,16 @@ public class MedicalRecord {
     public String getApptDesc() {
         return apptDesc;
     }
+
+    public void setApptType(String apptType) {
+        this.apptType = apptType;
+    }
+
+    public void setApptTime(Calendar apptTime) {
+        this.apptTime = apptTime;
+    }
+
+    public void setApptDesc(String apptDesc) {
+        this.apptDesc = apptDesc;
+    }
 }
