@@ -115,13 +115,12 @@ public class NewDoctorHome extends AppCompatActivity
         mProgress = new ProgressDialog(this);
         mDocView = navigationView.getHeaderView(0).findViewById(R.id.docView);
 
-        mDocView.setOnTouchListener(new View.OnTouchListener() {
+        mDocView.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
+            public void onClick(View view) {
                 Intent intent = new Intent(Intent.ACTION_PICK);
                 intent.setType("image/*");
                 startActivityForResult(intent, GALLERY_INTENT);
-                return false;
             }
         });
     }
