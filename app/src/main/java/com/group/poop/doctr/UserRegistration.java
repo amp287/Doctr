@@ -43,8 +43,12 @@ public class UserRegistration extends AppCompatActivity {
     private EditText height;
     private TextInputLayout weightLayout;
     private EditText weight;
+    private TextInputLayout allergiesLayout;
+    private EditText allergies;
+    private TextInputLayout medicationsLayout;
+    private EditText medications;
+
     private Button mRegister;
-    private EditText mAllergieTextEdit;
 
     private Calendar birthday;
 
@@ -85,8 +89,16 @@ public class UserRegistration extends AppCompatActivity {
         height = heightLayout.getEditText();
         weightLayout = findViewById(R.id.weightLayout);
         weight = weightLayout.getEditText();
+
+        allergiesLayout = findViewById(R.id.allergiesLayout);
+        allergies = allergiesLayout.getEditText();
+        medicationsLayout = findViewById(R.id.medicationsLayout);
+        medications = medicationsLayout.getEditText();
+
+
+
         mRegister = findViewById(R.id.register);
-        mAllergieTextEdit = findViewById(R.id.allergieTextEdit);
+
 
         //Filters for input
         firstName.addTextChangedListener(new TextWatcher() {
@@ -266,7 +278,9 @@ public class UserRegistration extends AppCompatActivity {
                             birthday.getTime(),
                             genderText,
                             Long.parseLong(height.getText().toString()),
-                            Long.parseLong(weight.getText().toString()));
+                            Long.parseLong(weight.getText().toString()),
+                            allergies.getText().toString(),
+                            medications.getText().toString());
 
                     database.child("UserProfiles").child(uid).setValue(user);
                     database.child("ProfileNotComplete").child(uid).removeValue();

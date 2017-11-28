@@ -1,6 +1,8 @@
 package com.group.poop.doctr;
 
+import java.util.ArrayList;
 import java.util.Date;
+
 
 public class User {
     private String uid; // corresponds to Firebase Authentication unique identifier (UID)
@@ -10,6 +12,9 @@ public class User {
     private String gender;
     private Long weight; // lbs
     private Long height; // inches
+    private String allergies;
+    private String medications;
+
     //private Image profilePicture; figure this out later
 
     // Empty default constructor for Firebase to populate child nodes
@@ -17,7 +22,7 @@ public class User {
 
     }
 
-    User(String uid, String firstName, String lastName, Date birthday, String gender, Long height, Long weight) {
+    User(String uid, String firstName, String lastName, Date birthday, String gender, Long height, Long weight, String allergies, String medications) {
         this.uid = uid;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -25,6 +30,8 @@ public class User {
         this.gender = gender;
         this.weight = weight;
         this.height = height;
+        this.allergies = allergies;
+        this.medications = medications;
     }
 
     public String getUid() {
@@ -51,7 +58,9 @@ public class User {
         return weight;
     }
 
-    public Long getHeight() {
-        return height;
-    }
+    public Long getHeight() { return height; }
+
+    public String getAllergies() { return allergies; }
+
+    public String getMedications() { return medications; }
 }
