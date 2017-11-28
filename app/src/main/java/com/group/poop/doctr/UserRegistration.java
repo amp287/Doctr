@@ -43,6 +43,7 @@ public class UserRegistration extends AppCompatActivity {
     private EditText height;
     private TextInputLayout weightLayout;
     private EditText weight;
+
     private TextInputLayout allergiesLayout;
     private EditText allergies;
     private TextInputLayout medicationsLayout;
@@ -228,14 +229,18 @@ public class UserRegistration extends AppCompatActivity {
                         && (lastNameLayout.getError() == null)
                         && (dobLayout.getError() == null)
                         && (heightLayout.getError() == null)
-                        && (weightLayout.getError() == null);
+                        && (weightLayout.getError() == null)
+                        && (allergiesLayout.getError() == null)
+                        && (medicationsLayout.getError() == null);
 
                 boolean filledOut = (firstName.getText().length() > 0)
                         && (lastName.getText().length() > 0)
                         && (dob.getText().length() > 0)
                         && (gender.getCheckedRadioButtonId() > -1)
                         && (height.getText().length() > 0)
-                        && (weight.getText().length() > 0);
+                        && (weight.getText().length() > 0)
+                        && (allergies.getText().length() > 0)
+                        && (medications.getText().length() > 0);
 
                 if (!errorFree) {
                     AlertDialog.Builder builder = new AlertDialog.Builder(UserRegistration.this);
