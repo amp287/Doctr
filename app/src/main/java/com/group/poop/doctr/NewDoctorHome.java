@@ -46,9 +46,12 @@ public class NewDoctorHome extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        // Other
+        // Initialize Name and Email
         userNameTextView = navigationView.getHeaderView(0).findViewById(R.id.userNameTextView);
-        userNameTextView.setText("Mario!!!");
+        userNameTextView.setText("Mario (Doctors name goes here)");
+
+        userEmailTextView = navigationView.getHeaderView(0).findViewById(R.id.userEmailTextView);
+        userEmailTextView.setText("mosborn1987@gmail.com (Doctors email should go here)");
 
         mBNV = findViewById(R.id.doctor_bottom_navigation);
         mBNV.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
