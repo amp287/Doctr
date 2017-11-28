@@ -18,7 +18,12 @@ public class FireBaseAPI {
     {
         // TODO - This API still needs
         String userId = FirebaseAuth.getInstance().getUid();
-        mDatabase.child("users").child(userId).setValue(user);
+
+        // TODO - Resolve whether it is a dr or profile
+        
+        mDatabase.child("UserProfiles").child(userId).setValue(user);
+        mDatabase.child("DoctorProfiles").child(userId).setValue(user);
+
     }
 
     public static User getCurrentUser()
