@@ -45,16 +45,14 @@ public class FireBaseAPI {
         mDatabase.child("DoctorProfiles").child(uid).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
-                String tempString = (String) snapshot.getValue().toString();
-                doctor = new Doctor(tempString);
+                String doctorString = (String) snapshot.getValue().toString();
+                doctor = new Doctor(doctorString);
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
             }
         });
 
-
-        //return doctor;
     }
 
 }
