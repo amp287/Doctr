@@ -14,15 +14,9 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 public class NewDoctorHome extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
@@ -32,7 +26,6 @@ public class NewDoctorHome extends AppCompatActivity
         ConversationFragment.OnFragmentInteractionListener{
 
     private BottomNavigationView mBNV;
-    private DatabaseReference ref;
 
     // Text View
     private TextView userNameTextView;
@@ -54,36 +47,18 @@ public class NewDoctorHome extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        // Example of reading from the database
-        ref = FirebaseDatabase.getInstance().getReference();
-        String uid = FirebaseAuth.getInstance().getUid();
-        DatabaseReference drNameRef = ref.child("DoctorProfiles").child(uid);
-
-        // TODO - An API needs to be created for interfacing with firebase.
-//        drNameRef.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                Doctor dr = dataSnapshot.getValue(Doctor.class);
-//                String firstName = dr.getFirstName();
-//                String lastName = dr.getLastName();
-//
-//                userNameTextView.setText("Dr. " + dr.getFirstName() + " " + dr.getLastName());
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//            }
-//        });
-
-//        // Initialize Name and Email
+        // Initialize Name and Email
         userNameTextView = navigationView.getHeaderView(0).findViewById(R.id.userNameTextView);
         userEmailTextView = navigationView.getHeaderView(0).findViewById(R.id.userEmailTextView);
 
         // TODO - The .getDisplayName isn't returning a string value.
-        String userName = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        User user = FireBaseAPI.getCurrentUser();
+        if( user != null ) {
+            String userName = user.getFirstName() + " " + user.getLastName();
+            userNameTextView.setText(userName);
+        }
         String userEmail = FirebaseAuth.getInstance().getCurrentUser().getEmail();
 
-        userNameTextView.setText(userName);
         userEmailTextView.setText(userEmail);
 
         mBNV = findViewById(R.id.doctor_bottom_navigation);
