@@ -77,9 +77,7 @@ public class NewDoctorHome extends AppCompatActivity
         userNameTextView = navigationView.getHeaderView(0).findViewById(R.id.userNameTextView);
         userEmailTextView = navigationView.getHeaderView(0).findViewById(R.id.userEmailTextView);
 
-        // TODO - The .getDisplayName isn't returning a string value.
-
-        // TODO - An API needs to be created for interfacing with firebase.
+        // Display - Users Name
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
         String uid = FirebaseAuth.getInstance().getUid();
         mDatabase.child("DoctorProfiles").child(uid).addValueEventListener(new ValueEventListener() {
@@ -97,12 +95,9 @@ public class NewDoctorHome extends AppCompatActivity
             public void onCancelled(DatabaseError databaseError) {
             }
         });
-        //FireBaseAPI.requestCurrentDoctor();
 
-
-
+        // Display - User Email
         String userEmail = FirebaseAuth.getInstance().getCurrentUser().getEmail();
-
         userEmailTextView.setText(userEmail);
 
         mBNV = findViewById(R.id.doctor_bottom_navigation);
