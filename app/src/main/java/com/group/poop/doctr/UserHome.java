@@ -1,35 +1,61 @@
 package com.group.poop.doctr;
 
 import android.app.ProgressDialog;
-import android.content.Intent;
+import android.media.Image;
 import android.net.Uri;
-import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.NavigationView;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
-public class UserHome extends AppCompatActivity {
+public class UserHome extends AppCompatActivity
+        implements NavigationView.OnNavigationItemSelectedListener,
+        TestFragment.OnFragmentInteractionListener,
+        PatientFragment.OnFragmentInteractionListener,
+        OfferedAppointmentsFragment.OnFragmentInteractionListener,
+        ConversationFragment.OnFragmentInteractionListener{
 
-    private Button mSignOut;
+    private BottomNavigationView mBNV;
+    private FloatingActionButton mFAB;
 
-    private Button mSelectImage;
+    // Text View
+    private TextView userNameTextView;
+    private TextView userEmailTextView;
+
+    private ImageView mDocView;
     private StorageReference mStorage;
+    private ProgressDialog mProgress;
     private static final int GALLERY_INTENT = 2;
 
-    private ProgressDialog mProgress;
-    private ImageView mProfileView;
+    private Doctor doctor = null;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,22 +64,82 @@ public class UserHome extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        mSignOut = findViewById(R.id.signOut);
-        mSignOut.setOnClickListener(new View.OnClickListener() {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
+
+        mFAB = findViewById(R.id.doctor_fab);
+
+        mStorage = FirebaseStorage.getInstance().getReference();
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+
+        // Initialize Name and Email
+        userNameTextView = navigationView.getHeaderView(0).findViewById(R.id.userNameTextView);
+        userEmailTextView = navigationView.getHeaderView(0).findViewById(R.id.userEmailTextView);
+
+        // Display - Users Name
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+        String uid = FirebaseAuth.getInstance().getUid();
+        mDatabase.child("UserProfiles").child(uid).addValueEventListener(new ValueEventListener() {
             @Override
-            public void onClick(View view) {
-                FirebaseAuth.getInstance().signOut();
-                Intent intent = new Intent(UserHome.this, LoginPage.class);
-                startActivity(intent);
+            public void onDataChange(DataSnapshot snapshot) {
+                String tempString = (String) snapshot.getValue().toString();
+                doctor = new Doctor(tempString);
+
+                if( doctor != null ) {
+                    String userName = doctor.getFirstName() + " " + doctor.getLastName();
+                    userNameTextView.setText(userName);
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
             }
         });
 
-        mStorage = FirebaseStorage.getInstance().getReference();
-        mSelectImage = (Button) findViewById(R.id.selectImage);
+        // Display - User Email
+        String userEmail = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+        userEmailTextView.setText(userEmail);
+
+        mBNV = findViewById(R.id.user_bottom_navigation);
+        mBNV.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                Fragment selected = null;
+                FragmentTransaction transaction;
+                switch (item.getItemId()) {
+                    case R.id.doctor_offered_appointments:
+
+                        break;
+                    case R.id.doctor_upcoming_appointments:
+
+                        break;
+                    case R.id.doctor_patients:
+
+                        break;
+                    case R.id.doctor_messages:
+                        selected = ConversationFragment.newInstance();
+                        transaction = getSupportFragmentManager().beginTransaction();
+                        transaction.replace(R.id.frameLayout, selected);
+                        transaction.commit();
+                        mFAB.hide();
+                        break;
+                }
+                //FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                //transaction.replace(R.id.frameLayout, selected);
+                //transaction.commit();
+                return true;
+            }
+        });
+        mBNV.setSelectedItemId(R.id.doctor_offered_appointments);
 
         mProgress = new ProgressDialog(this);
+        mDocView = navigationView.getHeaderView(0).findViewById(R.id.docView);
 
-        mSelectImage.setOnClickListener(new View.OnClickListener() {
+        mDocView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(Intent.ACTION_PICK);
@@ -61,8 +147,77 @@ public class UserHome extends AppCompatActivity {
                 startActivityForResult(intent, GALLERY_INTENT);
             }
         });
+    }
 
-        mProfileView = (ImageView) findViewById(R.id.profileView);
+    @Override
+    public void onBackPressed() {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
+    }
+
+    /*
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.new_doctor_home, menu);
+        return true;
+    }
+    */
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    @SuppressWarnings("StatementWithEmptyBody")
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+        // Handle navigation view item clicks here.
+        int id = item.getItemId();
+
+        if (id == R.id.signOut) {
+            FirebaseAuth.getInstance().signOut();
+            Intent intent = new Intent(UserHome.this, LoginPage.class);
+            startActivity(intent);
+        } else if(id == R.id.editInfo){
+            // TODO - A new activity needs to be created for this!
+            Intent intent = new Intent(UserHome.this, DoctorRegistration.class);
+            final String EXTRA_MESSAGE = "finishButtonLable";
+            String finishButtonLable = "Update Profile";
+            intent.putExtra(EXTRA_MESSAGE, finishButtonLable);
+            startActivity(intent);
+
+        } else if (id == R.id.nav_share) {
+
+        } else if (id == R.id.nav_send) {
+
+        } else if (id == R.id.create_appt) {
+            Intent intent = new Intent(UserHome.this, CreateAppointment.class);
+            startActivity(intent);
+        }
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
     }
 
     @Override
@@ -87,11 +242,18 @@ public class UserHome extends AppCompatActivity {
 
                     Uri downloadUri = taskSnapshot.getDownloadUrl();
 
-                    Picasso.with(UserHome.this).load(downloadUri).fit().centerCrop().into(mProfileView);
+                    Picasso.with(UserHome.this).load(downloadUri).fit().centerCrop().into(mDocView);
 
                     Toast.makeText(UserHome.this, "Upload Done", Toast.LENGTH_LONG).show();
                 }
             });
         }
+    }
+
+    @Override
+    public void onFragmentInteraction(String chatId) {
+        Intent intent = new Intent(this, ChatPage.class);
+        intent.putExtra(ChatPage.CHAT_ID_PARAM, chatId);
+        startActivity(intent);
     }
 }

@@ -6,43 +6,19 @@
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.group.poop.doctr.UserHome"
-    tools:showIn="@layout/activity_user_home">
+    tools:showIn="@layout/app_bar_user_home">
 
-    <Button
-        android:id="@+id/signOut"
-        style="@style/Widget.AppCompat.Button.Colored"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="@string/sign_out_button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/selectImage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Profile Picture"
-        android:layout_marginEnd="80dp"
-        android:layout_marginStart="80dp"
-        android:layout_marginTop="80dp"
+    <FrameLayout
+        android:id="@+id/frameLayout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="56dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
-
-    <ImageView
-        android:id="@+id/profileView"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_marginEnd="80dp"
-        android:layout_marginStart="80dp"
-        android:layout_marginTop="160dp"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_person_black" />
+        app:layout_constraintVertical_bias="1.0"></FrameLayout>
 
 </android.support.constraint.ConstraintLayout>
