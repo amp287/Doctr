@@ -44,8 +44,6 @@ public class ConversationFragment extends Fragment {
 
         uid = FirebaseAuth.getInstance().getUid();
 
-        conversation_number = 0;
-
         conversations = new ArrayList<ConversationListFiller>();
 
         ref = FirebaseDatabase.getInstance().getReference().child("Conversations");
@@ -74,7 +72,7 @@ public class ConversationFragment extends Fragment {
                                 View view = getView();
 
                                 if (view != null && message != null) {
-                                    ConversationListFiller conv = conversations.get(conversation_number);
+                                    ConversationListFiller conv = null;
                                    for(i = 0; i < conversations.size(); i++){
                                        if(conversations.get(i).chatID.equals(chatId)){
                                            conv = conversations.get(i);
@@ -84,14 +82,16 @@ public class ConversationFragment extends Fragment {
                                            break;
                                        }
                                    }
+                                    if(conv != null){
+                                        if(uid.equals(conv.doctorUID))
+                                            conv.nameToShow = conv.patient;
+                                        else
+                                            conv.nameToShow = conv.doctor;
 
-                                    if(uid.equals(conv.doctorUID))
-                                        conv.nameToShow = conv.patient;
-                                    else
-                                        conv.nameToShow = conv.doctor;
+                                        ListView listView = (ListView) view.findViewById(R.id.conversation_list);
+                                        listView.setAdapter(new ConversationAdapter(getActivity(), conversations));
+                                    }
 
-                                    ListView listView = (ListView) view.findViewById(R.id.conversation_list);
-                                    listView.setAdapter(new ConversationAdapter(getActivity(), conversations));
                                 }
 
                             }
