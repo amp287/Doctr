@@ -22,7 +22,17 @@ public class User {
 
     }
 
-    User(String uid, String firstName, String lastName, Date birthday, String gender, Long height, Long weight, String allergies, String medications) {
+    // Constructor
+    User(String uid,
+         String firstName,
+         String lastName,
+         Date birthday,
+         String gender,
+         Long height,
+         Long weight,
+         String allergies,
+         String medications
+    ) {
         this.uid = uid;
         this.firstName = firstName;
         this.lastName = lastName;

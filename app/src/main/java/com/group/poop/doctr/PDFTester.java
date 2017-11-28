@@ -96,9 +96,11 @@ public class PDFTester extends AppCompatActivity {
         // Construct user test data
         LocalDate dob = LocalDate.of(1977, 5, 25);
         Date birthday = Date.from(dob.atStartOfDay(ZoneId.systemDefault()).toInstant());
+        String all = "allg1, al2";
+        String med = "";
         final User currentUser = new User("1234567890", "Luke",
                                           "Skywalker", birthday, "male",
-                                          68L, 160L);
+                                          68L, 160L, all, med);
 
         // Construct medical record test data
         final ArrayList<MedicalRecord> record_list = new ArrayList<>();
