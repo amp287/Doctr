@@ -50,7 +50,7 @@ public class NewDoctorHome extends AppCompatActivity
         userNameTextView = navigationView.getHeaderView(0).findViewById(R.id.userNameTextView);
         userEmailTextView = navigationView.getHeaderView(0).findViewById(R.id.userEmailTextView);
 
-        // TODO - Properly set the Dr's name and email.
+        // TODO - Properly set the Dr's name an
         userNameTextView.setText("Mario (Doctors name goes here)");
         userEmailTextView.setText("mosborn1987@gmail.com (Doctors email should go here)");
 
@@ -127,7 +127,10 @@ public class NewDoctorHome extends AppCompatActivity
             FirebaseAuth.getInstance().signOut();
             Intent intent = new Intent(NewDoctorHome.this, LoginPage.class);
             startActivity(intent);
-        } else if (id == R.id.nav_share) {
+        } else if(id == R.id.editInfo){
+            // TODO - A new activity needs to be created for this!
+
+        }else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {
 
