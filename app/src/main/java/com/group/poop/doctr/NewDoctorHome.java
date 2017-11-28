@@ -192,6 +192,8 @@ public class NewDoctorHome extends AppCompatActivity
             startActivity(intent);
         } else if(id == R.id.editInfo){
             // TODO - A new activity needs to be created for this!
+            Intent intent = new Intent(NewDoctorHome.this, DoctorEditInfo.class);
+            startActivity(intent);
 
         } else if (id == R.id.nav_share) {
 
