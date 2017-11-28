@@ -162,11 +162,14 @@ public class NewDoctorHome extends AppCompatActivity
         } else if(id == R.id.editInfo){
             // TODO - A new activity needs to be created for this!
 
-        }else if (id == R.id.nav_share) {
+        } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {
 
-        }
+        } else if (id == R.id.create_appt) {
+        Intent intent = new Intent(NewDoctorHome.this, CreateAppointment.class);
+        startActivity(intent);
+    }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

@@ -12,6 +12,10 @@
             android:id="@+id/editInfo"
             android:icon="@android:drawable/ic_dialog_info"
             android:title="Edit Personal Info" />
+        <item
+            android:id="@+id/create_appt"
+            android:icon="@drawable/ic_list_add"
+            android:title="Create Appointment" />
     </group>
 
     <item android:title="Communicate">

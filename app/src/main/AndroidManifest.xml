@@ -16,16 +16,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-        <activity
-            android:name=".MessengerPage"
-            android:label="@string/app_name">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
         <activity
             android:name=".UserHome"
             android:label="@string/title_activity_user_home"
@@ -53,7 +43,7 @@
 
         <activity
             android:name=".CreateAppointment"
-            android:label="@string/title_activity_user_registration"
+            android:label="New Appointment"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -87,7 +77,7 @@
         </activity>
         <activity
             android:name=".PDFTester"
-            android:label="@string/title_activity_pdftester"
+            android:label="PDF Renderer"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -107,7 +97,7 @@
         </activity>
         <activity
             android:name=".NewDoctorHome"
-            android:label="@string/title_activity_new_doctor_home"
+            android:label="Doctor Home Page"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
