@@ -14,6 +14,8 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -23,6 +25,10 @@ public class NewDoctorHome extends AppCompatActivity
         PatientFragment.OnFragmentInteractionListener {
 
     private BottomNavigationView mBNV;
+
+    // Text View
+    private TextView userNameTextView;
+    private TextView userEmailTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +45,10 @@ public class NewDoctorHome extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        // Other
+        userNameTextView = navigationView.getHeaderView(0).findViewById(R.id.userNameTextView);
+        userNameTextView.setText("Mario!!!");
 
         mBNV = findViewById(R.id.doctor_bottom_navigation);
         mBNV.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
