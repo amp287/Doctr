@@ -8,6 +8,10 @@
             android:id="@+id/signOut"
             android:icon="@drawable/ic_exit"
             android:title="Sign Out" />
+        <item
+            android:id="@+id/editInfo"
+            android:icon="@android:drawable/ic_dialog_info"
+            android:title="Edit Personal Info" />
     </group>
 
     <item android:title="Communicate">

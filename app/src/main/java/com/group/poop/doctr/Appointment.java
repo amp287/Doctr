@@ -8,10 +8,13 @@ import java.util.Date;
 
 public class Appointment {
     String location;
-    Date time;
+    Date date;
+    Date startTime;
+    Date endTime;
     Long price;
     String speciality; // will probably correspond to sub-speciality; it is the type of appointment e.g. tooth filling or heart surgery
     String doctorUID; // do not include in ui
+    String doctorName;
     String description;
 
     // Zero parameter constructor for Firebase
@@ -19,12 +22,23 @@ public class Appointment {
 
     }
 
-    public Appointment(String location, Date time, Long price, String speciality, String doctorUID, String description) {
+    public Appointment(String location,
+                       Date date,
+                       Date startTime,
+                       Date endTime,
+                       Long price,
+                       String speciality,
+                       String doctorUID,
+                       String doctorName,
+                       String description) {
         this.location = location;
-        this.time = time;
+        this.date = date;
+        this.startTime = startTime;
+        this.endTime = endTime;
         this.price = price;
         this.speciality = speciality;
         this.doctorUID = doctorUID;
+        this.doctorName = doctorName;
         this.description = description;
     }
 
@@ -36,12 +50,28 @@ public class Appointment {
         this.location = location;
     }
 
-    public Date getTime() {
-        return time;
+    public Date getDate() {
+        return date;
     }
 
-    public void setTime(Date time) {
-        this.time = time;
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public Date getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(Date startTime) {
+        this.startTime = startTime;
+    }
+
+    public Date getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(Date endTime) {
+        this.endTime = endTime;
     }
 
     public Long getPrice() {
@@ -66,6 +96,14 @@ public class Appointment {
 
     public void setDoctorUID(String doctorUID) {
         this.doctorUID = doctorUID;
+    }
+
+    public String getDoctorName() {
+        return doctorName;
+    }
+
+    public void setDoctorName(String doctorName) {
+        this.doctorName = doctorName;
     }
 
     public String getDescription() {

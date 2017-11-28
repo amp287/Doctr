@@ -15,7 +15,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -25,7 +25,10 @@ public class NewDoctorHome extends AppCompatActivity
         PatientFragment.OnFragmentInteractionListener {
 
     private BottomNavigationView mBNV;
-    private Button Button_createAppt;
+
+    // Text View
+    private TextView userNameTextView;
+    private TextView userEmailTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,15 +46,16 @@ public class NewDoctorHome extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        Button_createAppt = findViewById(R.id.Button_createAppt);
-        Button_createAppt.setOnClickListener(new View.OnClickListener() {
-            public void onClick (View v) {
-                Intent intent = new Intent(NewDoctorHome.this, CreateAppointment.class);
-                startActivity(intent);
-            }
-        });
+        // Initialize Name and Email
+        userNameTextView = navigationView.getHeaderView(0).findViewById(R.id.userNameTextView);
+        userEmailTextView = navigationView.getHeaderView(0).findViewById(R.id.userEmailTextView);
 
+        // TODO - The .getDisplayName isn't returning a string value.
+        String userName = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        String userEmail = FirebaseAuth.getInstance().getCurrentUser().getEmail();
 
+        userNameTextView.setText(userName);
+        userEmailTextView.setText(userEmail);
 
         mBNV = findViewById(R.id.doctor_bottom_navigation);
         mBNV.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -126,7 +130,10 @@ public class NewDoctorHome extends AppCompatActivity
             FirebaseAuth.getInstance().signOut();
             Intent intent = new Intent(NewDoctorHome.this, LoginPage.class);
             startActivity(intent);
-        } else if (id == R.id.nav_share) {
+        } else if(id == R.id.editInfo){
+            // TODO - A new activity needs to be created for this!
+
+        }else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {
 

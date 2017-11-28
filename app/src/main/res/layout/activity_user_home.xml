@@ -22,7 +22,9 @@
 
     <include
         android:id="@+id/include"
-        layout="@layout/content_user_home" />
+        layout="@layout/content_user_home"
+        android:layout_height="508dp"
+        tools:layout_editor_absoluteY="59dp" />
 
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/navigationBar"
