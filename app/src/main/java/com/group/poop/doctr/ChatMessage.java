@@ -8,17 +8,15 @@ import java.util.Date;
 
 public class ChatMessage {
 
-    private String chatId;
     private String content;
-    private String to;
-    private String from;
+    private String author;
+    private String authorUID;
     private long timeStamp;
 
-    public ChatMessage(String chatId, String content, String to, String from){
-        this.chatId = chatId;
+    public ChatMessage(String content, String author, String authorUID){
         this.content = content;
-        this.to = to;
-        this.from = from;
+        this.author = author;
+        this.authorUID = authorUID;
         this.timeStamp = new Date().getTime();
     }
 
@@ -26,24 +24,12 @@ public class ChatMessage {
 
     }
 
-    //getters and setters needed by Firebase
-    public String getChatId(){return chatId;}
-
     public String getMessageContent(){return content;}
 
-    public String getMessageSender(){return from;}
-
-    public String getMessageReciever(){return to;}
+    public String getMessageAuthor(){return author;}
 
     public long getMessageTime(){return timeStamp;}
 
-    public void setChatId(String id){chatId = id;}
+    public String getAuthorUID(){return authorUID;}
 
-    public void setMessageContent(String content){this.content = content;}
-
-    public void setMessageSender(String userId) {this.from = userId;}
-
-    public void setMessageReciever(String userId){this.to = userId;}
-
-    public void setMessageTime(long time){this.timeStamp = time;}
 }
