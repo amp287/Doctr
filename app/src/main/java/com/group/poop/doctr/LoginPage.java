@@ -67,8 +67,21 @@ public class LoginPage extends AppCompatActivity {
     }
 
     private void startSignIn() {
-        String email = mEmail.getText().toString();
+        String email = mEmail.getText().toString().trim();
         String password = mPassword.getText().toString();
+
+        // Validate the password.
+        boolean passwordIsValid =
+                password != null
+                && password.trim().length() > 0;
+
+        if( !passwordIsValid )
+        {
+            // If password is invalic, display message
+            Toast.makeText(LoginPage.this, "Password Not Valid.",
+                    Toast.LENGTH_SHORT).show();
+            return;
+        }
 
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
