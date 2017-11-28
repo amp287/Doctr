@@ -28,7 +28,8 @@ public class NewDoctorHome extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
         TestFragment.OnFragmentInteractionListener,
         PatientFragment.OnFragmentInteractionListener,
-        OfferedAppointmentsFragment.OnFragmentInteractionListener {
+        OfferedAppointmentsFragment.OnFragmentInteractionListener,
+        ConversationFragment.OnFragmentInteractionListener{
 
     private BottomNavigationView mBNV;
     private DatabaseReference ref;
@@ -88,7 +89,7 @@ public class NewDoctorHome extends AppCompatActivity
                 FragmentTransaction transaction;
                 switch (item.getItemId()) {
                     case R.id.doctor_offered_appointments:
-                        selected = TestFragment.newInstance();
+                        selected = OfferedAppointmentsFragment.newInstance();
                         transaction = getSupportFragmentManager().beginTransaction();
                         transaction.replace(R.id.frameLayout, selected);
                         transaction.commit();
@@ -99,6 +100,11 @@ public class NewDoctorHome extends AppCompatActivity
                         transaction.replace(R.id.frameLayout, selected);
                         transaction.commit();
                         break;
+                    case R.id.doctor_messages:
+                        selected = ConversationFragment.newInstance();
+                        transaction = getSupportFragmentManager().beginTransaction();
+                        transaction.replace(R.id.frameLayout, selected);
+                        transaction.commit();
                 }
                 //FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                 //transaction.replace(R.id.frameLayout, selected);
