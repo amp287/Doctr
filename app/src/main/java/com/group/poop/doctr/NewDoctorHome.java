@@ -14,6 +14,8 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -23,6 +25,10 @@ public class NewDoctorHome extends AppCompatActivity
         PatientFragment.OnFragmentInteractionListener {
 
     private BottomNavigationView mBNV;
+
+    // Text View
+    private TextView userNameTextView;
+    private TextView userEmailTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +45,14 @@ public class NewDoctorHome extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        // Initialize Name and Email
+        userNameTextView = navigationView.getHeaderView(0).findViewById(R.id.userNameTextView);
+        userEmailTextView = navigationView.getHeaderView(0).findViewById(R.id.userEmailTextView);
+
+        // TODO - Properly set the Dr's name an
+        userNameTextView.setText("Mario (Doctors name goes here)");
+        userEmailTextView.setText("mosborn1987@gmail.com (Doctors email should go here)");
 
         mBNV = findViewById(R.id.doctor_bottom_navigation);
         mBNV.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -113,7 +127,10 @@ public class NewDoctorHome extends AppCompatActivity
             FirebaseAuth.getInstance().signOut();
             Intent intent = new Intent(NewDoctorHome.this, LoginPage.class);
             startActivity(intent);
-        } else if (id == R.id.nav_share) {
+        } else if(id == R.id.editInfo){
+            // TODO - A new activity needs to be created for this!
+
+        }else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {
 
