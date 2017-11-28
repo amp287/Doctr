@@ -31,30 +31,6 @@ import java.time.Period;
 import java.time.LocalDate;
 
 // Fake MedicalRecord class for testing purposes
-class MedicalRecord {
-    private String apptType;
-    private Calendar apptTime;
-    private String apptDesc;
-
-    MedicalRecord( String apptType, Calendar apptTime, String apptDesc) {
-        this.apptType = apptType;
-        this.apptTime = apptTime;
-        this.apptDesc = apptDesc;
-    }
-
-    public String getApptType() {
-        return apptType;
-    }
-
-    public Calendar getApptTime() {
-        return apptTime;
-    }
-
-    public String getApptDesc() {
-        return apptDesc;
-    }
-}
-
 
 @TargetApi(26)
 public class PDFTester extends AppCompatActivity {
@@ -175,8 +151,8 @@ public class PDFTester extends AppCompatActivity {
                     + "DOB: " + birthday + "\n"
                     + "Age: " + age + "\n"
                     + "Height: " + user.getHeight().toString() + " in" + "    "+ "Weight: " + user.getWeight().toString()+ " lb" + "\n"
-                    + "Allergies: " + user.getAllergies().toString() + "\n"
-                    + "Medications: " + user.getMedications().toString() + "\n"
+                    + "Allergies: " + user.getAllergies()+ "\n"
+                    + "Medications: " + user.getMedications()+ "\n"
             );
 
             StaticLayout userProfileLayout = new StaticLayout(userProfileText, userTextPaint, canvas.getWidth() - PAD*2, Layout.Alignment.ALIGN_NORMAL, 1.0f, 1.0f, true);
