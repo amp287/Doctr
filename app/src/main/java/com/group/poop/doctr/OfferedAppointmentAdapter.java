@@ -71,7 +71,23 @@ public class OfferedAppointmentAdapter extends RecyclerView.Adapter<OfferedAppoi
 
                 DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
                 // open patient MR
+                final String PID = appointments.get(position).getDoctorUID();
+                // open patient MR
+                ref.child("UserProfiles").child(appointments.get(position).getPatientUID()).child("showMR").addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        boolean showMR = dataSnapshot.getValue(boolean.class);
+                        Intent intent = new Intent(C, PatientMedicalRecordActivity.class);
+                        intent.putExtra("UID", PID);
+                        intent.putExtra("SHOWMR", showMR);
+                        C.startActivity(intent);
+                    }
 
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
                 // notify patient
 
                 // set appt flag to accepted
@@ -86,23 +102,7 @@ public class OfferedAppointmentAdapter extends RecyclerView.Adapter<OfferedAppoi
             public void onClick(View v) {
 
                 DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
-                final String PID = appointments.get(position).getDoctorUID();
-                // open patient MR
-                ref.child("UserProfiles").child(appointments.get(position).getPatientUID()).child("showMR").addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        boolean showMR = dataSnapshot.getValue(boolean.class);
-                        Intent intent = new Intent(C, MedicalRecordActivity.class);
-                        intent.putExtra("UID", PID);
-                        intent.putExtra("SHOWMR", showMR);
-                        C.startActivity(intent);
-                    }
 
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-
-                    }
-                });
                 // notify patient
 
                 // set appt flag to rejected
