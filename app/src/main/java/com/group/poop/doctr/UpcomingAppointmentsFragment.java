@@ -26,19 +26,19 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link OfferedAppointmentsFragment.OnFragmentInteractionListener} interface
+ * {@link UpcomingAppointmentsFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link OfferedAppointmentsFragment#newInstance} factory method to
+ * Use the {@link UpcomingAppointmentsFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class OfferedAppointmentsFragment extends Fragment {
+public class UpcomingAppointmentsFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
     private Appointment appointment = null;
     private RecyclerView mRecycler;
 
 
-    public OfferedAppointmentsFragment() {
+    public UpcomingAppointmentsFragment() {
         // Required empty public constructor
     }
 
@@ -46,11 +46,11 @@ public class OfferedAppointmentsFragment extends Fragment {
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
 
-     * @return A new instance of fragment OfferedAppointmentsFragment.
+     * @return A new instance of fragment UpcomingAppointmentsFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static OfferedAppointmentsFragment newInstance() {
-        return new OfferedAppointmentsFragment();
+    public static UpcomingAppointmentsFragment newInstance() {
+        return new UpcomingAppointmentsFragment();
     }
 
     @Override
@@ -62,9 +62,9 @@ public class OfferedAppointmentsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_offered_appointments, container, false);
+        View view = inflater.inflate(R.layout.fragment_upcoming_appointments, container, false);
 
-        mRecycler = view.findViewById(R.id.offered_appointment_recycler);
+        mRecycler = view.findViewById(R.id.upcoming_appointment_recycler);
         mRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         final List<Appointment> appointments = new ArrayList<Appointment>();
@@ -103,7 +103,9 @@ public class OfferedAppointmentsFragment extends Fragment {
                         Log.e("value " ,""+postSnapshot.getValue());
                         appointment = postSnapshot.getValue(Appointment.class);
                         Log.e("value " ,""+appointment.getDoctorName());
-                        appointments.add(appointment);
+                        if(appointment.getAccepted()== 1) {
+                            appointments.add(appointment);
+                        }
                     }
                     OfferedAppointmentAdapter oaa = new OfferedAppointmentAdapter(appointments);
                     mRecycler.setAdapter(oaa);
@@ -139,7 +141,7 @@ public class OfferedAppointmentsFragment extends Fragment {
 //
 //        OfferedAppointmentAdapter oaa = new OfferedAppointmentAdapter(appointments);
 //        mRecycler.setAdapter(oaa);
-             return view;
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event

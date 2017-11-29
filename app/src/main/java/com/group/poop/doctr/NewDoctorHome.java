@@ -40,6 +40,7 @@ public class NewDoctorHome extends AppCompatActivity
         TestFragment.OnFragmentInteractionListener,
         PatientFragment.OnFragmentInteractionListener,
         OfferedAppointmentsFragment.OnFragmentInteractionListener,
+        UpcomingAppointmentsFragment.OnFragmentInteractionListener,
         ConversationFragment.OnFragmentInteractionListener{
 
     private BottomNavigationView mBNV;
@@ -126,6 +127,17 @@ public class NewDoctorHome extends AppCompatActivity
                         });
                         break;
                     case R.id.doctor_upcoming_appointments:
+                        selected = UpcomingAppointmentsFragment.newInstance();
+                        transaction = getSupportFragmentManager().beginTransaction();
+                        transaction.replace(R.id.frameLayout, selected);
+                        transaction.commit();
+//                        mFAB.setOnClickListener(new View.OnClickListener() {
+//                            @Override
+//                            public void onClick(View v) {
+//                                Intent intent = new Intent(NewDoctorHome.this, CreateAppointment.class);
+//                                startActivity(intent);
+//                            }
+//                        });
                         mFAB.hide();
                         break;
                     case R.id.doctor_patients:

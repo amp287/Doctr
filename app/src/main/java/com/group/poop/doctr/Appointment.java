@@ -16,6 +16,8 @@ public class Appointment {
     String doctorUID; // do not include in ui
     String doctorName;
     String description;
+    String patientUID;
+    int accepted = 0; // -1 rejected, 0 not touched, 1 accepted
 
     // Zero parameter constructor for Firebase
     public Appointment() {
@@ -112,5 +114,13 @@ public class Appointment {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public int getAccepted() {
+        return accepted;
+    }
+
+    public void setAccepted(int accepted) {
+        this.accepted = accepted;
     }
 }
