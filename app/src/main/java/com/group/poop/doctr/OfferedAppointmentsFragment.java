@@ -85,7 +85,7 @@ public class OfferedAppointmentsFragment extends Fragment {
                         Log.e("value " ,""+postSnapshot.getValue());
                         appointment = postSnapshot.getValue(Appointment.class);
                         Log.e("value " ,""+appointment.getDoctorName());
-                        if(appointment.getAccepted() == -1) {
+                        if(appointment.getAccepted() == -1 || appointment.getAccepted() == 1) {
                             continue;
                         }
                         appointments.add(appointment);
