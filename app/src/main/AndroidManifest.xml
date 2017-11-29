@@ -42,8 +42,7 @@
         </activity>
         <activity
             android:name=".CreateAppointment"
-            android:label="New Appointment"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:label="New Appointment">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

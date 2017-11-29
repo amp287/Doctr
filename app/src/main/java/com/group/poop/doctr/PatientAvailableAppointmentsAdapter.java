@@ -1,7 +1,6 @@
 package com.group.poop.doctr;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +9,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -60,8 +61,10 @@ public class PatientAvailableAppointmentsAdapter extends RecyclerView.Adapter<Pa
             @Override
             public void onClick(View view) {
                 String uid = FirebaseAuth.getInstance().getUid();
-                Log.e("UID: " ,uid);
+                DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
                 appointments.get(position).setPatientUID(uid);
+                ref.child("AppointmentProfiles").child(appointments.get(position).getDoctorUID()).child(appointments.get(position).getApptKey()).child("patientUID").setValue(uid);
+
             }
         });
 
