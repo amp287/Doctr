@@ -1,13 +1,25 @@
 package com.group.poop.doctr;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.Toast;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
 
 
 /**
@@ -21,6 +33,8 @@ import android.widget.Toast;
 public class SearchFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
+    private ArrayList<String> specializationsList;
+    private Spinner specialization;
 
     public SearchFragment() {
         // Required empty public constructor
@@ -41,13 +55,38 @@ public class SearchFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_search, container, false);
+        View view = inflater.inflate(R.layout.fragment_search, container, false);
+        specializationsList = new ArrayList<>();
+        specialization = view.findViewById(R.id.specSelect);
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
+        Query query = ref.child("Specialization").orderByKey();
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    for (DataSnapshot specialization : dataSnapshot.getChildren()) {
+                        specializationsList.add(specialization.getKey());
+                    }
+
+                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_dropdown_item, specializationsList);
+
+                    specialization.setAdapter(adapter);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                //TODO add errors
+            }
+        });
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -60,6 +99,7 @@ public class SearchFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+
         if (context instanceof OnFragmentInteractionListener) {
             mListener = (OnFragmentInteractionListener) context;
         } else {
@@ -74,9 +114,12 @@ public class SearchFragment extends Fragment {
         mListener = null;
     }
 
+
+
     public void doSearch(){
         Toast.makeText(getContext(), "Search Started", Toast.LENGTH_LONG).show();
-
+        Intent intent = new Intent(getActivity(), PatientAvailableAppointments.class);
+        startActivity(intent);
     }
 
     /**
