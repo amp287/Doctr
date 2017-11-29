@@ -76,10 +76,13 @@ public class DoctorMedicalRecordActivity extends AppCompatActivity {
                 }
                 else
                 {
-                    // Delete text
+                    // Clear it
                     apptDescription.setText(null);
 
                     // Save it
+
+                    // Provide user visual-feedback.
+                    Toast.makeText(DoctorMedicalRecordActivity.this, "Medical note saved!", Toast.LENGTH_SHORT).show();
 
                 }
 
