@@ -28,6 +28,7 @@ public class DoctorMedicalRecordActivity extends AppCompatActivity {
 
     private List<MedicalRecord> mr_list;
     private User user;
+    private String uid;
     public static final String UID_PARAM = "UID";
     public static final String SHOW_MR_PARAM = "SHOWMR";
 
@@ -46,8 +47,9 @@ public class DoctorMedicalRecordActivity extends AppCompatActivity {
         // Get UID
         // TODO: This was giving me a error so I had to comment it out.
         Bundle bundle = getIntent().getExtras();
-        String uid = bundle.getString(UID_PARAM);
+        uid = bundle.getString(UID_PARAM);
         boolean showMr = bundle.getBoolean(SHOW_MR_PARAM);
+
         if(showMr){
             Query query = FirebaseDatabase.getInstance().getReference().child("MedicalRecords").child(uid).orderByKey();
             query.addListenerForSingleValueEvent(new ValueEventListener() {
