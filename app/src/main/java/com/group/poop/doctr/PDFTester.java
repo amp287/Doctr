@@ -1,6 +1,6 @@
 package com.group.poop.doctr;
 
-import android.annotation.TargetApi;
+
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Environment;
@@ -23,16 +23,13 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.time.ZoneId;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.time.Period;
-import java.time.LocalDate;
 
-// Fake MedicalRecord class for testing purposes
 
-@TargetApi(26)
+
 public class PDFTester extends AppCompatActivity {
 
     // Vertical spacing constants
@@ -69,21 +66,18 @@ public class PDFTester extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         // Construct user test data
-
-        Date birthday = new Date();
         Calendar cal = Calendar.getInstance();
-        cal.setTime(birthday);
-
-        cal.set(2017,5,27);
+        cal.set(1977,5,23);
 
         final User currentUser = new User("1234567890", "Luke",
-                                          "Skywalker", birthday, "male",
-                                          68L, 160L, "Porgs, Peanuts","Aspirin");
+                                          "Skywalker", cal.getTime(), "male",
+                                          68L, 160L, "Porgs, Peanuts","Space Aspirin");
 
         // Construct medical record test data
         final ArrayList<MedicalRecord> record_list = new ArrayList<>();
-        record_list.add(new MedicalRecord("Teeth Cleaning", cal.getTime(), "Cleaned subject's teeth. Noticed early signs of gingivitis. Recommended daily flossing and fluoride rinse."));
+        record_list.add(new MedicalRecord("Teeth Cleaning", Calendar.getInstance().getTime(), "Cleaned subject's teeth. Noticed early signs of gingivitis. Recommended daily flossing and fluoride rinse."));
         record_list.add(new MedicalRecord("Amputation", Calendar.getInstance().getTime(), "Removed subject's right hand. Attached prosthetic."));
         record_list.add(new MedicalRecord("General Check up", Calendar.getInstance().getTime(), "Everything was fine. Bloodwork came back clean, though midi-chlorians were quite high."));
 
@@ -146,14 +140,10 @@ public class PDFTester extends AppCompatActivity {
             // Formatting the DOB and calculating current age
             SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy");
             String birthday = format.format(user.getBirthday().getTime());
-            LocalDate c_dob = user.getBirthday().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-            LocalDate now = LocalDate.now();
-            int age = Period.between(c_dob, now).getYears();
 
             String userProfileText = (user.getFirstName().toUpperCase() + "  " + user.getLastName().toUpperCase() + "\n"
                     + user.getGender().toUpperCase() + "\n"
                     + "DOB: " + birthday + "\n"
-                    + "Age: " + age + "\n"
                     + "Height: " + user.getHeight().toString() + " in" + "    "+ "Weight: " + user.getWeight().toString()+ " lb" + "\n"
                     + "Allergies: " + user.getAllergies()+ "\n"
                     + "Medications: " + user.getMedications()+ "\n"
