@@ -9,6 +9,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CompoundButton;
+import android.widget.ToggleButton;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -28,6 +30,7 @@ public class PatientMedicalRecordActivity extends AppCompatActivity {
     private Button createpdf_Button;
     private User user = null;
     private String uid;
+    private ToggleButton hideMR;
 
     PDFTester pdf = new PDFTester();
 
@@ -62,6 +65,21 @@ public class PatientMedicalRecordActivity extends AppCompatActivity {
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             if(dataSnapshot.exists()){
                                 user = dataSnapshot.getValue(User.class);
+
+                                //Functionality for Toggle:
+                                hideMR = findViewById(R.id.toggleButtonMR);
+                                hideMR.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                                        if (isChecked) {
+                                            // The toggle is enabled
+                                            user.setShowMR(false);
+                                        } else {
+                                            // The toggle is disabled
+                                            user.setShowMR(true);
+                                        }
+                                    }
+                                });
+
                                 //Functionality for Generating PDF
                                 createpdf_Button = findViewById(R.id.createPDF);
                                 createpdf_Button.setOnClickListener(new View.OnClickListener() {
