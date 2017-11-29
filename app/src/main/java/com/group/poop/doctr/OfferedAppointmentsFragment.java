@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -69,30 +70,10 @@ public class OfferedAppointmentsFragment extends Fragment {
 
         final List<Appointment> appointments = new ArrayList<Appointment>();
 
-        Calendar cDate = Calendar.getInstance();
-        cDate.set(2017, 12, 12);
-
-        Calendar cStart = Calendar.getInstance();
-        cStart.set(Calendar.HOUR_OF_DAY, 14);
-        cStart.set(Calendar.MINUTE, 45);
-
-        Calendar cEnd = Calendar.getInstance();
-        cEnd.set(Calendar.HOUR_OF_DAY, 15);
-        cEnd.set(Calendar.MINUTE, 45);
-
-        Calendar cDate2 = Calendar.getInstance();
-        cDate.set(2018, 1, 9);
-
-        Calendar cStart2 = Calendar.getInstance();
-        cStart.set(Calendar.HOUR_OF_DAY, 9);
-        cStart.set(Calendar.MINUTE, 45);
-
-        Calendar cEnd2 = Calendar.getInstance();
-        cEnd.set(Calendar.HOUR_OF_DAY, 13);
-        cEnd.set(Calendar.MINUTE, 0);
 
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
         String uid = FirebaseAuth.getInstance().getUid();
+
         mDatabase.child("AppointmentProfiles").child(uid).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
@@ -103,6 +84,9 @@ public class OfferedAppointmentsFragment extends Fragment {
                         Log.e("value " ,""+postSnapshot.getValue());
                         appointment = postSnapshot.getValue(Appointment.class);
                         Log.e("value " ,""+appointment.getDoctorName());
+                        if(appointment.getAccepted() == -1) {
+                            continue;
+                        }
                         appointments.add(appointment);
                     }
                     OfferedAppointmentAdapter oaa = new OfferedAppointmentAdapter(appointments, getActivity());

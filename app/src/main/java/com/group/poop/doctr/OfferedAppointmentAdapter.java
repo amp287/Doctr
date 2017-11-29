@@ -65,11 +65,18 @@ public class OfferedAppointmentAdapter extends RecyclerView.Adapter<OfferedAppoi
         String endString = endFormat.format(appointments.get(position).getEndTime().getTime());
         holder.endTime.setText(endString);
 
+        if(appointments.get(position).getPatientUID() == "NULL" || appointments.get(position).getPatientUID().equals("NULL")){
+            holder.accept.setVisibility(View.INVISIBLE);
+            holder.reject.setVisibility(View.INVISIBLE);
+        }
+
+        final DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
+
         holder.accept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
+
                 // open patient MR
                 ref.child("DoctorsPatients").child(appointments.get(position).getDoctorUID()).child(appointments.get(position).getPatientUID()).setValue(true);
                 final String PID = appointments.get(position).getDoctorUID();
@@ -102,7 +109,6 @@ public class OfferedAppointmentAdapter extends RecyclerView.Adapter<OfferedAppoi
             @Override
             public void onClick(View v) {
 
-                DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
 
                 // notify patient
 
