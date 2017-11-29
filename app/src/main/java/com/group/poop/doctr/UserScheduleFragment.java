@@ -23,6 +23,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 
 import java.sql.Array;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -189,13 +190,24 @@ public class UserScheduleFragment extends Fragment {
             TextView specialty = (TextView) convertView.findViewById(R.id.patient_appointment_speciality);
             TextView end = (TextView) convertView.findViewById(R.id.patient_appointment_end);
 
-            start.setText(appt.getStartTime().toString());
-            date.setText(appt.getDate().toString());
+            SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy");
+            String str = format.format(appt.getDate().getTime());
+
+            date.setText(str);
+
+            format = new SimpleDateFormat("hh:mm aaa");
+            str = format.format(appt.getStartTime());
+
+            start.setText(str);
+
+            str = format.format(appt.getEndTime());
+
+            end.setText(str);
+
             name.setText(appt.getDoctorName());
             price.setText(appt.getPrice().toString());
             location.setText(appt.getLocation());
             specialty.setText(appt.getSpeciality());
-            end.setText(appt.getEndTime().toString());
 
             if(appt.getAccepted() != 0){
                 TextView accepted = (TextView)convertView.findViewById(R.id.accepted);

@@ -41,9 +41,9 @@
                 android:layout_width="54dp"
                 android:layout_height="55dp"
                 android:layout_marginStart="4dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="8dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/patient_appointment_from"
+                app:layout_constraintTop_toBottomOf="@+id/patient_appointment_to"
                 app:srcCompat="@drawable/ic_person_black" />
 
             <TextView
@@ -58,18 +58,19 @@
 
             <TextView
                 android:id="@+id/patient_appointment_dr_name"
-                android:layout_width="wrap_content"
+                android:layout_width="137dp"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:text="Dr. Name"
                 android:textColor="@android:color/black"
                 android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="@+id/patient_appointment_dr_photo"
+                app:layout_constraintEnd_toStartOf="@+id/patient_appointment_cancel"
                 app:layout_constraintStart_toEndOf="@+id/patient_appointment_dr_photo"
-                app:layout_constraintTop_toBottomOf="@+id/patient_appointment_end"
-                app:layout_constraintVertical_bias="0.0" />
+                app:layout_constraintTop_toBottomOf="@+id/patient_appointment_end" />
 
             <TextView
                 android:id="@+id/patient_appointment_price"
@@ -130,9 +131,9 @@
 
             <TextView
                 android:id="@+id/patient_appointment_to"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
+                android:layout_width="20dp"
+                android:layout_height="17dp"
+                android:layout_marginStart="20dp"
                 android:layout_marginTop="8dp"
                 android:text="to"
                 android:textSize="12sp"
@@ -141,15 +142,16 @@
 
             <TextView
                 android:id="@+id/patient_appointment_end"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="44dp"
+                android:layout_height="18dp"
                 android:layout_marginEnd="8dp"
-                android:layout_marginStart="8dp"
+                android:layout_marginStart="3dp"
                 android:layout_marginTop="8dp"
                 android:text="End"
                 android:textColor="@android:color/black"
                 android:textSize="12sp"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.112"
                 app:layout_constraintStart_toEndOf="@+id/patient_appointment_to"
                 app:layout_constraintTop_toBottomOf="@+id/patient_appointment_location" />
 
@@ -166,8 +168,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.707"
                 app:layout_constraintStart_toEndOf="@+id/accepted"
-                app:layout_constraintTop_toBottomOf="@+id/patient_appointment_price"
-                app:layout_constraintVertical_bias="0.719" />
+                app:layout_constraintTop_toBottomOf="@+id/patient_appointment_end" />
 
         </android.support.constraint.ConstraintLayout>
 
