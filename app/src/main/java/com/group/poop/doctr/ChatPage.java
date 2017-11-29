@@ -76,7 +76,7 @@ public class ChatPage extends AppCompatActivity {
                 if(dataSnapshot.exists())
                 {
                     Conversation conv = dataSnapshot.getValue(Conversation.class);
-                    if(user.getUid() == conv.getPatientUID())
+                    if(user.getUid().equals(conv.getPatientUID()))
                         userName = conv.getPatientName();
                     else
                         userName = conv.getDoctorName();
