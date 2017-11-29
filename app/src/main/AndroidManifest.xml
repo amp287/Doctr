@@ -118,8 +118,28 @@
             android:name=".ChatPage"
             android:label="Chat"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="stateVisible|adjustPan"></activity>
-        <activity android:name=".MedicalRecordActivity"></activity>
+            android:windowSoftInputMode="stateVisible|adjustPan">
+
+        </activity>
+        <activity
+            android:name=".DoctorMedicalRecordActivity"
+            android:label="Medical Records">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".PatientMedicalRecordActivity"
+            android:label="Your Medical Records">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
