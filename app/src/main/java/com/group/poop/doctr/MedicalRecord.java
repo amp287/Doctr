@@ -1,5 +1,6 @@
 package com.group.poop.doctr;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -24,6 +25,16 @@ public class MedicalRecord {
 
     public Date getApptTime() {
         return apptTime;
+    }
+
+    public String getApptTimeString(){
+        // TODO - Return formatted dd/mm/yyyy
+        SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy");
+
+        if( apptTime != null ) {
+            return format.format(apptTime);
+        }
+        return "MM/dd/yyyy";
     }
 
     public String getApptDesc() {
