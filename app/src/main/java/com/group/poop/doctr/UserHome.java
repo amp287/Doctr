@@ -125,6 +125,7 @@ public class UserHome extends AppCompatActivity
                             public void onClick(View v) {
                                 searchFragment.doSearch();
                             }
+
                         });
                         break;
                     case R.id.user_nav_bar_my_appointments:
@@ -133,15 +134,13 @@ public class UserHome extends AppCompatActivity
                     case R.id.user_nav_bar_my_doctors:
                         mFAB.hide();
                         break;
-                    /*
-                    case R.id.doctor_messages:
+                    case R.id.user_nav_bar_messages:
                         selected = ConversationFragment.newInstance();
                         transaction = getSupportFragmentManager().beginTransaction();
-                        transaction.replace(R.id.frameLayout, selected);
+                        transaction.replace(R.id.user_frame_layout, selected);
                         transaction.commit();
                         mFAB.hide();
                         break;
-                    */
                 }
                 //FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                 //transaction.replace(R.id.frameLayout, selected);

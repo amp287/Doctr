@@ -24,4 +24,11 @@
         android:icon="@drawable/ic_people_black_24dp"
         android:title="My Doctors"
         android:visible="true" />
+    <item
+        android:id="@+id/user_nav_bar_messages"
+        android:checkable="false"
+        android:enabled="true"
+        android:icon="@drawable/ic_message"
+        android:title="My Doctors"
+        android:visible="true" />
 </menu>
