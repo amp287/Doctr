@@ -21,17 +21,24 @@ import java.util.List;
 
 public class DoctorMedicalRecordActivity extends AppCompatActivity {
 
+    // Recycler
     private RecyclerView mRecycler;
+
+    // Buttons
     private Button createpdf_Button;
     private Button saveapptdesc_Button;
+
+    // PDF Tester
     PDFTester pdf = new PDFTester();
 
-    private List<MedicalRecord> mr_list;
+    // User Info
     private User user;
     private String uid;
+    private List<MedicalRecord> mr_list;
+
+    // Constants
     public static final String UID_PARAM = "UID";
     public static final String SHOW_MR_PARAM = "SHOWMR";
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +51,20 @@ public class DoctorMedicalRecordActivity extends AppCompatActivity {
         //Array List for the Medical record object
         mr_list = new ArrayList<MedicalRecord>();
 
+        // Initialize Views
+        createpdf_Button = findViewById(R.id.createPDF);
+        saveapptdesc_Button = findViewById(R.id.saveApptDesc);
+
+        saveapptdesc_Button.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                // Code here executes on main thread after user presses button
+                int i = 0;
+
+            }
+        });
+
+
+
         // Get UID
         // TODO: This was giving me a error so I had to comment it out.
         Bundle bundle = getIntent().getExtras();
@@ -51,7 +72,11 @@ public class DoctorMedicalRecordActivity extends AppCompatActivity {
         boolean showMr = bundle.getBoolean(SHOW_MR_PARAM);
 
         if(showMr){
+
+            // Get All Medical Records
             Query query = FirebaseDatabase.getInstance().getReference().child("MedicalRecords").child(uid).orderByKey();
+
+            //
             query.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
@@ -67,7 +92,6 @@ public class DoctorMedicalRecordActivity extends AppCompatActivity {
                                 if(dataSnapshot.exists()){
                                     user = dataSnapshot.getValue(User.class);
                                     //Functionality for Generating PDF
-                                    createpdf_Button = findViewById(R.id.createPDF);
                                     createpdf_Button.setOnClickListener(new View.OnClickListener() {
                                         @Override
                                         public void onClick(View v) {
