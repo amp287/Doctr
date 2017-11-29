@@ -72,6 +72,7 @@ public class OfferedAppointmentAdapter extends RecyclerView.Adapter<OfferedAppoi
                 DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
                 // open patient MR
                 ref.child("DoctorsPatients").child(appointments.get(position).getDoctorUID()).child(appointments.get(position).getPatientUID()).setValue(true);
+                ref.child("DoctorsPatients").child(appointments.get(position).getDoctorUID()).child(appointments.get(position).getPatientUID()).setValue(true);
                 final String PID = appointments.get(position).getDoctorUID();
                 // open patient MR
                 ref.child("UserProfiles").child(appointments.get(position).getPatientUID()).child("showMR").addListenerForSingleValueEvent(new ValueEventListener() {
