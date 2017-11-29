@@ -32,4 +32,5 @@
         android:icon="@drawable/ic_message"
         android:title="Messages"
         android:visible="true" />
+
 </menu>

@@ -224,8 +224,8 @@ public class UserHome extends AppCompatActivity
 
         } else if (id == R.id.nav_send) {
 
-        } else if (id == R.id.create_appt) {
-            Intent intent = new Intent(UserHome.this, CreateAppointment.class);
+        } else if (id == R.id.avail_appt) {
+            Intent intent = new Intent(UserHome.this, PatientAvailableAppointments.class);
             startActivity(intent);
         }
 

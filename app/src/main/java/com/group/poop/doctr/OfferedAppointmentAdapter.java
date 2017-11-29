@@ -1,6 +1,8 @@
 package com.group.poop.doctr;
+import android.support.design.widget.NavigationView;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,15 +29,15 @@ public class OfferedAppointmentAdapter extends RecyclerView.Adapter<OfferedAppoi
     public OfferedAppointmentViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.offered_appointment_card, parent, false);
         OfferedAppointmentViewHolder oavh = new OfferedAppointmentViewHolder(view);
+
+
         return oavh;
     }
 
     @Override
-    public void onBindViewHolder(OfferedAppointmentViewHolder holder, int position) {
+    public void onBindViewHolder(OfferedAppointmentViewHolder holder, final int position) {
 
         holder.speciality.setText(appointments.get(position).speciality);
-
-        holder.doctorName.setText(appointments.get(position).doctorName);
 
         holder.price.setText("$" + appointments.get(position).price.toString());
 
@@ -53,7 +55,33 @@ public class OfferedAppointmentAdapter extends RecyclerView.Adapter<OfferedAppoi
         String endString = endFormat.format(appointments.get(position).getEndTime().getTime());
         holder.endTime.setText(endString);
 
-        // TODO setup on click listener for cancel button
+        holder.accept.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                // open patient MR
+
+                // notify patient
+
+                // set appt flag to accepted
+                appointments.get(position).setAccepted(1);
+                Log.e("value " , "" + appointments.get(position).getAccepted());
+            }
+        });
+
+        holder.reject.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                // open patient MR
+
+                // notify patient
+
+                // set appt flag to rejected
+                appointments.get(position).setAccepted(-1);
+                Log.e("value " , "" + appointments.get(position).getAccepted());
+            }
+        });
 
     }
 
@@ -64,28 +92,54 @@ public class OfferedAppointmentAdapter extends RecyclerView.Adapter<OfferedAppoi
 
     public static class OfferedAppointmentViewHolder extends RecyclerView.ViewHolder {
         CardView cardView;
-        ImageView doctorPhoto;
         TextView speciality;
-        TextView doctorName;
         TextView price;
         TextView location;
         TextView date;
         TextView startTime;
         TextView endTime;
-        Button cancel;
+        Button accept;
+        Button reject;
 
         OfferedAppointmentViewHolder(View itemView) {
             super(itemView);
             cardView = itemView.findViewById(R.id.offered_appointment_card_view);
-            doctorPhoto = itemView.findViewById(R.id.offered_appointment_dr_photo);
             speciality = itemView.findViewById(R.id.offered_appointment_speciality);
-            doctorName = itemView.findViewById(R.id.offered_appointment_dr_name);
             price = itemView.findViewById(R.id.offered_appointment_price);
             location = itemView.findViewById(R.id.offered_appointment_location);
             date = itemView.findViewById(R.id.offered_appointment_date);
             startTime = itemView.findViewById(R.id.offered_appointment_start);
             endTime = itemView.findViewById(R.id.offered_appointment_end);
-            cancel = itemView.findViewById(R.id.offered_appointment_cancel);
+            accept = itemView.findViewById(R.id.offered_appointment_accept);
+            reject = itemView.findViewById(R.id.offered_appointment_reject);
+
+            //Buttons
+//
+//            accept.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                int i = 0;
+//                Log.e("Button " ,"accept");
+//                // open patient MR
+//
+////                // notify patient
+//
+////                // set appt flag to accepted
+//            }
+//        });
+////
+            reject.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int i = 0;
+                Log.e("Button " ,"reject");
+
+////                //appointment set to rejected
+
+////                //notify patient
+            }
+        });
+
         }
     }
 

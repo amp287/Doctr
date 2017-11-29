@@ -13,6 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
 import android.text.format.DateFormat;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -281,7 +282,11 @@ public class CreateAppointment extends AppCompatActivity {
                             doctorName,
                             desc.getText().toString());
 
-                    ref.child("AppointmentProfiles").child(uid).push().setValue(appointment);
+                    String apptKey = ref.child("AppointmentProfiles").child(uid).push().getKey();
+                    Log.e("apptKey: " ,apptKey);
+                    appointment.setApptKey(apptKey);
+                    ref.child("AppointmentProfiles").child(uid).child(apptKey).setValue(appointment);
+
 
                     Toast.makeText(CreateAppointment.this, "Appointment Created.", Toast.LENGTH_LONG).show();
 
