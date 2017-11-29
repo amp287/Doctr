@@ -103,6 +103,9 @@ public class UpcomingAppointmentsFragment extends Fragment {
                         Log.e("value " ,""+postSnapshot.getValue());
                         appointment = postSnapshot.getValue(Appointment.class);
                         Log.e("value " ,""+appointment.getDoctorName());
+                        if(appointment.getPatientUID() == "NULL" || appointment.getPatientUID().equals("NULL")){
+                            continue;
+                        }
                         if(appointment.getAccepted()== 1) {
                             appointments.add(appointment);
                         }

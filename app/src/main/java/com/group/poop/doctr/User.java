@@ -23,7 +23,6 @@ public class User {
 
     }
 
-
     // Constructor
     User(String uid,
          String firstName,
@@ -46,6 +45,11 @@ public class User {
         this.allergies = allergies;
         this.medications = medications;
         showMR = true;
+    }
+
+    public User(String parseString)
+    {
+
     }
 
     public String getUid() {
