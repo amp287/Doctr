@@ -58,9 +58,9 @@ public class MedicalRecordAdapter extends RecyclerView.Adapter<MedicalRecordAdap
         MedicalRecordViewHolder(View itemView) {
             super(itemView);
             cardView = itemView.findViewById(R.id.appointment_card_view);
-            type = itemView.findViewById(R.id.type);
-            time = itemView.findViewById(R.id.time);
-            discription = itemView.findViewById(R.id.discription);
+            type = itemView.findViewById(R.id.mr_card_type);
+            time = itemView.findViewById(R.id.mr_card_time);
+            discription = itemView.findViewById(R.id.mr_card_discription);
 
         }
     }

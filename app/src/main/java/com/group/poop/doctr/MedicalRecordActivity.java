@@ -7,12 +7,23 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class MedicalRecordActivity extends AppCompatActivity {
 
     private RecyclerView mRecycler;
+
+    private List<MedicalRecord> mr_list;
+
+    public static final String UID_PARAM = "UID";
+    public static final String SHOW_MR_PARAM = "SHOWMR";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,18 +32,35 @@ public class MedicalRecordActivity extends AppCompatActivity {
 
         // Get UID
         Bundle bundle = getIntent().getExtras();
-        String uid = (String) bundle.getString("UID");
+        String uid = bundle.getString(UID_PARAM);
+        boolean showMr = bundle.getBoolean(SHOW_MR_PARAM);
 
         mRecycler = (RecyclerView)findViewById(R.id.medicalRecordsRecyclerView);
 
         // Get Medical Records
 
         // Array List for the Medical record object
-        List<MedicalRecord> medicalRecords = new ArrayList<>();
+       mr_list = new ArrayList<MedicalRecord>();
 
-        // Pass to adapter
-        MedicalRecordAdapter mra = new MedicalRecordAdapter( medicalRecords );
-        mRecycler.setAdapter(mra);
+        if(!showMr)
+            return;
+
+        Query query = FirebaseDatabase.getInstance().getReference().child("MedicalRecords").child(uid).orderByKey();
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()){
+                    mr_list.add(dataSnapshot.getValue(MedicalRecord.class));
+
+                    mRecycler.setAdapter(new MedicalRecordAdapter(mr_list));
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
     }
 

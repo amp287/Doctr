@@ -14,6 +14,7 @@ public class User {
     private Long height; // inches
     private String allergies;
     private String medications;
+    private boolean showMR;
 
     // TODO - private Image profilePicture; figure this out later
 
@@ -43,6 +44,7 @@ public class User {
         this.height = height;
         this.allergies = allergies;
         this.medications = medications;
+        showMR = true;
     }
 
     public String getUid() {
@@ -74,6 +76,8 @@ public class User {
     public String getAllergies() { return allergies; }
 
     public String getMedications() { return medications; }
+
+    public boolean getShowMR() {return showMR;}
 
     public void setUid(String uid) {
         this.uid = uid;
@@ -110,4 +114,6 @@ public class User {
     public void setMedications(String medications) {
         this.medications = medications;
     }
+
+    public void setShowMR(boolean showMR) {this.showMR = showMR;}
 }
