@@ -12,7 +12,11 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
+<<<<<<< HEAD
 import com.google.firebase.auth.FirebaseAuth;
+=======
+import com.google.firebase.database.ChildEventListener;
+>>>>>>> c80c45f1db221bb24e253ed02609e1c47aed5759
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -110,20 +114,31 @@ public class DoctorMedicalRecordActivity extends AppCompatActivity {
             }
         });
 
+<<<<<<< HEAD
         if(showMr){
+=======
 
+
+        // Get UID
+        // TODO: This was giving me a error so I had to comment it out.
+        Bundle bundle = getIntent().getExtras();
+        uid = bundle.getString(UID_PARAM);
+        final boolean showMr = bundle.getBoolean(SHOW_MR_PARAM);
+>>>>>>> c80c45f1db221bb24e253ed02609e1c47aed5759
+
+        if(showMr) {
             // Get All Medical Records
             Query query = FirebaseDatabase.getInstance().getReference().child("MedicalRecords").child(uid).orderByKey();
 
-            //
-            query.addListenerForSingleValueEvent(new ValueEventListener() {
+            query.addChildEventListener(new ChildEventListener() {
                 @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    if(dataSnapshot.exists()){
-                        mr_list.add(dataSnapshot.getValue(MedicalRecord.class));
+                public void onChildAdded(DataSnapshot dataSnapshot, String s) {
 
-                        mRecycler.setAdapter(new MedicalRecordAdapter(mr_list));
+                    mr_list.add(dataSnapshot.getValue(MedicalRecord.class));
+                    mRecycler.setAdapter(new MedicalRecordAdapter(mr_list));
+                }
 
+<<<<<<< HEAD
                         Query query = FirebaseDatabase.getInstance().getReference().child("UserProfiles").child(uid).orderByKey();
                         query.addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
@@ -142,13 +157,50 @@ public class DoctorMedicalRecordActivity extends AppCompatActivity {
                             @Override
                             public void onCancelled(DatabaseError databaseError){}
                         });
-
-                    }
-                }
+=======
                 @Override
-                public void onCancelled(DatabaseError databaseError) {}
+                public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                }
+
+                @Override
+                public void onChildRemoved(DataSnapshot dataSnapshot) {
+                }
+>>>>>>> c80c45f1db221bb24e253ed02609e1c47aed5759
+
+                @Override
+                public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                }
             });
         }
+
+        Query query = FirebaseDatabase.getInstance().getReference().child("UserProfiles").child(uid).orderByKey();
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()){
+                    user = dataSnapshot.getValue(User.class);
+
+
+                        //Functionality for Generating PDF
+                        createpdf_Button.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                if (showMr)
+                                    pdf.createPdf(user,mr_list);
+                                else
+                                    Toast.makeText(DoctorMedicalRecordActivity.this, "Access Denied", Toast.LENGTH_LONG).show();
+
+                            }
+                        });
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError){}
+        });
     }
 
     private static void requestPatientUser()
