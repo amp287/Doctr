@@ -208,8 +208,8 @@ public class UserScheduleFragment extends Fragment {
             price.setText(appt.getPrice().toString());
             location.setText(appt.getLocation());
             specialty.setText(appt.getSpeciality());
-
-            if(appt.getAccepted() != 0){
+            int accepted_int = appt.getAccepted();
+            if(accepted_int != 0){
                 TextView accepted = (TextView)convertView.findViewById(R.id.accepted);
                 if(appt.getAccepted() == -1) {
                     accepted.setText("Rejected...");

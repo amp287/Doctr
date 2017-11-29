@@ -27,9 +27,10 @@ public class DoctorMedicalRecordActivity extends AppCompatActivity {
     PDFTester pdf = new PDFTester();
 
     private List<MedicalRecord> mr_list;
-    private List<MedicalRecord> mr_list_test;
+    private User user;
     public static final String UID_PARAM = "UID";
     public static final String SHOW_MR_PARAM = "SHOWMR";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,56 +45,45 @@ public class DoctorMedicalRecordActivity extends AppCompatActivity {
 
         // Get UID
         // TODO: This was giving me a error so I had to comment it out.
-        /*Bundle bundle = getIntent().getExtras();
+        Bundle bundle = getIntent().getExtras();
         String uid = bundle.getString(UID_PARAM);
         boolean showMr = bundle.getBoolean(SHOW_MR_PARAM);
-        if(!showMr) return;
+        if(showMr){
+            Query query = FirebaseDatabase.getInstance().getReference().child("MedicalRecords").child(uid).orderByKey();
+            query.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    if(dataSnapshot.exists()){
+                        mr_list.add(dataSnapshot.getValue(MedicalRecord.class));
 
+                        mRecycler.setAdapter(new MedicalRecordAdapter(mr_list));
 
-        Query query = FirebaseDatabase.getInstance().getReference().child("MedicalRecords").child(uid).orderByKey();
-        query.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if(dataSnapshot.exists()){
-                    mr_list.add(dataSnapshot.getValue(MedicalRecord.class));
+                        Query query = FirebaseDatabase.getInstance().getReference().child("UserProfiles").child(uid).orderByKey();
+                        query.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                if(dataSnapshot.exists()){
+                                    user = dataSnapshot.getValue(User.class);
+                                    //Functionality for Generating PDF
+                                    createpdf_Button = findViewById(R.id.createPDF);
+                                    createpdf_Button.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            pdf.createPdf(user,mr_list);
+                                        }
+                                    });
+                                }
+                            }
+                            @Override
+                            public void onCancelled(DatabaseError databaseError){}
+                        });
 
-                    mRecycler.setAdapter(new MedicalRecordAdapter(mr_list));
-
+                    }
                 }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });*/
-
-       ///HARDCODED MEDICAL RECORDS, NEEDS TO BE REMOVED
-        // TODO: def need to remove all this after MR are created in the Firebase.
-        Calendar cal = Calendar.getInstance();
-        cal.set(1977,5,23);
-        final User user_test = new User("1234567890", "Luke",
-                "Skywalker", cal.getTime(), "male",
-                68L, 160L, "Porgs, Peanuts","Space Aspirin");
-        mr_list_test = new ArrayList<>();
-        mr_list_test.add(new MedicalRecord("Teeth Cleaning", Calendar.getInstance().getTime(), "Cleaned subject's teeth. Noticed early signs of gingivitis. Recommended daily flossing and fluoride rinse."));
-        mr_list_test.add(new MedicalRecord("Amputation", Calendar.getInstance().getTime(), "Removed subject's right hand. Attached prosthetic."));
-        mr_list_test.add(new MedicalRecord("General Check up", Calendar.getInstance().getTime(), "Everything was fine. Bloodwork came back clean, though midi-chlorians were quite high."));
-        mRecycler.setAdapter(new MedicalRecordAdapter(mr_list_test));
-        //HARDCODED MEDICAL RECORDS, NEEDS TO BE REMOVED
-
-        //Functionality for Generating PDF
-        createpdf_Button = findViewById(R.id.createPDF);
-        //TODO : remove _test after this is functional
-        //TODO : Need to grab User object (patient)
-        createpdf_Button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                pdf.createPdf(user_test,mr_list_test);
-            }
-        });
-
-
+                @Override
+                public void onCancelled(DatabaseError databaseError) {}
+            });
+        }
     }
 
 }
