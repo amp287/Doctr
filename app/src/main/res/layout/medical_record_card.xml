@@ -19,47 +19,41 @@
             android:id="@+id/relativeLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="16dp">
-
-            <ImageView
-                android:id="@+id/patient_card_photo"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_person_black" />
+            android:padding="5dp">
 
             <TextView
-                android:id="@+id/patient_card_name"
+                android:id="@+id/appointmentType"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
                 android:text="Type"
                 android:textSize="20sp"
-                app:layout_constraintStart_toEndOf="@+id/patient_card_photo"
-                app:layout_constraintTop_toTopOf="@+id/patient_card_photo" />
-
-            <TextView
-                android:id="@+id/patient_card_gender"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="4dp"
-                android:text="type"
-                android:textSize="12sp"
-                app:layout_constraintStart_toEndOf="@+id/patient_card_photo"
-                app:layout_constraintTop_toBottomOf="@+id/patient_card_name" />
+                tools:layout_editor_absoluteX="16dp"
+                tools:layout_editor_absoluteY="16dp" />
 
             <TextView
                 android:id="@+id/patient_card_dob"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
+                android:layout_marginStart="8dp"
                 android:layout_marginTop="4dp"
                 android:text="mm/dd/yyyy"
+                android:textSize="20sp"
+                tools:layout_editor_absoluteX="16dp"
+                app:layout_constraintTop_toBottomOf="@+id/appointmentType"
+                />
+
+            <TextView
+                android:id="@+id/discription"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="Description"
                 android:textSize="12sp"
-                app:layout_constraintStart_toEndOf="@+id/patient_card_gender"
-                app:layout_constraintTop_toBottomOf="@+id/patient_card_name" />
+                tools:layout_editor_absoluteX="16dp"
+                app:layout_constraintTop_toBottomOf="@+id/patient_card_dob"
+                />
+
+
 
         </android.support.constraint.ConstraintLayout>
 
