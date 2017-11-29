@@ -107,9 +107,9 @@ public class SignUpPage extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                String text = confirmPassword.getText().toString();
-                String password = confirmPassword.getText().toString();
-                if (!text.equals(password)) {
+                String confirmPasswordString = confirmPassword.getText().toString();
+                String passwordString = password.getText().toString();
+                if (!confirmPasswordString.equals(passwordString)) {
                     confirmPasswordLayout.setError("Error: Passwords do not match.");
                 } else {
                     confirmPasswordLayout.setError(null);

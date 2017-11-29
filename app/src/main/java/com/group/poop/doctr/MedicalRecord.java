@@ -12,12 +12,24 @@ public class MedicalRecord {
     private String apptType;
     private Date apptTime;
     private String apptDesc;
+    private String doctorUID;
+    private String doctorString;
 
-    MedicalRecord( String apptType, Date apptTime, String apptDesc) {
+    public MedicalRecord(){
+
+    }
+
+    MedicalRecord( String apptType, Date apptTime, String apptDesc, String doctorUID, String doctorString) {
         this.apptType = apptType;
         this.apptTime = apptTime;
         this.apptDesc = apptDesc;
+        this.doctorUID = doctorUID;
+        this.doctorString = doctorString;
     }
+
+    public String getDoctorUID() {return doctorUID;}
+
+    public String getDoctorString() {return doctorString;}
 
     public String getApptType() {
         return apptType;
