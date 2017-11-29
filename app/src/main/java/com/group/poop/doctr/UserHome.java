@@ -41,7 +41,8 @@ public class UserHome extends AppCompatActivity
         PatientFragment.OnFragmentInteractionListener,
         OfferedAppointmentsFragment.OnFragmentInteractionListener,
         ConversationFragment.OnFragmentInteractionListener,
-        SearchFragment.OnFragmentInteractionListener {
+        SearchFragment.OnFragmentInteractionListener,
+        UserScheduleFragment.OnFragmentInteractionListener{
 
     private BottomNavigationView mBNV;
     private FloatingActionButton mFAB;
@@ -129,6 +130,10 @@ public class UserHome extends AppCompatActivity
                         });
                         break;
                     case R.id.user_nav_bar_my_appointments:
+                        selected = UserScheduleFragment.newInstance();
+                        transaction = getSupportFragmentManager().beginTransaction();
+                        transaction.replace(R.id.user_frame_layout, selected);
+                        transaction.commit();
                         mFAB.hide();
                         break;
                     case R.id.user_nav_bar_my_doctors:

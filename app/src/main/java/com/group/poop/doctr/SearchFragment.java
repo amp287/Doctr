@@ -76,6 +76,7 @@ public class SearchFragment extends Fragment {
 
     public void doSearch(){
         Toast.makeText(getContext(), "Search Started", Toast.LENGTH_LONG).show();
+
     }
 
     /**

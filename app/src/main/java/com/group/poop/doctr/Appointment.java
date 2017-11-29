@@ -44,6 +44,14 @@ public class Appointment {
         this.description = description;
     }
 
+    public String getPatientUID(){return patientUID;}
+
+    public void setPatientUID(String patientUID){this.patientUID = patientUID;}
+
+    public int getAccepted(){return accepted;}
+
+    public void setAccepted(int accepted){this.accepted = accepted;}
+
     public String getLocation() {
         return location;
     }
