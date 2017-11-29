@@ -86,6 +86,7 @@ public class CreateAppointment extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTitle("Create Appointments");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_appointment);
 
