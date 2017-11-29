@@ -77,7 +77,7 @@ public class OfferedAppointmentAdapter extends RecyclerView.Adapter<OfferedAppoi
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         boolean showMR = dataSnapshot.getValue(boolean.class);
-                        Intent intent = new Intent(C, PatientMedicalRecordActivity.class);
+                        Intent intent = new Intent(C, DoctorMedicalRecordActivity.class);
                         intent.putExtra("UID", PID);
                         intent.putExtra("SHOWMR", showMR);
                         C.startActivity(intent);
