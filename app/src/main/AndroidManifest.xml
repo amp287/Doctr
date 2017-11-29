@@ -40,7 +40,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".CreateAppointment"
             android:label="New Appointment"
@@ -51,7 +50,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity android:name=".SignUpPage">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -95,7 +93,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".NewDoctorHome"
             android:label="Doctor Home Page"
@@ -110,9 +107,8 @@
             android:name=".ChatPage"
             android:label="Chat"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="stateVisible|adjustPan">
-        </activity>
+            android:windowSoftInputMode="stateVisible|adjustPan"></activity>
+        <activity android:name=".MedicalRecordActivity"></activity>
     </application>
-
 
 </manifest>
