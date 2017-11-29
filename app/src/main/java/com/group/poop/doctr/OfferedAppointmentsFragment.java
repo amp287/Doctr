@@ -88,7 +88,7 @@ public class OfferedAppointmentsFragment extends Fragment {
                 145L,
                 "Eye Exam",
                 "64789231678234689", // this is junk becareful with this test case
-                "Dr. Tom Brady",
+                "Dr. Mario Osborn",
                 "Looking at eyes and stuff."
         ));
 
@@ -99,7 +99,7 @@ public class OfferedAppointmentsFragment extends Fragment {
                 35000L,
                 "CBC Blood Test",
                 "647896788984689", // this is junk becareful with this test case
-                "Dr. Martin Shkreli",
+                "Dr. Mario Osborn",
                 "You Know"
         ));
 
