@@ -281,7 +281,7 @@ public class CreateAppointment extends AppCompatActivity {
                             doctorName,
                             desc.getText().toString());
 
-                    ref.child("AppointmentProfiles").child(uid).setValue(appointment);
+                    ref.child("AppointmentProfiles").child(uid).push().setValue(appointment);
                     Toast.makeText(CreateAppointment.this, "Appointment Created.", Toast.LENGTH_LONG).show();
 
                     Intent intent = new Intent(CreateAppointment.this, NewDoctorHome.class);
