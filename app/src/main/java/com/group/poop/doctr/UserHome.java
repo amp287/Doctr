@@ -227,6 +227,9 @@ public class UserHome extends AppCompatActivity
         } else if (id == R.id.avail_appt) {
             Intent intent = new Intent(UserHome.this, PatientAvailableAppointments.class);
             startActivity(intent);
+        } else if(id == R.id.user_home_drawer_medical_record){
+            Intent intent = new Intent(UserHome.this, PatientMedicalRecordActivity.class);
+            startActivity(intent);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

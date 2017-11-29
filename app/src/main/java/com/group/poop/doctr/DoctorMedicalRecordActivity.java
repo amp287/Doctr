@@ -12,8 +12,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
@@ -36,13 +38,18 @@ public class DoctorMedicalRecordActivity extends AppCompatActivity {
     PDFTester pdf = new PDFTester();
 
     // User Info
-    private User user;
-    private String uid;
+    private static User patientUser;
+    private static String uid;
+    private static String appKey;
     private List<MedicalRecord> mr_list;
 
     // Constants
     public static final String UID_PARAM = "UID";
     public static final String SHOW_MR_PARAM = "SHOWMR";
+    public static final String APPOINTMENT_KEY = "APPOINTMENT_KEY";
+
+    // FireBase
+    private static DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +67,17 @@ public class DoctorMedicalRecordActivity extends AppCompatActivity {
         saveapptdesc_Button = findViewById(R.id.saveApptDesc);
         apptDescription = findViewById(R.id.apptDescription);
 
+        // Get UID
+        // TODO: This was giving me a error so I had to comment it out.
+        Bundle bundle = getIntent().getExtras();
+        uid = bundle.getString(UID_PARAM);
+        appKey = bundle.getString(APPOINTMENT_KEY);
+        boolean showMr = true;//bundle.getBoolean(SHOW_MR_PARAM);
+
+        // Retrieve the patientUser
+        requestPatientUser();
+
+        // Save Appointment Button
         saveapptdesc_Button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 // Code for saving appointment description goes here.
@@ -76,26 +94,21 @@ public class DoctorMedicalRecordActivity extends AppCompatActivity {
                 }
                 else
                 {
-                    // Clear it
-                    apptDescription.setText(null);
+                    if( (uid != null )) {
+                        // Clear it
+                        apptDescription.setText(null);
 
-                    // Save it
+                        // Save it
+                        saveMedicalNote(appDescText);
 
-                    // Provide user visual-feedback.
-                    Toast.makeText(DoctorMedicalRecordActivity.this, "Medical note saved!", Toast.LENGTH_SHORT).show();
-
-                }
-
+                        // Provide user visual-feedback.
+                        Toast.makeText(DoctorMedicalRecordActivity.this, "Medical note saved!", Toast.LENGTH_SHORT).show();
+                    }else if( uid == null){
+                            Toast.makeText(DoctorMedicalRecordActivity.this, "(uid == null)", Toast.LENGTH_SHORT).show();
+                        }
+                    }
             }
         });
-
-
-
-        // Get UID
-        // TODO: This was giving me a error so I had to comment it out.
-        Bundle bundle = getIntent().getExtras();
-        uid = bundle.getString(UID_PARAM);
-        boolean showMr = bundle.getBoolean(SHOW_MR_PARAM);
 
         if(showMr){
 
@@ -116,12 +129,12 @@ public class DoctorMedicalRecordActivity extends AppCompatActivity {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
                                 if(dataSnapshot.exists()){
-                                    user = dataSnapshot.getValue(User.class);
+                                    patientUser = dataSnapshot.getValue(User.class);
                                     //Functionality for Generating PDF
                                     createpdf_Button.setOnClickListener(new View.OnClickListener() {
                                         @Override
                                         public void onClick(View v) {
-                                            pdf.createPdf(user,mr_list);
+                                            pdf.createPdf(patientUser,mr_list);
                                         }
                                     });
                                 }
@@ -138,4 +151,28 @@ public class DoctorMedicalRecordActivity extends AppCompatActivity {
         }
     }
 
+    private static void requestPatientUser()
+    {
+//        mDatabase.child("UserProfiles").child(uid).addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot snapshot) {
+//                String patientString = (String) snapshot.getValue().toString();
+//                patientUser = new User(patientString);
+//                // TODO - Place your code here
+//
+//            }
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//            }
+//
+//        });
+
+    }
+
+    private void saveMedicalNote(String medicalNote)
+    {
+        // TODO - Save medical record to the patients data base.
+        //mDatabase.child("MedicalRecords").child(uid).child("")setValue(patientUser);
+
+    }
 }
