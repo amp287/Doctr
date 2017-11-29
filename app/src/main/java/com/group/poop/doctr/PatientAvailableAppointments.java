@@ -16,6 +16,8 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,8 +25,10 @@ import java.util.List;
 
 public class PatientAvailableAppointments extends AppCompatActivity {
 
-    private Appointment appointment = null;
+    private List<Appointment> appointments;
     private RecyclerView mRecycler;
+    private String userName;
+    private String uid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,50 +39,72 @@ public class PatientAvailableAppointments extends AppCompatActivity {
         mRecycler = findViewById(R.id.available_appointment_recycler);
         mRecycler.setLayoutManager(new LinearLayoutManager(this));
 
-        final List<Appointment> appointments = new ArrayList<>();
+        appointments = new ArrayList<Appointment>();
 
-        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+        final DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
 
-        String uid = FirebaseAuth.getInstance().getUid();
-        //mDatabase.child("doctorsList");
-        mDatabase.child("AppointmentProfiles").addChildEventListener(new ChildEventListener() {
+        uid = FirebaseAuth.getInstance().getUid();
+
+        Query q = mDatabase.child("UserProfiles").child(uid);
+        q.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onChildAdded(DataSnapshot snapshot, String s) {
-                if(snapshot.exists()) {
-                    Log.e("Count " ,""+snapshot.getChildrenCount());
-                    for (DataSnapshot postSnapshot: snapshot.getChildren()) {
-                        Log.e("value " ,""+postSnapshot.getValue());
-                        appointment = postSnapshot.getValue(Appointment.class);
-                        Log.e("value " ,""+appointment.getDoctorName());
-                        appointments.add(appointment);
-                    }
-                    PatientAvailableAppointmentsAdapter oaa = new PatientAvailableAppointmentsAdapter(appointments);
-                    mRecycler.setAdapter(oaa);
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()){
+                    User user = dataSnapshot.getValue(User.class);
+                    userName = user.getFirstName();
+
+                    mDatabase.child("AppointmentProfiles").addChildEventListener(new ChildEventListener() {
+                        @Override
+                        public void onChildAdded(DataSnapshot snapshot, String s) {
+                            Appointment appointment;
+                            if(snapshot.exists()) {
+                                Log.e("Count " ,""+snapshot.getChildrenCount());
+                                for (DataSnapshot postSnapshot: snapshot.getChildren()) {
+                                    Log.e("value " ,""+postSnapshot.getValue());
+                                    appointment = postSnapshot.getValue(Appointment.class);
+                                    Log.e("value " ,""+appointment.getDoctorName());
+                                    if(appointment.getPatientUID().equals("NULL"))
+                                        appointments.add(appointment);
+                                }
+                                PatientAvailableAppointmentsAdapter oaa = new PatientAvailableAppointmentsAdapter(appointments,
+                                        userName, PatientAvailableAppointments.this);
+                                mRecycler.setAdapter(oaa);
+                            }
+                        }
+
+                        @Override
+                        public void onChildChanged(DataSnapshot snapshot, String s) {
+                            Appointment appointment;
+                            if(snapshot.exists()) {
+                                Log.e("Count " ,""+snapshot.getChildrenCount());
+                                for (DataSnapshot postSnapshot: snapshot.getChildren()) {
+                                    Log.e("value " ,""+postSnapshot.getValue());
+                                    appointment = postSnapshot.getValue(Appointment.class);
+                                    Log.e("value " ,""+appointment.getDoctorName());
+                                    if(appointment.getPatientUID().equals("NULL"))
+                                        appointments.add(appointment);
+                                }
+                                PatientAvailableAppointmentsAdapter oaa = new PatientAvailableAppointmentsAdapter(appointments,
+                                        userName, PatientAvailableAppointments.this);
+                                mRecycler.setAdapter(oaa);
+                            }
+                        }
+
+                        @Override
+                        public void onChildRemoved(DataSnapshot dataSnapshot) {
+                        }
+
+                        @Override
+                        public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
                 }
-            }
-
-            @Override
-            public void onChildChanged(DataSnapshot snapshot, String s) {
-                if(snapshot.exists()) {
-                    Log.e("Count " ,""+snapshot.getChildrenCount());
-                    for (DataSnapshot postSnapshot: snapshot.getChildren()) {
-                        Log.e("value " ,""+postSnapshot.getValue());
-                        appointment = postSnapshot.getValue(Appointment.class);
-                        Log.e("value " ,""+appointment.getDoctorName());
-                        appointments.add(appointment);
-                    }
-                    PatientAvailableAppointmentsAdapter oaa = new PatientAvailableAppointmentsAdapter(appointments);
-                    mRecycler.setAdapter(oaa);
-                }
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
             }
 
             @Override
@@ -86,5 +112,6 @@ public class PatientAvailableAppointments extends AppCompatActivity {
 
             }
         });
+
     }
 }
