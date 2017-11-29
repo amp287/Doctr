@@ -76,6 +76,10 @@ public class DoctorMedicalRecordActivity extends AppCompatActivity {
                 }
                 else
                 {
+                    // Delete text
+                    apptDescription.setText(null);
+
+                    // Save it
 
                 }
 
