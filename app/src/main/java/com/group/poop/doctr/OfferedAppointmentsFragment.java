@@ -77,7 +77,8 @@ public class OfferedAppointmentsFragment extends Fragment {
         mDatabase.child("AppointmentProfiles").child(uid).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
-
+                appointments.clear();
+                
                 if(snapshot.exists()) {
                     Log.e("Count " ,""+snapshot.getChildrenCount());
                     for (DataSnapshot postSnapshot: snapshot.getChildren()) {
