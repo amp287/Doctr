@@ -88,7 +88,7 @@ public class PatientMedicalRecordActivity extends AppCompatActivity {
                             } else {
                                 // The toggle is disabled
                                 user.setShowMR(true);
-                                FirebaseDatabase.getInstance().getReference().child("UserProfiles").child(uid).child("showMR").setValue(false);
+                                FirebaseDatabase.getInstance().getReference().child("UserProfiles").child(uid).child("showMR").setValue(true);
                             }
                         }
                     });
