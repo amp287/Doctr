@@ -89,7 +89,7 @@ public class DoctorMedicalRecordActivity extends AppCompatActivity {
         // TODO: This was giving me a error so I had to comment it out.
         Bundle bundle = getIntent().getExtras();
         uid = bundle.getString(UID_PARAM);
-        boolean showMr = bundle.getBoolean(SHOW_MR_PARAM);
+        final boolean showMr = bundle.getBoolean(SHOW_MR_PARAM);
 
         if(showMr) {
             // Get All Medical Records
@@ -128,13 +128,18 @@ public class DoctorMedicalRecordActivity extends AppCompatActivity {
                 if(dataSnapshot.exists()){
                     user = dataSnapshot.getValue(User.class);
 
-                    //Functionality for Generating PDF
-                    createpdf_Button.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            pdf.createPdf(user,mr_list);
-                        }
-                    });
+
+                        //Functionality for Generating PDF
+                        createpdf_Button.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                if (showMr)
+                                    pdf.createPdf(user,mr_list);
+                                else
+                                    Toast.makeText(DoctorMedicalRecordActivity.this, "Access Denied", Toast.LENGTH_LONG).show();
+
+                            }
+                        });
                 }
             }
             @Override
