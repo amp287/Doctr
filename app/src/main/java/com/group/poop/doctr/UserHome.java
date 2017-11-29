@@ -40,7 +40,8 @@ public class UserHome extends AppCompatActivity
         TestFragment.OnFragmentInteractionListener,
         PatientFragment.OnFragmentInteractionListener,
         OfferedAppointmentsFragment.OnFragmentInteractionListener,
-        ConversationFragment.OnFragmentInteractionListener{
+        ConversationFragment.OnFragmentInteractionListener,
+        SearchFragment.OnFragmentInteractionListener {
 
     private BottomNavigationView mBNV;
     private FloatingActionButton mFAB;
@@ -49,6 +50,7 @@ public class UserHome extends AppCompatActivity
     private TextView userNameTextView;
     private TextView userEmailTextView;
 
+    private SearchFragment searchFragment;
     private ImageView mDocView;
     private StorageReference mStorage;
     private ProgressDialog mProgress;
@@ -70,7 +72,7 @@ public class UserHome extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        mFAB = findViewById(R.id.doctor_fab);
+        mFAB = findViewById(R.id.user_fab);
 
         mStorage = FirebaseStorage.getInstance().getReference();
 
@@ -111,15 +113,27 @@ public class UserHome extends AppCompatActivity
                 Fragment selected = null;
                 FragmentTransaction transaction;
                 switch (item.getItemId()) {
-                    case R.id.doctor_offered_appointments:
-
+                    case R.id.user_nav_bar_search:
+                        selected = SearchFragment.newInstance();
+                        searchFragment = (SearchFragment) selected;
+                        transaction = getSupportFragmentManager().beginTransaction();
+                        transaction.replace(R.id.user_frame_layout, selected);
+                        transaction.commit();
+                        mFAB.show();
+                        mFAB.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                searchFragment.doSearch();
+                            }
+                        });
                         break;
-                    case R.id.doctor_upcoming_appointments:
-
+                    case R.id.user_nav_bar_my_appointments:
+                        mFAB.hide();
                         break;
-                    case R.id.doctor_patients:
-
+                    case R.id.user_nav_bar_my_doctors:
+                        mFAB.hide();
                         break;
+                    /*
                     case R.id.doctor_messages:
                         selected = ConversationFragment.newInstance();
                         transaction = getSupportFragmentManager().beginTransaction();
@@ -127,6 +141,7 @@ public class UserHome extends AppCompatActivity
                         transaction.commit();
                         mFAB.hide();
                         break;
+                    */
                 }
                 //FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                 //transaction.replace(R.id.frameLayout, selected);
@@ -134,7 +149,7 @@ public class UserHome extends AppCompatActivity
                 return true;
             }
         });
-        mBNV.setSelectedItemId(R.id.doctor_offered_appointments);
+        mBNV.setSelectedItemId(R.id.user_nav_bar_search);
 
         mProgress = new ProgressDialog(this);
         mDocView = navigationView.getHeaderView(0).findViewById(R.id.docView);

@@ -16,11 +16,11 @@
         app:itemTextColor="@android:color/white"
         app:layout_anchor="@+id/include2"
         app:layout_anchorGravity="bottom|center"
-        app:menu="@menu/bottom_nav_bar_user" />
+        app:menu="@menu/bottom_nav_items_user" />
 
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/doctor_fab"
+        android:id="@+id/user_fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/bottom_navigation"
@@ -29,7 +29,8 @@
         android:layout_marginBottom="65dp"
         android:layout_marginRight="16dp"
         android:clickable="true"
-        android:src="@drawable/ic_add"
+        android:src="@drawable/ic_search_black_24dp"
+        android:tint="@color/colorPrimary"
         app:borderWidth="0dp"
         app:layout_anchor="@+id/include2"
         app:layout_anchorGravity="right|bottom" />
