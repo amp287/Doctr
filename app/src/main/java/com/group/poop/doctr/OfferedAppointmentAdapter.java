@@ -1,4 +1,6 @@
 package com.group.poop.doctr;
+import android.content.Context;
+import android.content.Intent;
 import android.support.design.widget.NavigationView;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -10,6 +12,12 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import java.text.SimpleDateFormat;
 import java.util.List;
 
@@ -20,9 +28,11 @@ import java.util.List;
 public class OfferedAppointmentAdapter extends RecyclerView.Adapter<OfferedAppointmentAdapter.OfferedAppointmentViewHolder> {
 
     List<Appointment> appointments;
+    Context C;
 
-    OfferedAppointmentAdapter(List<Appointment> appointments) {
+    OfferedAppointmentAdapter(List<Appointment> appointments, Context C) {
         this.appointments = appointments;
+        this.C = C;
     }
 
     @Override
@@ -59,13 +69,15 @@ public class OfferedAppointmentAdapter extends RecyclerView.Adapter<OfferedAppoi
             @Override
             public void onClick(View v) {
 
+                DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
                 // open patient MR
 
                 // notify patient
 
                 // set appt flag to accepted
                 appointments.get(position).setAccepted(1);
-                Log.e("value " , "" + appointments.get(position).getAccepted());
+
+                ref.child("AppointmentProfiles").child(appointments.get(position).getDoctorUID()).child(appointments.get(position).getApptKey()).child("accepted").setValue(1);
             }
         });
 
@@ -73,13 +85,30 @@ public class OfferedAppointmentAdapter extends RecyclerView.Adapter<OfferedAppoi
             @Override
             public void onClick(View v) {
 
+                DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
+                final String PID = appointments.get(position).getDoctorUID();
                 // open patient MR
+                ref.child("UserProfiles").child(appointments.get(position).getPatientUID()).child("showMR").addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        boolean showMR = dataSnapshot.getValue(boolean.class);
+                        Intent intent = new Intent(C, MedicalRecordActivity.class);
+                        intent.putExtra("UID", PID);
+                        intent.putExtra("SHOWMR", showMR);
+                        C.startActivity(intent);
+                    }
 
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
                 // notify patient
 
                 // set appt flag to rejected
                 appointments.get(position).setAccepted(-1);
-                Log.e("value " , "" + appointments.get(position).getAccepted());
+
+                ref.child("AppointmentProfiles").child(appointments.get(position).getDoctorUID()).child(appointments.get(position).getApptKey()).child("accepted").setValue(-1);
             }
         });
 
@@ -112,33 +141,6 @@ public class OfferedAppointmentAdapter extends RecyclerView.Adapter<OfferedAppoi
             endTime = itemView.findViewById(R.id.offered_appointment_end);
             accept = itemView.findViewById(R.id.offered_appointment_accept);
             reject = itemView.findViewById(R.id.offered_appointment_reject);
-
-            //Buttons
-//
-//            accept.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                int i = 0;
-//                Log.e("Button " ,"accept");
-//                // open patient MR
-//
-////                // notify patient
-//
-////                // set appt flag to accepted
-//            }
-//        });
-////
-            reject.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int i = 0;
-                Log.e("Button " ,"reject");
-
-////                //appointment set to rejected
-
-////                //notify patient
-            }
-        });
 
         }
     }

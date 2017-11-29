@@ -107,7 +107,7 @@ public class UpcomingAppointmentsFragment extends Fragment {
                             appointments.add(appointment);
                         }
                     }
-                    OfferedAppointmentAdapter oaa = new OfferedAppointmentAdapter(appointments);
+                    OfferedAppointmentAdapter oaa = new OfferedAppointmentAdapter(appointments, getActivity());
                     mRecycler.setAdapter(oaa);
                 }
 
@@ -117,30 +117,7 @@ public class UpcomingAppointmentsFragment extends Fragment {
             }
         });
 
-//        appointments.add(new Appointment("Orlando",
-//                cDate.getTime(),
-//                cStart.getTime(),
-//                cEnd.getTime(),
-//                145L,
-//                "Eye Exam",
-//                "64789231678234689", // this is junk becareful with this test case
-//                "Dr Tom Brady",
-//                "Looking at eyes and stuff."
-//        ));
-//
-//        appointments.add(new Appointment("Wall Street",
-//                cDate2.getTime(),
-//                cStart2.getTime(),
-//                cEnd2.getTime(),
-//                35000L,
-//                "CBC Blood Test",
-//                "647896788984689", // this is junk becareful with this test case
-//                "Dr. Martin Shkreli",
-//                "You Know"
-//        ));
-//
-//        OfferedAppointmentAdapter oaa = new OfferedAppointmentAdapter(appointments);
-//        mRecycler.setAdapter(oaa);
+
         return view;
     }
 

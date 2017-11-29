@@ -105,7 +105,7 @@ public class OfferedAppointmentsFragment extends Fragment {
                         Log.e("value " ,""+appointment.getDoctorName());
                         appointments.add(appointment);
                     }
-                    OfferedAppointmentAdapter oaa = new OfferedAppointmentAdapter(appointments);
+                    OfferedAppointmentAdapter oaa = new OfferedAppointmentAdapter(appointments, getActivity());
                     mRecycler.setAdapter(oaa);
                 }
 
