@@ -42,7 +42,8 @@
         </activity>
         <activity
             android:name=".CreateAppointment"
-            android:label="New Appointment">
+            android:label="New Appointment"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -105,7 +106,9 @@
 
         <activity
             android:name=".PatientAvailableAppointments"
-            android:label="Available Appointments">
+            android:label="Available Appointments"
+            android:theme="@style/AppTheme.NoActionBar">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -123,7 +126,9 @@
         </activity>
         <activity
             android:name=".DoctorMedicalRecordActivity"
-            android:label="Medical Records">
+            android:label="Medical Records"
+            android:theme="@style/AppTheme.NoActionBar">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -133,7 +138,8 @@
 
         <activity
             android:name=".PatientMedicalRecordActivity"
-            android:label="Your Medical Records">
+            android:label="Your Medical Records"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
