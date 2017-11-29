@@ -1,6 +1,7 @@
 package com.group.poop.doctr;
 
 import java.util.Calendar;
+import java.util.Date;
 
 /**
  * Created by mkarthik on 11/27/17.
@@ -8,10 +9,10 @@ import java.util.Calendar;
 
 public class MedicalRecord {
     private String apptType;
-    private Calendar apptTime;
+    private Date apptTime;
     private String apptDesc;
 
-    MedicalRecord( String apptType, Calendar apptTime, String apptDesc) {
+    MedicalRecord( String apptType, Date apptTime, String apptDesc) {
         this.apptType = apptType;
         this.apptTime = apptTime;
         this.apptDesc = apptDesc;
@@ -21,7 +22,7 @@ public class MedicalRecord {
         return apptType;
     }
 
-    public Calendar getApptTime() {
+    public Date getApptTime() {
         return apptTime;
     }
 
@@ -33,7 +34,7 @@ public class MedicalRecord {
         this.apptType = apptType;
     }
 
-    public void setApptTime(Calendar apptTime) {
+    public void setApptTime(Date apptTime) {
         this.apptTime = apptTime;
     }
 

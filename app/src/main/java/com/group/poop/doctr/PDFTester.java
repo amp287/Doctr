@@ -70,8 +70,12 @@ public class PDFTester extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // Construct user test data
-        LocalDate dob = LocalDate.of(1977, 5, 25);
-        Date birthday = Date.from(dob.atStartOfDay(ZoneId.systemDefault()).toInstant());
+
+        Date birthday = new Date();
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(birthday);
+
+        cal.set(2017,5,27);
 
         final User currentUser = new User("1234567890", "Luke",
                                           "Skywalker", birthday, "male",
@@ -79,9 +83,9 @@ public class PDFTester extends AppCompatActivity {
 
         // Construct medical record test data
         final ArrayList<MedicalRecord> record_list = new ArrayList<>();
-        record_list.add(new MedicalRecord("Teeth Cleaning", Calendar.getInstance(), "Cleaned subject's teeth. Noticed early signs of gingivitis. Recommended daily flossing and fluoride rinse."));
-        record_list.add(new MedicalRecord("Amputation", Calendar.getInstance(), "Removed subject's right hand. Attached prosthetic."));
-        record_list.add(new MedicalRecord("General Check up", Calendar.getInstance(), "Everything was fine. Bloodwork came back clean, though midi-chlorians were quite high."));
+        record_list.add(new MedicalRecord("Teeth Cleaning", cal.getTime(), "Cleaned subject's teeth. Noticed early signs of gingivitis. Recommended daily flossing and fluoride rinse."));
+        record_list.add(new MedicalRecord("Amputation", Calendar.getInstance().getTime(), "Removed subject's right hand. Attached prosthetic."));
+        record_list.add(new MedicalRecord("General Check up", Calendar.getInstance().getTime(), "Everything was fine. Bloodwork came back clean, though midi-chlorians were quite high."));
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pdftester);
