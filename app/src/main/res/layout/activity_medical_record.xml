@@ -46,6 +46,7 @@ tools:context="com.group.poop.doctr.DoctorMedicalRecordActivity">
         app:layout_constraintStart_toEndOf="@+id/apptDescIcon">
 
         <android.support.design.widget.TextInputEditText
+            android:id="@+id/apptDescription"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Current Appointment Notes"

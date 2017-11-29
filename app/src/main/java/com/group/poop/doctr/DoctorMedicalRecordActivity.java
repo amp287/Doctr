@@ -1,13 +1,16 @@
 package com.group.poop.doctr;
 
+import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -27,6 +30,7 @@ public class DoctorMedicalRecordActivity extends AppCompatActivity {
     // Buttons
     private Button createpdf_Button;
     private Button saveapptdesc_Button;
+    private TextInputEditText apptDescription;
 
     // PDF Tester
     PDFTester pdf = new PDFTester();
@@ -54,11 +58,26 @@ public class DoctorMedicalRecordActivity extends AppCompatActivity {
         // Initialize Views
         createpdf_Button = findViewById(R.id.createPDF);
         saveapptdesc_Button = findViewById(R.id.saveApptDesc);
+        apptDescription = findViewById(R.id.apptDescription);
 
         saveapptdesc_Button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                // Code here executes on main thread after user presses button
-                int i = 0;
+                // Code for saving appointment description goes here.
+
+                // Retrieve Appointment Description
+                String appDescText = (String) apptDescription.getText().toString().trim();
+
+                boolean invalidString = (appDescText == null) || (appDescText.length() == 0);
+
+                if( invalidString )
+                {
+                    Toast.makeText(DoctorMedicalRecordActivity.this, "Nothing to save!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                else
+                {
+
+                }
 
             }
         });
