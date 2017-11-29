@@ -1,6 +1,8 @@
 package com.group.poop.doctr;
 
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Environment;
@@ -30,16 +32,17 @@ import java.util.Date;
 import java.util.List;
 
 
-public class PDFTester extends AppCompatActivity {
+public class PDFTester {
 
     // Vertical spacing constants
     final int PAD = 15;
     final int WSPACE = 5;
 
     private Button mButton;
+    private Context context;
 
     // Callback for permissions requests
-    @Override
+   /* @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions,
                                            int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -47,24 +50,28 @@ public class PDFTester extends AppCompatActivity {
         if (grantResults[0]== PackageManager.PERMISSION_GRANTED) {
             Log.v("PDF","Permission: "+ permissions[0] + "was "+grantResults[0]);
         }
-    }
+    }*/
 
     // Attempt to request storage permission
     public boolean isStoragePermissionGranted() {
-        if (checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+        if (context.checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 == PackageManager.PERMISSION_GRANTED) {
             Log.v("PDF","Permission is granted");
             return true;
         } else {
             Log.v("PDF","Permission is revoked");
             ActivityCompat.requestPermissions(
-                    this, new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                    (Activity)context, new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE},
                     1);
             return false;
         }
     }
 
-    @Override
+    public PDFTester(Context context){
+        this.context = context;
+    }
+
+    /*@Override
     protected void onCreate(Bundle savedInstanceState) {
 
         // Construct user test data
@@ -105,7 +112,7 @@ public class PDFTester extends AppCompatActivity {
             }
         });
     }
-
+*/
     protected void createPdf(User user, List<MedicalRecord> list) {
 
         // Prompting for permissions
@@ -186,7 +193,7 @@ public class PDFTester extends AppCompatActivity {
             fOut.flush();
             fOut.getFD().sync();
             fOut.close();
-            Toast.makeText(PDFTester.this, "PDF Created in Downloads", Toast.LENGTH_LONG).show();
+            Toast.makeText(context, "PDF Created in Downloads", Toast.LENGTH_LONG).show();
         } catch (IOException e) {
             Log.i("error", e.getLocalizedMessage());
         }

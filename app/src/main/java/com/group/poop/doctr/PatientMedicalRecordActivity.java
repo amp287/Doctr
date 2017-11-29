@@ -33,9 +33,10 @@ public class PatientMedicalRecordActivity extends AppCompatActivity {
     private String uid;
     private ToggleButton hideMR;
 
-    PDFTester pdf = new PDFTester();
+    PDFTester pdf = new PDFTester(this);
 
     private List<MedicalRecord> mr_list;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

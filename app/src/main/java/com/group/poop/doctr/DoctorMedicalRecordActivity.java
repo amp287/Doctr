@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -35,7 +36,7 @@ public class DoctorMedicalRecordActivity extends AppCompatActivity {
     private TextInputEditText apptDescription;
 
     // PDF Tester
-    PDFTester pdf = new PDFTester();
+    PDFTester pdf = new PDFTester(this);
 
     // User Info
     private static User patientUser;
@@ -113,42 +114,47 @@ public class DoctorMedicalRecordActivity extends AppCompatActivity {
         if(showMr){
 
             // Get All Medical Records
-            Query query = FirebaseDatabase.getInstance().getReference().child("MedicalRecords").child(uid).orderByKey();
+            //Query query = FirebaseDatabase.getInstance().getReference().child("MedicalRecords").child(uid).orderByKey();
 
             //
-            query.addListenerForSingleValueEvent(new ValueEventListener() {
+
+            Query query = mDatabase.child("MedicalRecords").child(uid).orderByKey();
+            query.addChildEventListener(new ChildEventListener() {
                 @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
+                public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                     if(dataSnapshot.exists()){
                         mr_list.add(dataSnapshot.getValue(MedicalRecord.class));
-
                         mRecycler.setAdapter(new MedicalRecordAdapter(mr_list));
-
-                        Query query = FirebaseDatabase.getInstance().getReference().child("UserProfiles").child(uid).orderByKey();
-                        query.addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(DataSnapshot dataSnapshot) {
-                                if(dataSnapshot.exists()){
-                                    patientUser = dataSnapshot.getValue(User.class);
-                                    //Functionality for Generating PDF
-                                    createpdf_Button.setOnClickListener(new View.OnClickListener() {
-                                        @Override
-                                        public void onClick(View v) {
-                                            pdf.createPdf(patientUser,mr_list);
-                                        }
-                                    });
-                                }
-                            }
-                            @Override
-                            public void onCancelled(DatabaseError databaseError){}
-                        });
-
                     }
                 }
+                @Override
+                public void onChildChanged(DataSnapshot dataSnapshot, String s) {}
+                @Override
+                public void onChildRemoved(DataSnapshot dataSnapshot) {}
+                @Override
+                public void onChildMoved(DataSnapshot dataSnapshot, String s) {}
                 @Override
                 public void onCancelled(DatabaseError databaseError) {}
             });
         }
+        Query query = FirebaseDatabase.getInstance().getReference().child("UserProfiles").child(uid).orderByKey();
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()){
+                    patientUser = dataSnapshot.getValue(User.class);
+                    //Functionality for Generating PDF
+                    createpdf_Button.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            pdf.createPdf(patientUser,mr_list);
+                        }
+                    });
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError){}
+        });
     }
 
     private static void requestPatientUser()
