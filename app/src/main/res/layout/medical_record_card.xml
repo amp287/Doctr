@@ -61,6 +61,16 @@
                 app:layout_constraintStart_toEndOf="@+id/patient_card_photo"
                 app:layout_constraintTop_toBottomOf="@+id/mr_card_type" />
 
+            <TextView
+                android:id="@+id/mr_card_doctor_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="4dp"
+                android:text="TextView"
+                app:layout_constraintStart_toEndOf="@+id/mr_card_time"
+                app:layout_constraintTop_toBottomOf="@+id/mr_card_type" />
+
         </android.support.constraint.ConstraintLayout>
 
     </android.support.v7.widget.CardView>

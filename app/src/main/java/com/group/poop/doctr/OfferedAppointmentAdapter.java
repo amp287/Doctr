@@ -93,8 +93,11 @@ public class OfferedAppointmentAdapter extends RecyclerView.Adapter<OfferedAppoi
 
                 // set appt flag to accepted
                 appointments.get(position).setAccepted(1);
-
-                ref.child("AppointmentProfiles").child(appointments.get(position).getDoctorUID()).child(appointments.get(position).getApptKey()).child("accepted").setValue(1);
+                Appointment appt = appointments.get(position);
+                ref.child("AppointmentProfiles").child(appt.getDoctorUID()).child(appt.getApptKey()).child("accepted").setValue(1);
+                ref.child("MedicalRecords").child(appt.getPatientUID()).push()
+                        .setValue(new MedicalRecord(appt.getSpeciality(), appt.getStartTime(),
+                                appt.getDescription(), appt.getDoctorUID(), appt.getDoctorName()));
             }
         });
 

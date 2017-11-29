@@ -7,6 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
 import java.util.List;
 
 /**
@@ -42,6 +44,8 @@ public class MedicalRecordAdapter extends RecyclerView.Adapter<MedicalRecordAdap
         String description = medicalRecords.get(position).getApptDesc();
         holder.discription.setText(description);
 
+        String drName = medicalRecords.get(position).getDoctorString();
+        holder.doctorName.setText(drName);
     }
 
     @Override
@@ -54,6 +58,7 @@ public class MedicalRecordAdapter extends RecyclerView.Adapter<MedicalRecordAdap
         TextView type;
         TextView time;
         TextView discription;
+        TextView doctorName;
 
         MedicalRecordViewHolder(View itemView) {
             super(itemView);
@@ -61,6 +66,7 @@ public class MedicalRecordAdapter extends RecyclerView.Adapter<MedicalRecordAdap
             type = itemView.findViewById(R.id.mr_card_type);
             time = itemView.findViewById(R.id.mr_card_time);
             discription = itemView.findViewById(R.id.mr_card_discription);
+            doctorName = itemView.findViewById(R.id.mr_card_doctor_name);
 
         }
     }

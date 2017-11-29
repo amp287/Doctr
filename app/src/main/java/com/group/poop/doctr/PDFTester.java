@@ -77,9 +77,9 @@ public class PDFTester extends AppCompatActivity {
 
         // Construct medical record test data
         final List<MedicalRecord> record_list = new ArrayList<>();
-        record_list.add(new MedicalRecord("Teeth Cleaning", Calendar.getInstance().getTime(), "Cleaned subject's teeth. Noticed early signs of gingivitis. Recommended daily flossing and fluoride rinse."));
-        record_list.add(new MedicalRecord("Amputation", Calendar.getInstance().getTime(), "Removed subject's right hand. Attached prosthetic."));
-        record_list.add(new MedicalRecord("General Check up", Calendar.getInstance().getTime(), "Everything was fine. Bloodwork came back clean, though midi-chlorians were quite high."));
+        record_list.add(new MedicalRecord("Teeth Cleaning", Calendar.getInstance().getTime(), "Cleaned subject's teeth. Noticed early signs of gingivitis. Recommended daily flossing and fluoride rinse.", "DoctorsUID", "DoctorsName"));
+        record_list.add(new MedicalRecord("Amputation", Calendar.getInstance().getTime(), "Removed subject's right hand. Attached prosthetic.", "DoctorsUID", "DoctorsName"));
+        record_list.add(new MedicalRecord("General Check up", Calendar.getInstance().getTime(), "Everything was fine. Bloodwork came back clean, though midi-chlorians were quite high.", "DoctorsUID", "DoctorsName"));
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pdftester);

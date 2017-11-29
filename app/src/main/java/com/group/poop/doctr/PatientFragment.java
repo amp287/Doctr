@@ -1,14 +1,29 @@
 package com.group.poop.doctr;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.TextView;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -27,7 +42,9 @@ import java.util.List;
 public class PatientFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
-    private RecyclerView mRecycler;
+    private ListView patient_list;
+    private ArrayList<User> users;
+    private DatabaseReference ref;
 
     public PatientFragment() {
         // Required empty public constructor
@@ -55,50 +72,65 @@ public class PatientFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_patient, container, false);
 
-        mRecycler = view.findViewById(R.id.patient_recycler);
-        mRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
+        patient_list = view.findViewById(R.id.patient_frag_patient_list);
 
-        List<User> users = new ArrayList<User>();
-        Calendar c1 = Calendar.getInstance();
-        c1.set(2005, 1,1);
-        String all = "allg1, al2";
-        String med = "";
-        users.add(new User("88945785", "Joe", "Example", c1.getTime(), "male", 77L, 170L, all, med));
-        Calendar c2 = Calendar.getInstance();
-        c2.set(2009, 6,22);
-        users.add(new User("34587890", "Bob", "Smith", c2.getTime(), "male", 78L, 170L, all, med));
-        Calendar c3 = Calendar.getInstance();
-        c3.set(2002,3,13);
-        users.add(new User("34785904", "Xi", "Jinping", c3.getTime(), "male", 73L, 170L, all, med));
-        Calendar c4 = Calendar.getInstance();
-        c4.set(2001,9,11);
-        users.add(new User("45768349", "Barrack", "Obama", c4.getTime(), "male", 75L, 170L, all, med));
-        Calendar c5 = Calendar.getInstance();
-        c5.set(2000,5,7);
-        users.add(new User("89036937", "Donald", "Trump", c5.getTime(), "male", 82L, 180L, all, med));
-        Calendar c6 = Calendar.getInstance();
-        c6.set(1998,2,9);
-        users.add(new User("00000004", "Sam", "Adams", c6.getTime(), "male", 65L, 190L, all, med));
-        Calendar c7 = Calendar.getInstance();
-        c7.set(1988,2,9);
-        users.add(new User("00003454", "John", "Johnson", c7.getTime(), "male", 88L, 188L, all, med));
-        Calendar c8 = Calendar.getInstance();
-        c8.set(1998,2,9);
-        users.add(new User("07890004", "Bob", "Barker", c8.getTime(), "male", 74L, 174L, all, med));
-        Calendar c9 = Calendar.getInstance();
-        c9.set(1998,2,9);
-        users.add(new User("06990004", "Bob", "Loblaw", c9.getTime(), "male", 88L, 199L, all, med));
+        users = new ArrayList<User>();
+        String uid = FirebaseAuth.getInstance().getUid();
+        ref = FirebaseDatabase.getInstance().getReference();
 
-        UserAdapter userAdapter = new UserAdapter(users);
-        mRecycler.setAdapter(userAdapter);
+        patient_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    int position, long id) {
+                User user = users.get(position);
+
+                Intent intent = new Intent(getActivity(), DoctorMedicalRecordActivity.class);
+                intent.putExtra(DoctorMedicalRecordActivity.UID_PARAM, user.getUid());
+                intent.putExtra(DoctorMedicalRecordActivity.SHOW_MR_PARAM, user.getShowMR());
+                startActivity(intent);
+
+            }
+        });
+
+        Query query = ref.child("DoctorsPatients").child(uid).orderByKey();
+        query.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                String uid = dataSnapshot.getKey();
+
+                Query query = ref.child("UserProfiles").child(uid).orderByKey();
+                query.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        User user = dataSnapshot.getValue(User.class);
+                        users.add(user);
+                        PatientAdapter userAdapter = new PatientAdapter(getActivity(), users);
+                        patient_list.setAdapter(userAdapter);
+                    }
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {}
+                });
+
+
+            }
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {}
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {}
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {}
+            @Override
+            public void onCancelled(DatabaseError databaseError) {}
+        });
 
         return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
+    public void onButtonPressed(String uid) {
         if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
+            mListener.onFragmentInteraction(uid);
         }
     }
 
@@ -131,6 +163,33 @@ public class PatientFragment extends Fragment {
      */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+        void onFragmentInteraction(String uid);
+    }
+
+    private class PatientAdapter extends ArrayAdapter<User> {
+
+        public PatientAdapter(Context context, ArrayList<User> users) {
+            super(context, R.layout.patient_card, users);
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            // Get the data item for this position
+            User user = getItem(position);
+            // Check if an existing view is being reused, otherwise inflate the view
+            if (convertView == null) {
+                convertView = LayoutInflater.from(getContext()).inflate(R.layout.patient_card, parent, false);
+            }
+
+            TextView name = (TextView) convertView.findViewById(R.id.patient_card_name);
+            TextView dob = (TextView) convertView.findViewById(R.id.patient_card_dob);
+            TextView gender = (TextView) convertView.findViewById(R.id.patient_card_gender);
+
+            name.setText(user.getFirstName() + " " + user.getLastName());
+            dob.setText(user.getBirthday().toString());
+            gender.setText(user.getGender());
+
+            return convertView;
+        }
     }
 }
