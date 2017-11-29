@@ -6,9 +6,17 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -26,7 +34,10 @@ import java.util.List;
 public class OfferedAppointmentsFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
+    private Appointment appointment = null;
     private RecyclerView mRecycler;
+    private Doctor doctor = null;
+    private String userName;
 
     public OfferedAppointmentsFragment() {
         // Required empty public constructor
@@ -57,7 +68,7 @@ public class OfferedAppointmentsFragment extends Fragment {
         mRecycler = view.findViewById(R.id.offered_appointment_recycler);
         mRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        List<Appointment> appointments = new ArrayList<Appointment>();
+        final List<Appointment> appointments = new ArrayList<Appointment>();
 
         Calendar cDate = Calendar.getInstance();
         cDate.set(2017, 12, 12);
@@ -81,31 +92,55 @@ public class OfferedAppointmentsFragment extends Fragment {
         cEnd.set(Calendar.HOUR_OF_DAY, 13);
         cEnd.set(Calendar.MINUTE, 0);
 
-        appointments.add(new Appointment("Orlando",
-                cDate.getTime(),
-                cStart.getTime(),
-                cEnd.getTime(),
-                145L,
-                "Eye Exam",
-                "64789231678234689", // this is junk becareful with this test case
-                "Dr. Tom Brady",
-                "Looking at eyes and stuff."
-        ));
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+        String uid = FirebaseAuth.getInstance().getUid();
+        mDatabase.child("AppointmentProfiles").child(uid).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
 
-        appointments.add(new Appointment("Wall Street",
-                cDate2.getTime(),
-                cStart2.getTime(),
-                cEnd2.getTime(),
-                35000L,
-                "CBC Blood Test",
-                "647896788984689", // this is junk becareful with this test case
-                "Dr. Martin Shkreli",
-                "You Know"
-        ));
+                if(snapshot.exists()) {
+                    Log.e("Count " ,""+snapshot.getChildrenCount());
+                    for (DataSnapshot postSnapshot: snapshot.getChildren()) {
+                        Log.e("value " ,""+postSnapshot.getValue());
+                        appointment = postSnapshot.getValue(Appointment.class);
+                        Log.e("value " ,""+appointment.getDoctorName());
+                        appointments.add(appointment);
+                    }
+                    OfferedAppointmentAdapter oaa = new OfferedAppointmentAdapter(appointments);
+                    mRecycler.setAdapter(oaa);
+                }
 
-        OfferedAppointmentAdapter oaa = new OfferedAppointmentAdapter(appointments);
-        mRecycler.setAdapter(oaa);
-        return view;
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+
+//        appointments.add(new Appointment("Orlando",
+//                cDate.getTime(),
+//                cStart.getTime(),
+//                cEnd.getTime(),
+//                145L,
+//                "Eye Exam",
+//                "64789231678234689", // this is junk becareful with this test case
+//                "Dr Tom Brady",
+//                "Looking at eyes and stuff."
+//        ));
+//
+//        appointments.add(new Appointment("Wall Street",
+//                cDate2.getTime(),
+//                cStart2.getTime(),
+//                cEnd2.getTime(),
+//                35000L,
+//                "CBC Blood Test",
+//                "647896788984689", // this is junk becareful with this test case
+//                "Dr. Martin Shkreli",
+//                "You Know"
+//        ));
+//
+//        OfferedAppointmentAdapter oaa = new OfferedAppointmentAdapter(appointments);
+//        mRecycler.setAdapter(oaa);
+             return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
