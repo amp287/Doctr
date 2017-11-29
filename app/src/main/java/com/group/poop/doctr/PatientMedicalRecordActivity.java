@@ -57,30 +57,21 @@ public class PatientMedicalRecordActivity extends AppCompatActivity {
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 if(dataSnapshot.exists()){
                     mr_list.add(dataSnapshot.getValue(MedicalRecord.class));
-
                     mRecycler.setAdapter(new MedicalRecordAdapter(mr_list));
-
                 }
             }
             @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-            }
-
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {}
             @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-            }
-
+            public void onChildRemoved(DataSnapshot dataSnapshot) {}
             @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-            }
-
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {}
             @Override
-            public void onCancelled(DatabaseError databaseError) {
-            }
+            public void onCancelled(DatabaseError databaseError) {}
         });
 
-        Query query2 = FirebaseDatabase.getInstance().getReference().child("UserProfiles").child(uid).orderByKey();
-        query2.addListenerForSingleValueEvent(new ValueEventListener() {
+        query = FirebaseDatabase.getInstance().getReference().child("UserProfiles").child(uid).orderByKey();
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
