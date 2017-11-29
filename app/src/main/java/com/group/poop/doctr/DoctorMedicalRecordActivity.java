@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
@@ -90,45 +91,55 @@ public class DoctorMedicalRecordActivity extends AppCompatActivity {
         uid = bundle.getString(UID_PARAM);
         boolean showMr = bundle.getBoolean(SHOW_MR_PARAM);
 
-        if(showMr){
-
+        if(showMr) {
             // Get All Medical Records
             Query query = FirebaseDatabase.getInstance().getReference().child("MedicalRecords").child(uid).orderByKey();
 
-            //
-            query.addListenerForSingleValueEvent(new ValueEventListener() {
+            query.addChildEventListener(new ChildEventListener() {
                 @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    if(dataSnapshot.exists()){
-                        mr_list.add(dataSnapshot.getValue(MedicalRecord.class));
+                public void onChildAdded(DataSnapshot dataSnapshot, String s) {
 
-                        mRecycler.setAdapter(new MedicalRecordAdapter(mr_list));
-
-                        Query query = FirebaseDatabase.getInstance().getReference().child("UserProfiles").child(uid).orderByKey();
-                        query.addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(DataSnapshot dataSnapshot) {
-                                if(dataSnapshot.exists()){
-                                    user = dataSnapshot.getValue(User.class);
-                                    //Functionality for Generating PDF
-                                    createpdf_Button.setOnClickListener(new View.OnClickListener() {
-                                        @Override
-                                        public void onClick(View v) {
-                                            pdf.createPdf(user,mr_list);
-                                        }
-                                    });
-                                }
-                            }
-                            @Override
-                            public void onCancelled(DatabaseError databaseError){}
-                        });
-
-                    }
+                    mr_list.add(dataSnapshot.getValue(MedicalRecord.class));
+                    mRecycler.setAdapter(new MedicalRecordAdapter(mr_list));
                 }
+
                 @Override
-                public void onCancelled(DatabaseError databaseError) {}
+                public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                }
+
+                @Override
+                public void onChildRemoved(DataSnapshot dataSnapshot) {
+                }
+
+                @Override
+                public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                }
             });
         }
+
+        Query query = FirebaseDatabase.getInstance().getReference().child("UserProfiles").child(uid).orderByKey();
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()){
+                    user = dataSnapshot.getValue(User.class);
+
+                    //Functionality for Generating PDF
+                    createpdf_Button.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            pdf.createPdf(user,mr_list);
+                        }
+                    });
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError){}
+        });
     }
 
 }
