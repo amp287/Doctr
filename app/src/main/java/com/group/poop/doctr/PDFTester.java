@@ -27,7 +27,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-
+import java.util.List;
 
 
 public class PDFTester extends AppCompatActivity {
@@ -76,7 +76,7 @@ public class PDFTester extends AppCompatActivity {
                                           68L, 160L, "Porgs, Peanuts","Space Aspirin");
 
         // Construct medical record test data
-        final ArrayList<MedicalRecord> record_list = new ArrayList<>();
+        final List<MedicalRecord> record_list = new ArrayList<>();
         record_list.add(new MedicalRecord("Teeth Cleaning", Calendar.getInstance().getTime(), "Cleaned subject's teeth. Noticed early signs of gingivitis. Recommended daily flossing and fluoride rinse."));
         record_list.add(new MedicalRecord("Amputation", Calendar.getInstance().getTime(), "Removed subject's right hand. Attached prosthetic."));
         record_list.add(new MedicalRecord("General Check up", Calendar.getInstance().getTime(), "Everything was fine. Bloodwork came back clean, though midi-chlorians were quite high."));
@@ -106,7 +106,7 @@ public class PDFTester extends AppCompatActivity {
         });
     }
 
-    private void createPdf(User user, ArrayList<MedicalRecord> list) {
+    protected void createPdf(User user, List<MedicalRecord> list) {
 
         // Prompting for permissions
         if (isStoragePermissionGranted()) {

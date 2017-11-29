@@ -19,9 +19,10 @@ public class User {
     // TODO - private Image profilePicture; figure this out later
 
     // Empty default constructor for Firebase to populate child nodes
-    User(){
+    public User(){
 
     }
+
 
     // Constructor
     User(String uid,
